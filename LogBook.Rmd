@@ -1,0 +1,117 @@
+---
+title: "Learning Logbook"
+author: "Philipp Münker"
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    toc: yes
+    toc_float: yes
+    numbered: yes
+    theme: cerulean
+---
+
+
+
+<style>
+body {
+text-align: justify}
+</style>
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+### Tree dormacy 
+
+* Dormacy establishment
+* Endodormancy
+* Ecodormancy
+* Growth resumption
+
+
+##### Dormacy establishment
+
+Controlled by tempeature and photoperiod. 
+
+##### Endodormancy
+
+Controlled by plant endogenous factors. Plants unable to growth even under 
+favorable environmental conditions. 
+
+##### Ecodormancy
+
+After a certain level of chill endodormancy has been overcome. 
+Buds recover capacity to growth. Tree is aclimated freezing tolerance - not deeply
+dormant. Growth is prevented by unsuitable environmental conditions. Temperature is 
+the most important driver
+
+### Task 1
+##### 1. Put yourself in the place of a breeder who wants to calculate the temperature requirements of a newly released cultivar. Which method will you use to calculate the chilling and forcing periods? Please justify your answer.
+
+Long penolocigal data does not exist => statistically approach is not optimal for newly released cultivar. 
+It is better to work with the empirically approach. Collect Flower buds => take shoots and place them in a chamber for 10 days under 
+favorable conditions (Temperature between 20 and 25 degrees) => After 10 days measure weight of shoots in chamber and shoots without chamber => If weight difference is bigger than 30 percent => Non dormant else => dormant 
+
+
+### Task 2
+##### 2. Which are the advantages (2) of the BBCH scale compared with earlies scales?
+
+Not all the parts of a tree presents the same development sate. Early scales record only the 
+Predominat state of the fruit tree. 
+General principles for the design of a scale for plant growth stages: 
+
+* Growth stages easily recognizable under fiels conditions
+
+* Growth stages graded in the order of appearance (Early scale dont do that)
+
+* Tow digit code: Principal growth stages| Secondary growth stages
+
+* Aplicable for all cereals in all parts of the world. (Old scales can only used for a special grop/fruit)
+
+
+### Task 3
+##### Classify the following phenological stages of sweet cherry according to the BBCH scale:
+
+![Picture 1 BBCH =55;  Picture 2 BBCH =67;  Picture 3 BBCH =89](./pheno_stages.png)
+
+
+
+
+
+### Climate change and impact projection
+
+### Task 1
+
+##### List the main drivers of climate change at the decade to century scale, and briefly explain the mechanism through which the currently most important driver affects our climate. 
+
+
+
+```{r,echo=FALSE}
+library(readxl)
+mod <- read_excel("Drivers of Climate Change.xlsx")
+knitr::kable(head(mod), "pipe", caption = "Drivers of Climate Change")
+```
+
+The most important factor that currently has the greatest influence on climate and climate change is greenhouse gases.
+The most important greenhouse gases are water vapour, (carbon dioxide) CO<sub>2</sub>, (methane) CH<sub>4</sub> and (nutrios oxides) N<sub>2</sub>O.Greenhouse gases can absorb only radiation of certain wavelengths. They absorb radiation with long wavelength, which comes from the earth surface. Infrared radiation which is emitted by warm earth surface. This radiation can not leave the atmosphere and is trapped by the greenhousgases and returns back to earth.  
+
+### Task 2
+
+##### Explain briefly what is special about temperature dynamics of the recent decades, and why we have good reasons to be concerned
+
+Over the past decades and the whole of the last century, the temperature has been rising worldwide. Initially, this increase was relatively slow. 
+The ten warmest 10 years worldwide since 1880 were all measured after the millennium. The five warmest years worldwide were all recorded after 2014. 
+This effect is also noticeable in Germany. Here, too, the ten warmest years were all measured after 2000, with one exception. 
+If one places the temperature increase of the last decades in the climate history of the last 1 million years, it can be seen that there has never been such a strong temperature increase over such a relatively short period of time.  
+This rapid rise in temperature is developing an additional dynamic of its own. For example, high temperatures in the tundra cause the permafrost to thaw, which in turn releases a large amount of C0<sub>2</sub>, a greenhouse gas that promotes even faster warming. 
+
+
+
+```{r, echo = FALSE}
+ 
+```
+
+
+
+
