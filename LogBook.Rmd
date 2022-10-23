@@ -7,7 +7,7 @@ output:
     toc: yes
     toc_float: yes
     numbered: yes
-    theme: cerulean
+    theme: journal
 ---
 
 
@@ -111,6 +111,114 @@ This rapid rise in temperature is developing an additional dynamic of its own. F
 ```{r, echo = FALSE}
  
 ```
+
+
+
+
+
+### Manual Chill Analysis
+
+### Task 1
+
+```{r, message=FALSE,echo= FALSE}
+
+library(tidyverse)
+library(chillR)
+library(knitr)
+library(pander)
+library(kableExtra)
+
+```
+
+
+
+```{r, echo=TRUE}
+  
+  #Clean Function
+  
+  cleaned_data = function(data_source){
+  data_source = data_source[,c("Year","Month","Day","Hour","Temp")]
+  return(data_source)  
+  }
+
+  # Apply Function to Winters_hours_gaps
+
+  kable(head(cleaned_data(data_source = Winters_hours_gaps)),"pipe")
+
+
+```
+
+
+
+##### Write a basic function that calculates warm hours (>25°C)
+
+```{r}
+ 
+  WH<-function(hourtemps)
+  {
+    hourtemps[,"warm_hours"]<-hourtemps$Temp>=25.0
+    return(hourtemps)
+  }
+```
+
+### Task 2
+
+##### Apply this function to the Winters_hours_gaps dataset
+
+```{r, echo=TRUE}
+# have a look to the data set
+kable(head(Winters_hours_gaps), "pipe", caption = "Example Dataset: Winters_hours_gaps") 
+
+
+
+```
+
+
+```{r,}
+
+# Apply Function 
+
+ 
+hourtemps = cleaned_data(data_source=Winters_hours_gaps)
+head(WH(hourtemps = hourtemps))
+
+```
+
+### Task 3
+
+##### Extend this function, so that it can take start and end dates as inputs and sums up warm hours between these dates
+
+
+
+
+
+```{r}
+
+
+Warm_hours_function= function(Input_Data,S_Jahr,S_Monat,S_Tag, S_Stunde, E_Jahr,E_Monat,E_Tag, E_Stunde){
+
+
+Start_Date<-which(hourtemps$Year== S_Jahr& hourtemps$Month==S_Monat &
+                    hourtemps$Day==S_Tag & hourtemps$Hour==S_Stunde)
+End_Date<-which(hourtemps$Year==E_Jahr & hourtemps$Month==E_Monat &
+                  hourtemps$Day==E_Tag & hourtemps$Hour==E_Stunde)
+
+# Apply Function Warm Hours (WH)
+hourtemps= WH(hourtemps = Input_Data)
+
+# Calculate warm_hours
+warm_hours = sum(hourtemps$warm_hours[Start_Date:End_Date])
+
+
+return(cat("Die Anzahl der Wärmestunden beträgt:", paste(warm_hours)))
+
+}
+
+Warm_hours_function(Input_Data=hourtemps,2008,5,1,12,2008,8,31,12)
+
+
+```
+
 
 
 
