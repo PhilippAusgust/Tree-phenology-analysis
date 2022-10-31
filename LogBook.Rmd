@@ -180,7 +180,7 @@ kable(head(Winters_hours_gaps), "pipe", caption = "Example Dataset: Winters_hour
 
  
 hourtemps = cleaned_data(data_source=Winters_hours_gaps)
-head(WH(hourtemps = hourtemps))
+kable(head(WH(hourtemps = hourtemps)), "pipe")
 
 ```
 
@@ -195,7 +195,7 @@ head(WH(hourtemps = hourtemps))
 ```{r}
 
 
-Warm_hours_function= function(Input_Data,S_Jahr,S_Monat,S_Tag, S_Stunde, E_Jahr,E_Monat,E_Tag, E_Stunde){
+warm_hours_function= function(Input_Data,S_Jahr,S_Monat,S_Tag, S_Stunde, E_Jahr,E_Monat,E_Tag, E_Stunde){
 
 
 Start_Date<-which(hourtemps$Year== S_Jahr& hourtemps$Month==S_Monat &
@@ -210,16 +210,115 @@ hourtemps= WH(hourtemps = Input_Data)
 warm_hours = sum(hourtemps$warm_hours[Start_Date:End_Date])
 
 
-return(cat("Die Anzahl der Wärmestunden beträgt:", paste(warm_hours)))
+return(cat("The number of heat hours is:", paste(warm_hours)))
 
 }
 
-Warm_hours_function(Input_Data=hourtemps,2008,5,1,12,2008,8,31,12)
+warm_hours_function(Input_Data=hourtemps,S_Jahr=2008,S_Monat=5,S_Tag=1,12,2008,8,31,12)
 
+
+```
+### Chill models
+
+### Task 1
+
+#### Run the chilling() function on the Winters_hours_gap dataset
+
+
+```{r}
+
+# run chilling function on Winters_hours_gap dataset 
+output<-chilling(make_JDay(Winters_hours_gaps),Start_JDay = 90, End_JDay = 100)
+
+# display result
+kable(output)%>%
+  kable_styling("striped", position = "left", font_size = 10)
+```
+
+
+### Task 2
+
+#### Create your own temperature-weighting chill model using the step_model() function
+
+```{r, echo= TRUE}
+# have a look at the step model function
+
+# Die Step Model Funktion besitzt zwei Argumente, die der Nutzer übergeben kann. 
+# Einmal kann ein Datenset mit Temperaturdaten übergeben werden. 
+# Hierfür steht das Argument HourTemp. 
+# Dem Argument df kann ein data.frame übergeben werden. 
+# Dies data.frame besteht aus lower, upper und weight. 
+# Vordefiniert ist ist eine untere Temperaturgrenze von z.B -1000 °C bis 0 °C. 
+# Alle Temperaturen, die in diesem Bereich liegen, werden dem Gewicht 0 zugeordnet. 
+# Geht man davon aus, dass man stündliche Temperaturdaten als Input zur Verfügung stellt, 
+# kann man die Temperatur mit dem entsprechenden Gewicht multiplizieren und man erhält 
+# als Ergebnis die Menge der „chillhours“. 
+# Zum Beispiel : -1 °C  liegt in dem Intervall [-1000,0] == 0 => 0 chillhours. 
+# Ein weiteres Argument ist summ. Ist summ = TRUE werden die kummulierten chillhours über 
+# einen definierten Zeitraum ausgeben. 
+# Ist summ == FASLE gesetzt werden die Gewichte der chillhours ausgegeben. 
+
+
+step_model <-function (HourTemp, df = 
+                         data.frame(lower = c(-1000, 1.4, 2.4, 9.1, 12.4, 15.9, 18), 
+                                    upper = c(1.4, 2.4, 9.1, 12.4, 15.9, 18, 1000), 
+                                    weight = c(0, 0.5, 1, 0.5, 0, -0.5, -1)), summ = TRUE) 
+{
+    lower <- df$lower
+    upper <- df$upper
+    weight <- df$weight
+    if (summ == TRUE) 
+        return(cumsum(sapply(HourTemp, function(x) weight[which(x > 
+            lower & x <= upper)])))
+    else return(sapply(HourTemp, function(x) weight[which(x > 
+        lower & x <= upper)]))
+}
+
+
+
+# define own temperature weighting
+
+# Hier wird nur ein "eigenes Datenfeld" definiert mit eigenen Grenzen, die ein 
+# eigenes Gewicht besitzen. 
+# Zum Beispiel wird von -100 °C bis 0 °C das Gewicht == 0 gesetzt. 
+# In diesem Fall findet keine "chillhour" statt. 
+# Liegt die Temperatur hingegen zwischen 0 °C und 2 °C beträgt das Gewicht der 
+# "chillhour" 0.5. Hier findet einen halbe "chillhour" statt. 
+
+own_df = data.frame (lower  = c(-100,0,  2, 4,  5, 6,   7    ),
+                     upper  = c(  0, 2,  4, 5,  6, 7,   100  ),
+                     weight = c(  0, 0.5,1, 1.5,1, 0.5, 0    ))
+
+
+# functional
+
+use_step_model <- function(x){step_model(x,own_df)}
+
+
+# quick aplly 
+
+use_step_model(x= Winters_hours_gaps$Temp)[1:100]
 
 ```
 
 
+### Task 3
 
+#### Run this model on the Winters_hours_gaps dataset using the tempResponse() function.
+
+The tempResponse function can display and summarise some chill models. Here is the 
+the model "weather_mill" our own chilling model which is created by the step_model_funktion.
+The modified stepmodel function is renamed by use_step_model and given as a parameter 
+to the tempResponse function (weather_mill = use_step_mode). 
+We can see a great 
+
+```{r}
+ output<-tempResponse(make_JDay(Winters_hours_gaps),Start_JDay = 30, End_JDay = 100,        models=list(Chill_Portions=Dynamic_Model, GDH=GDH, weather_mill = use_step_model,
+ Utah_Model = Utah_Model))
+
+kable(output) %>%
+  kable_styling("striped", position = "left", font_size = 10)
+```
+If the Utah_Model is included, which is based on the default settings of the Step_Model, a clear difference between the modified Step Model and the Utah Model can be noted. 
 
 
