@@ -6,8 +6,10 @@ output:
   html_document:
     toc: yes
     toc_float: yes
+    code_folding: hide
     numbered: yes
     theme: journal
+    number_figures: true
 ---
 
 
@@ -259,19 +261,26 @@ kable(output)%>%
 # Ist summ == FASLE gesetzt werden die Gewichte der chillhours ausgegeben. 
 
 
-step_model <-function (HourTemp, df = 
-                         data.frame(lower = c(-1000, 1.4, 2.4, 9.1, 12.4, 15.9, 18), 
-                                    upper = c(1.4, 2.4, 9.1, 12.4, 15.9, 18, 1000), 
-                                    weight = c(0, 0.5, 1, 0.5, 0, -0.5, -1)), summ = TRUE) 
+step_model <- function (HourTemp,
+                        df =
+                          data.frame(
+                            lower = c(-1000, 1.4, 2.4, 9.1, 12.4, 15.9, 18),
+                            upper = c(1.4, 2.4, 9.1, 12.4, 15.9, 18, 1000),
+                            weight = c(0, 0.5, 1, 0.5, 0,-0.5,-1)
+                          ),
+                        summ = TRUE)
 {
-    lower <- df$lower
-    upper <- df$upper
-    weight <- df$weight
-    if (summ == TRUE) 
-        return(cumsum(sapply(HourTemp, function(x) weight[which(x > 
-            lower & x <= upper)])))
-    else return(sapply(HourTemp, function(x) weight[which(x > 
-        lower & x <= upper)]))
+  lower <- df$lower
+  upper <- df$upper
+  weight <- df$weight
+  if (summ == TRUE)
+    return(cumsum(sapply(HourTemp, function(x)
+      weight[which(x >
+                     lower & x <= upper)])))
+  else
+    return(sapply(HourTemp, function(x)
+      weight[which(x >
+                     lower & x <= upper)]))
 }
 
 
@@ -320,5 +329,152 @@ kable(output) %>%
   kable_styling("striped", position = "left", font_size = 10)
 ```
 If the Utah_Model is included, which is based on the default settings of the Step_Model, a clear difference between the modified Step Model and the Utah Model can be noted. 
+
+
+
+### Making hourly temperatures
+
+
+
+### Task 1 
+
+##### Choose a location of interest, find out its latitude and produce plots of daily sunrise, sunset and daylength
+
+First, I would like to draw a comparison of day lengths among locations that interest me. I have chosen Glogau in Poland, Zülpich in Germany, Tenerife in Spain, Moscow in Russia and Karkaralinsk in Kazakhstan.
+
+
+```{r, echo= TRUE}
+
+# initialize the variables with daylength, sunrise and sunset by the function daylength
+Glogau      <- daylength(latitude = 51.40, JDay = 1:365)
+Teneriffa   <- daylength(latitude = 28.19, JDay = 1:365)
+Zuelpich    <- daylength(latitude = 50.42, JDay = 1:365)
+Moskau      <- daylength(latitude = 55.45, JDay = 1:365)
+Karkaralinsk<- daylength(latitude = 49.24, JDay = 1:365)
+
+
+#Create a dataframe consisting of the variables "base" (days 1 to 365) and the 
+#respective locations and containing only the day length for each location.
+
+df <- data.frame(
+  base         = seq(length(Glogau[[1]])),
+  Glogau       = Glogau[[3]],
+  Teneriffa    = Teneriffa[[3]],
+  Zülpich      = Zuelpich[[3]],
+  Moskau       = Moskau[[3]],
+  Karkaralinsk = Karkaralinsk[[3]]
+)
+
+
+kable(head(df)) %>% kable_styling("striped", position = "left", font_size = 10)
+
+# create a pivot table
+df_long <-
+  pivot_longer(df,-"base", names_to = "Location", values_to = "daylength")
+
+kable(head(df_long)) %>% kable_styling("striped", position = "left", font_size = 10)
+
+
+# plot the result with ggplot
+ggplot(df_long, aes(x = base, y = daylength, groupe = Location)) +
+  geom_line(aes(color = Location), lwd = 1.0) +
+  ggtitle("Different day lengths in different places") +
+  labs(x = "Days", y = "Daylength [h]") + theme_gray(base_size = 15)
+
+
+```
+
+
+Sunrise, Sunset and Daylength of Moskau
+
+
+
+```{r, echo= TRUE, warning=FALSE, message=FALSE}
+require(reshape2)
+
+Days<-daylength(latitude=55.45,JDay=1:365)
+
+Days_df<-data.frame(JDay=1:365,Sunrise=Days$Sunrise,Sunset=Days$Sunset,Daylength=Days$Daylength)
+
+Days_df<-melt(Days_df, id=c("JDay")) 
+
+ggplot(Days_df, aes(x=JDay, y= value)) + geom_line(lwd=1.5, color = "red") + facet_grid(cols=vars(variable)) +
+  ylab("Time of Day / Daylength (Hours)") + theme_bw(base_size = 20)+
+  ggtitle("Sunrise, Sunset and Daylength of Moskau")
+
+```
+
+
+### Task 2
+
+##### Produce an hourly dataset, based on idealized daily curves, for the KA_weather dataset (included in chillR)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### Getting Temperature Data
+
+### Task 1 
+
+##### Choose a location of interest and find the 25 closest weather stations using the handle_gsod function
+
+```{r, echo= TRUE}
+
+station_list_poland = handle_gsod(action="list_stations",
+                           location=c(16.5,51.39),
+                           time_interval=c(1990,2020))
+kable(station_list_poland[1:10,]) %>% kable_styling("striped", position = "left", font_size = 10)
+
+```
+
+### Task 2 
+##### Download weather data for the most promising station on the list
+
+Get weather data from LESZNO
+```{r, echo = TRUE, message=FALSE, warning=FALSE}
+weather_poland_leszno <- handle_gsod(
+  action = "download_weather",
+  location = station_list_poland$chillR_code[7],
+  time_interval = c(1990, 2020)
+)
+
+
+kable(weather_poland_leszno[[1]][[2]][1:10, ]) %>%
+  kable_styling("striped", position = "left", font_size = 10)
+
+```
+
+### Task 3
+##### Convert the weather data into chillR format
+
+```{r}
+weather_pl <- weather_poland_leszno$LESZNO[[2]]
+cleaned_weather_pl <- handle_gsod(weather_pl)
+
+
+kable(cleaned_weather_pl[1:20,]) %>%
+  kable_styling("striped", position = "left", font_size = 10)
+```
 
 

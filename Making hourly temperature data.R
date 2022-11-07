@@ -2,27 +2,41 @@ require(chillR)
 require(ggplot2)
 require(reshape2)
 require(kableExtra)
-
+require(ggplot2)
 
 
 
 KA_hours<-KA_weather[10:20,]
 KA_hours[,"Hour"]<-0
 KA_hours$Hour[nrow(KA_hours)]<-23
+
 KA_hours[,"Temp"]<-0
 KA_hours<-make_all_day_table(KA_hours,timestep="hour")
+KA_hours[nrow(KA_hours),]
 
 for(i in 2:nrow(KA_hours))
-{if(is.na(KA_hours$Tmin[i])) KA_hours$Tmin[i]<-KA_hours$Tmin[i-1]
-if(is.na(KA_hours$Tmax[i])) KA_hours$Tmax[i]<-KA_hours$Tmax[i-1]
+{
+  if (is.na(KA_hours$Tmin[i]))
+    KA_hours$Tmin[i] <- KA_hours$Tmin[i - 1]
+  if (is.na(KA_hours$Tmax[i]))
+    KA_hours$Tmax[i] <- KA_hours$Tmax[i - 1]
 }
+
+
+KA_hours
+
+KA_hours
 KA_hours$Temp<-NA
 
 KA_hours$Temp[which(KA_hours$Hour==6)]<-KA_hours$Tmin[which(KA_hours$Hour==6)] 
 KA_hours$Temp[which(KA_hours$Hour==18)]<-KA_hours$Tmax[which(KA_hours$Hour==18)] 
-KA_hours$Temp<-interpolate_gaps(KA_hours$Temp)$interp
-
-ggplot(KA_hours[20:100,],aes(DATE,Temp))+geom_line(lwd=1.5)+xlab("Date")+ylab("Temperature (°C)") +
+KA_hours
+##
+KA_hours$Temp<-interpolate_gaps(KA_hours$Temp)[[1]]
+test <- interpolate_gaps(KA_hours$Temp)$interp
+KA_hours
+ggplot(KA_hours[20:100,],aes(x= DATE,y=Temp))+geom_line(lwd=1.5)+
+  xlab("Date")+ylab("Temperature (°C)") +
   theme_bw(base_size = 20)
 
 

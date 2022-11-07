@@ -154,14 +154,14 @@ function (HourTemp, df = data.frame(lower = c(-1000, 1.4, 2.4, 9.1, 12.4, 15.9, 
                                     upper = c(1.4,   2.4, 9.1, 12.4, 15.9, 18, 1000), 
                                     weight = c(0,    0.5, 1,   0.5,  0,   -0.5, -1)), summ = TRUE) 
 {
-  lower <- df$lower
-  upper <- df$upper
-  weight <- df$weight
-  if (summ == TRUE) 
-    return(cumsum(sapply(HourTemp, function(x) weight[which(x > 
-                         lower & x <= upper)])))
-  else return(sapply(HourTemp, function(x) weight[which(x > 
-                         lower & x <= upper)]))
+                                lower <- df$lower
+                                upper <- df$upper
+                                weight <- df$weight
+                                if (summ == TRUE) 
+                                  return(cumsum(sapply(HourTemp, function(x) weight[which(x > 
+                                                       lower & x <= upper)])))
+                                else return(sapply(HourTemp, function(x) weight[which(x > 
+                                                       lower & x <= upper)]))
 }
 
 #2. create own dataframe with lower upper and weights 
