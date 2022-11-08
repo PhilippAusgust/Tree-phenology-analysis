@@ -116,16 +116,66 @@ kable(Bonn_QC, caption="Quality control summary produced by *fix_weather()*") %>
   kable_styling("striped", position = "left", font_size = 10)
 
 
-str(Bonn)
+station_list <-
+  handle_gsod(
+    action = "list_stations",
+    location = c(7.10, 50.73),
+    time_interval = c(1990, 2020)
+  )
+
+write.csv(station_list, "weather_data/ListCloseStation.csv")
+
+
+positions_in_station_list<-c(2,3,6)
+
+patch_weather<-list()
+
+
+for(i in 1:length(positions_in_station_list))
+{patch_weather[[i]]<-handle_gsod(handle_gsod(action="download_weather",
+                                             location=station_list$chillR_code[
+                                               positions_in_station_list[i]],
+                                             time_interval=c(1990,2020)))[[1]]$weather
+names(patch_weather)[i]<-station_list$STATION.NAME[
+  positions_in_station_list[i]]
+}
+
+
+#save_temperature_scenarios(patch_weather,"weather_data/", "patch_weather")
+#patch_weather<-load_temperature_scenarios("weather_data/", "patch_weather")
+
+#unique()
 
 
 
+patched<-patch_daily_temperatures(weather = Bonn,
+                                  patch_weather = patch_weather)
 
 
+kable(patched$statistics[[1]],
+      caption=paste("Patch statistics for",
+                    names(patched$statistics)[1])) %>%
+  kable_styling("striped", position = "left", font_size = 10)
 
 
+kable(patched$statistics[[2]],
+      caption=paste("Patch statistics for",
+                    names(patched$statistics)[2])) %>%
+  kable_styling("striped", position = "left", font_size = 10)
 
+kable(patched$statistics[[3]],
+      caption=paste("Patch statistics for",
+                    names(patched$statistics)[3])) %>%
+  kable_styling("striped", position = "left", font_size = 10)
 
+patched<-patch_daily_temperatures(weather = Bonn,
+                                  patch_weather = patch_weather,
+                                  max_mean_bias = 1,
+                                  max_stdev_bias = 2)
 
+kable(patched$statistics[[1]],
+      caption=paste("Patch statistics for",
+                    names(patched$statistics)[1])) %>%
+  kable_styling("striped", position = "left",font_size = 10)
 
-
+post_patch_stats<-fix_weather(patched)$QC
