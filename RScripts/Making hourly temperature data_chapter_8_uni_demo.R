@@ -33,7 +33,7 @@ KA_hours$Temp[which(KA_hours$Hour==18)]<-KA_hours$Tmax[which(KA_hours$Hour==18)]
 KA_hours
 ##
 KA_hours$Temp<-interpolate_gaps(KA_hours$Temp)[[1]]
-test <- interpolate_gaps(KA_hours$Temp)$interp
+test <- interpolate_gaps(KA_hours$Temp)
 KA_hours
 ggplot(KA_hours[20:100,],aes(x= DATE,y=Temp))+geom_line(lwd=1.5)+
   xlab("Date")+ylab("Temperature (°C)") +
