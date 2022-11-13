@@ -1,12 +1,18 @@
 library(chillR)
 library(tidyverse)
 
-# 100 Vesionen von dem was zwischen 1998 und 2005 passiert ist 
+
 Temp<-temperature_generation(KA_weather,
                              years=c(1998,2005),
                              sim_years = c(2001,2100))
 
 
+
+str(KA_weather)
+
+Temp<-temperature_generation(KA_weather,
+                             years=c(1998,2005),
+                             sim_years = c(2001,2100))
 
 # Indizieren observed und simulated im anschluss beide data frames zusammenfügen 
 Temperatures<-cbind(KA_weather[
