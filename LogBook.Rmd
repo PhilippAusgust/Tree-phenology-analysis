@@ -1366,7 +1366,7 @@ ggplot(temperature_means,aes(Year, Tmax)) +
 
 ### Task 1 
 
-##### Analyze the historic and future impact of climate change on three agroclimatic metrics of your choice, for the location you’ve chosen for your earlier analyses.51.850627661880594, 16.580060770328767
+##### Analyze the historic and future impact of climate change on three agroclimatic metrics of your choice, for the location you’ve chosen for your earlier analyses.
 
 ```{r, echo = TRUE}
 
@@ -1409,12 +1409,12 @@ adjustment_scenario<-temperature_scenario_baseline_adjustment(scenario_1996,scen
 
 
 
-dir.create("weather_data/Leszno_weather_raw/Leszno_")
+#dir.create("weather_data/Leszno_weather_raw/Leszno_")
 
 
 
-# RCPs<-c("rcp45","rcp85")
-# Times<-c(2050,2085)
+RCPs<-c("rcp45","rcp85")
+Times<-c(2050,2085)
 # 
 # for(RCP in RCPs)
 #   for(Time in Times)
@@ -1437,6 +1437,185 @@ dir.create("weather_data/Leszno_weather_raw/Leszno_")
 #        "weather_data/Leszno_weather_raw/Leszno_",
 #        paste0("Leszno_",Time,"_",RCP))
 #   }
+
+```
+
+```{r, echo = TRUE}
+
+
+all_past_scenarios<-temperature_scenario_from_records(
+  weather=Leszno_Sc_temps,
+  year=c(1980,1990,2000,2010))
+
+
+adjusted_scenarios<-temperature_scenario_baseline_adjustment(
+  baseline=scenario_1996,
+  temperature_scenario = all_past_scenarios)
+
+
+# 
+# all_past_scenario_temps<-temperature_generation(
+#   weather=Leszno_Sc_temps,
+#   years=c(1973,2019),
+#   sim_years=c(2001,2101),
+#   temperature_scenario = adjusted_scenarios)
+
+
+
+# save_temperature_scenarios(
+#   all_past_scenario_temps,
+#   "weather_data/Leszno_weather_raw",
+#   "Leszno_historic")
+
+
+
+frost_model<-function(x) step_model(x,data.frame(
+  lower=c(-1000,0),
+  upper=c(0,1000),
+  weight=c(1,0)))
+models<-list(Chill_CP=Dynamic_Model,Heat_GDH=GDH,Frost_H=frost_model)
+
+
+
+Temps= 
+  load_temperature_scenarios("weather_data/Leszno_weather_raw","Leszno_historic")
+
+
+
+
+
+# chill_past_scenarios = tempResponse_daily_list(
+#   Temps,
+#   latitude=51.39,
+#   Start_JDay = 305,
+#   End_JDay = 59,
+#   models=models,
+#   misstolerance = 10)
+
+# 
+# chill_observed<-tempResponse_daily_list(
+#   Leszno_Sc_temps,
+#   latitude=51.39,
+#   Start_JDay = 305,
+#   End_JDay = 59,
+#   models=models,
+#   misstolerance = 10)
+
+
+
+# save_temperature_scenarios(chill_past_scenarios,
+#                            "weather_data/Leszno_weather_raw/chill",
+#                            "Leszno_historic")
+# save_temperature_scenarios(chill_observed,
+#                            "weather_data/Leszno_weather_raw/chill",
+#                            "Leszno_observed")
+
+
+
+chill_past_scenarios<-load_temperature_scenarios(
+  "weather_data/Leszno_weather_raw/chill",
+  "Leszno_historic")
+
+chill_observed<-load_temperature_scenarios(
+  "weather_data/Leszno_weather_raw/chill",
+  "Leszno_observed")
+
+
+
+
+
+chills <-make_climate_scenario(
+  chill_past_scenarios,
+  caption = "Historic",
+  historic_data = chill_observed,
+  time_series = TRUE)
+
+
+
+plot_climate_scenarios(
+  climate_scenario_list=chills,
+  metric="Chill_CP",
+  metric_label="Chill (Chill Portions)")
+
+```
+
+
+
+
+
+
+
+
+
+
+
+```{r, echo = TRUE}
+
+# 
+# for(RCP in RCPs)
+#   for(Time in Times)
+#     {
+#     Temps<-load_temperature_scenarios(
+#       "weather_data/Leszno_weather_raw/Leszno_",
+#       paste0("Leszno_",Time,"_",RCP))
+#     chill<-tempResponse_daily_list(
+#       Temps,
+#       latitude=51.39,
+#       Start_JDay = 305,
+#       End_JDay = 59,
+#       models=models,
+#       misstolerance = 10)
+#     save_temperature_scenarios(
+#       chill,
+#       "weather_data/Leszno_weather_raw/chill",
+#       paste0("Leszno_",Time,"_",RCP))
+# }
+
+
+
+
+
+
+for(RCP in RCPs)
+  for(Time in Times)
+    {
+    chill<-load_temperature_scenarios(
+      "weather_data/Leszno_weather_raw/chill",
+      paste0("Leszno_",Time,"_",RCP))
+    if(RCP=="rcp45") RCPcaption <- "RCP4.5"
+    if(RCP=="rcp85") RCPcaption <- "RCP8.5"
+    if(Time=="2050") Time_caption <- "2050"
+    if(Time=="2085") Time_caption <- "2085"
+    chills <-make_climate_scenario(
+      chill,
+      caption =c(RCPcaption, Time_caption),
+      add_to = chills)
+  }
+
+
+
+plot_climate_scenarios(
+  climate_scenario_list=chills,
+  metric="Chill_CP",
+  metric_label="Chill (Chill Portions)",
+  texcex=1.5)
+
+
+
+
+plot_climate_scenarios(
+  climate_scenario_list=chills,
+  metric="Heat_GDH",
+  metric_label="Heat (Growing Degree Hours)",
+  texcex=1.5)
+
+
+
+plot_climate_scenarios(
+  climate_scenario_list=chills,
+  metric="Frost_H",
+  metric_label="Frost hours",
+  texcex=1.5)
 
 ```
 
