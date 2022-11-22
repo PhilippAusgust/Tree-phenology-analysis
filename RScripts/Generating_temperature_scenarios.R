@@ -4,6 +4,7 @@ library(kableExtra)
 library(reshape2)
 library(tidyverse)
 library(chillR)
+library(lubridate)
 
 
 
@@ -25,7 +26,7 @@ head(fuessenich)
 fuessenich = fuessenich[-nrow(fuessenich),]
 fuessenich[nrow(fuessenich),]
 
-write.csv(fuessenich,"weather_data/data_weather_station_fuessenich/fuessenich_clean.csv")
+#write.csv(fuessenich,"weather_data/data_weather_station_fuessenich/fuessenich_clean.csv")
 
 
 
@@ -33,14 +34,22 @@ FUE_weather = fuessenich
 tail(KA_weather)
 
 
-Temp<-temperature_generation(KA_weather,
+
+
+df_lz=read.csv("weather_data/Leszno_weather.csv", header = TRUE)
+
+LZ_weather = data.frame(Year = df_lz$Year,
+                        Month = df_lz$Month,
+                        Day = df_lz$Day,
+                        Tmin = df_lz$Tmin,
+                        Tmax = df_lz$Tmax)
+
+
+
+Temp<-temperature_generation(LZ_weather,
                              years=c(1998,2005),
                              sim_years = c(2001,2100))
 
 
-
-Temp<-temperature_generation(FUE_weather,
-                             years=c(2019,2021),
-                             sim_years = c(2001,2100))
 
 

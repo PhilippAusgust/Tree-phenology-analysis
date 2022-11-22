@@ -1,6 +1,6 @@
 library(chillR)
 library(tidyverse)
-
+library(lubridate)
 
 Temp<-temperature_generation(KA_weather,
                              years=c(1998,2005),

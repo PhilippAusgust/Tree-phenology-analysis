@@ -147,7 +147,8 @@ ggplot(data = final_df_mod, aes(x = DATE, y = Temperature, colour = Method)) +
   scale_color_manual(values = c("red", "darkgreen", "darkblue")) +
   facet_wrap(vars(Method))+
   theme_bw(base_size = 15)
+  #scale_x_date(date_labels = "%b")
 
 
-
+#?scale_x_date
 
