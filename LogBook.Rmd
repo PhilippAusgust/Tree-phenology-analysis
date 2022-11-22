@@ -1104,15 +1104,341 @@ ggplot(frost_simulations, aes(x=Frost_hours_april)) +
   ylab("Cumulative probability") +
   xlab("Freezing Hours April Leszno Simulated") +
   theme_bw(base_size = 20)
+```
+
+
+
+### Historic temperature scenario 
+
+### Task 1 
+
+##### For the location you chose for previous exercises, produce historic temperature scenarios representing several years of the historic record (your choice)
+
+
+
+
+```{r, echo=TRUE}
+#  station_list = handle_gsod(action = "list_stations", location = c(16.5, 51.39),
+#                             time_interval=c(1973,2019))
+# 
+# write.csv(station_list, "weather_data/Leszno_weather_raw/station_list_close_leszno_to_fill_gaps_raw.csv",
+#           row.names = FALSE)
+
+# Leszno_weather_raw<-handle_gsod(action="download_weather",
+#                               location=station_list$chillR_code[7],
+#                               time_interval = c(1973,2019),
+#                               station_list = station_list)
+
+#dir.create("weather_data/Leszno_weather_raw")
+
+#write.csv(Leszno_weather_raw,"weather_data/Leszno_weather_raw/Leszno_weather_raw.csv",row.names=FALSE)
+
+Leszno_weather_raw = 
+  read.table("weather_data/Leszno_weather_raw/Leszno_weather_raw.csv", 
+             header = TRUE, sep = ",")
+
+Leszno_weather_raw_station_list = 
+  read.table("weather_data/Leszno_weather_raw/station_list_close_leszno_to_fill_gaps_raw.csv", 
+             header = TRUE, sep = ",")
+
+
+# Leszno_weather<-handle_gsod(Leszno_weather_raw)
+
+# detect many gaps 
+# fix_weather(Leszno_weather)$QC
+ 
+# positions_in_station_list<-c(2,4,7,12,21)
+# patch_weather_l<-list()
+ 
+
+
+# fill gaps for 1973 to 2019
+
+
+# for(i in 1:length(positions_in_station_list))
+# {
+#   patch_weather_l[[i]] <-
+#     handle_gsod(
+#       handle_gsod(
+#         action = "download_weather",
+#         location = Leszno_weather_raw_station_list$chillR_code[positions_in_station_list[i]],
+#         time_interval = c(1973, 2019)
+#       )
+#     )[[1]]$weather
+#   names(patch_weather_l)[i] <-
+#     Leszno_weather_raw_station_list$STATION.NAME[positions_in_station_list[i]]
+# }
+
+
+
+
+
+# patched_l<-patch_daily_temperatures(weather = Leszno_weather,
+#                                   patch_weather = patch_weather_l)
+
+#write.csv(fix_weather(patched_l)$QC,"weather_data/Leszno_weather_raw/QC_Check.csv")
+QC = read.table("weather_data/Leszno_weather_raw/QC_Check.csv", header = TRUE, sep =",")
+
+kable(head(QC),
+      caption="Filled gaps from 1973 to 2019 QC ") %>%
+  kable_styling("striped", position = "left", font_size = 10)
+
+#Leszno_Sc<-fix_weather(patched_l)
+
+#Leszno_Sc_temps<-Leszno_Sc$weather
+
+#write.csv(Leszno_Sc_temps, "weather_data/Leszno_weather_raw/Leszno_Sc_temps.csv")
+
+
+Leszno_Sc_temps = read.table("weather_data/Leszno_weather_raw/Leszno_Sc_temps.csv", header = TRUE, sep =",")
+
+kable(head(Leszno_Sc_temps),
+      caption="Filled gaps from 1973 to 2019  ") %>%
+  kable_styling("striped", position = "left", font_size = 10)
 
 ```
 
 
 
+```{r, echo = TRUE}
+
+scenario_1980 = 
+  temperature_scenario_from_records(weather=Leszno_Sc_temps,year=1980)
+
+kable(scenario_1980$'1980'$data) %>%
+  kable_styling("striped", position = "left",font_size = 10)
+```
+
+
+```{r, echo=TRUE}
+
+
+temps_1980<-temperature_generation(weather=Leszno_Sc_temps, years=c(1973,2019),
+                                   sim_years=c(2001,2100),
+                                   temperature_scenario = scenario_1980)
+
+
+
+scenario_1996<-temperature_scenario_from_records(weather=Leszno_Sc_temps,year=1996)
 
 
 
 
+relative_scenario<-temperature_scenario_baseline_adjustment(
+  baseline=scenario_1996,
+  temperature_scenario = scenario_1980)
+
+
+
+temps_1980<-temperature_generation(weather=Leszno_Sc_temps, years=c(1973,2019),
+                                   sim_years=c(2001,2100),
+                                   temperature_scenario = relative_scenario)
+
+
+
+
+
+all_past_scenarios<-temperature_scenario_from_records(
+  weather=Leszno_Sc_temps,
+  year=c(1980,1990,2000,2010))
+
+
+
+adjusted_scenarios<-temperature_scenario_baseline_adjustment(
+  baseline=scenario_1996,
+  temperature_scenario = all_past_scenarios)
+
+
+
+all_past_scenario_temps<-temperature_generation(
+  weather=Leszno_Sc_temps,
+  years=c(1973,2019),
+  sim_years=c(2001,2100),
+  temperature_scenario = adjusted_scenarios)
+
+
+
+chill_hist_scenario_list<-tempResponse_daily_list(all_past_scenario_temps,
+                                                  latitude=51.39,
+                                                  Start_JDay = 305,
+
+                                                  
+                                                                                                    End_JDay = 59)
+
+
+
+
+
+scenarios<-names(chill_hist_scenario_list)[1:4]
+
+
+all_scenarios<-chill_hist_scenario_list[[scenarios[1]]]
+all_scenarios[,"scenario"]<-as.numeric(scenarios[1])
+
+
+
+
+for (sc in scenarios[2:4])
+ all_scenarios<-rbind(all_scenarios,
+                      cbind(chill_hist_scenario_list[[sc]],scenario=as.numeric(sc)))
+all_scenarios<-all_scenarios[which(all_scenarios$Perc_complete==100),]
+
+
+
+
+
+
+actual_chill<-tempResponse_daily_list(Leszno_Sc_temps,latitude=50.9,
+                        Start_JDay = 305,
+                        End_JDay = 59)[[1]]
+
+
+
+actual_chill<-actual_chill[which(actual_chill$Perc_complete==100),]
+
+
+
+
+
+ggplot(data=all_scenarios,aes(scenario,Chill_Portions,
+                              fill=factor(scenario))) +
+  geom_violin() +
+  ylab("Chill accumulation (Chill Portions)") +
+  xlab("Scenario year") +
+  theme_bw(base_size=15) +
+  ylim(c(0,90)) +
+  geom_point(data=actual_chill,
+             aes(End_year,Chill_Portions,fill="blue"),
+             col="blue",show.legend = FALSE) +
+  scale_fill_discrete(name="Scenario",
+                      breaks = unique(all_scenarios$scenario)) 
+
+
+
+```
+
+
+```{r, echo=TRUE}
+
+temperature_means<-data.frame(Year=min(Leszno_Sc_temps$Year):max(Leszno_Sc_temps$Year),
+                                Tmin=aggregate(Leszno_Sc_temps$Tmin,FUN="mean",
+                                               by=list(Leszno_Sc_temps$Year))[,2],
+                              Tmax=aggregate(Leszno_Sc_temps$Tmax,FUN="mean",
+                                             by=list(Leszno_Sc_temps$Year))[,2])
+
+
+temperature_means[,"runn_mean_Tmin"]<-runn_mean(temperature_means$Tmin,15)
+temperature_means[,"runn_mean_Tmax"]<-runn_mean(temperature_means$Tmax,15)
+
+Tmin_regression<-lm(Tmin~Year, temperature_means)
+temperature_means[,"regression_Tmin"]<-Tmin_regression$coefficients[1]+
+  Tmin_regression$coefficients[2]*temperature_means$Year
+
+Tmax_regression<-lm(Tmax~Year, temperature_means)
+temperature_means[,"regression_Tmax"]<-Tmax_regression$coefficients[1]+
+  Tmax_regression$coefficients[2]*temperature_means$Year
+
+
+
+
+ggplot(temperature_means,aes(Year, Tmin)) + 
+  geom_point() + 
+  geom_line(data=temperature_means,aes(Year, runn_mean_Tmin),lwd=2,col="blue") + 
+  geom_line(data=temperature_means,aes(Year, regression_Tmin),lwd=2,col="red") +
+  theme_bw(base_size=15) +
+  ylab("Mean monthly minimum temperature (°C)")
+
+
+
+
+ggplot(temperature_means,aes(Year, Tmax)) + 
+  geom_point() + 
+  geom_line(data=temperature_means,aes(Year, runn_mean_Tmax),lwd=2,col="blue") + 
+  geom_line(data=temperature_means,aes(Year, regression_Tmax),lwd=2,col="red") +
+  theme_bw(base_size=15) +
+  ylab("Mean monthly maximum temperature (°C)")
+
+```
+
+
+
+### Future Temperature Scenarios
+
+### Task 1 
+
+##### Analyze the historic and future impact of climate change on three agroclimatic metrics of your choice, for the location you’ve chosen for your earlier analyses.51.850627661880594, 16.580060770328767
+
+```{r, echo = TRUE}
+
+
+#dir.create("weather_data/Leszno_weather_raw/ClimateWizard_Leszno")
+
+# RCPs<-c("rcp45","rcp85")
+# Times<-c(2050,2085)
+# 
+# 
+# for(RCP in RCPs)
+#  
+#    for (Time in Times)
+#   {
+#     start_year <- Time - 15
+#     end_year <- Time + 15
+#     clim_scen <- getClimateWizardData(
+#       c(longitude = 16.580, latitude = 51.851),
+#       RCP,
+#       start_year,
+#       end_year,
+#       temperature_generation_scenarios = TRUE,
+#       baseline = c(1975, 2005),
+#       metric = "monthly_min_max_temps",
+#       GCMs = "all"
+#     )
+#     save_temperature_scenarios(clim_scen,
+#                                "weather_data/Leszno_weather_raw/ClimateWizard_Leszno",
+#                                paste0("Leszno_futures_", Time, "_", RCP))
+#   }
+# 
+
+
+
+scenario_1990<-temperature_scenario_from_records(Leszno_Sc_temps,1990)
+scenario_1996<-temperature_scenario_from_records(Leszno_Sc_temps,1996)
+adjustment_scenario<-temperature_scenario_baseline_adjustment(scenario_1996,scenario_1990)
+
+
+
+
+
+dir.create("weather_data/Leszno_weather_raw/Leszno_")
+
+
+
+# RCPs<-c("rcp45","rcp85")
+# Times<-c(2050,2085)
+# 
+# for(RCP in RCPs)
+#   for(Time in Times)
+#     {
+#      clim_scen<-load_ClimateWizard_scenarios(
+#        "weather_data/Leszno_weather_raw/ClimateWizard_Leszno",
+#        paste0("Leszno_futures_",Time,"_",RCP))
+#      clim_scen_adjusted<-
+#        temperature_scenario_baseline_adjustment(
+#          baseline_temperature_scenario=adjustment_scenario,
+#          temperature_scenario=clim_scen)
+#      Temps<-temperature_generation(
+#        weather=Leszno_Sc_temps, 
+#        years=c(1973,2019),
+#        sim_years=c(2001,2101),
+#        temperature_scenario = clim_scen_adjusted)
+#      
+#      save_temperature_scenarios(
+#        Temps,
+#        "weather_data/Leszno_weather_raw/Leszno_",
+#        paste0("Leszno_",Time,"_",RCP))
+#   }
+
+```
 
 
 
