@@ -1,0 +1,24 @@
+# Climate change and impact projection
+
+## Task 1
+
+**List the main drivers of climate change at the decade to century scale, and briefly explain the mechanism through which the currently most important driver affects our climate**
+
+```{r,echo=FALSE, tidy=FALSE}
+library(readxl)
+mod <- read_excel("Drivers of Climate Change.xlsx")
+knitr::kable(head(mod), caption = "Drivers of Climate Change")
+```
+
+>
+The most important factor that currently has the greatest influence on climate and climate change is greenhouse gases. The most important greenhouse gases are water vapor, (carbon dioxide) CO<sub>2</sub>, (methane) CH<sub>4</sub>, and (nitrous oxides) N<sub>2</sub>O. Greenhouse gases can only absorb radiation of certain wavelengths. They absorb radiation with long wavelengths, which comes from the Earth's surface in the form of infrared radiation emitted by the warm Earth's surface. This radiation cannot leave the atmosphere and is trapped by the greenhouse gases, which returns it back to the Earth.
+
+## Task 2
+
+**Explain briefly what is special about temperature dynamics of the recent decades, and why we have good reasons to be concerned**
+
+>
+Over the past decades and throughout the last century, the temperature has been rising worldwide. Initially, this increase was relatively slow. The ten warmest years worldwide since 1880 were all measured after the millennium. The five warmest years worldwide were all recorded after 2014. This effect is also noticeable in Germany. Here, too, the ten warmest years were all measured after 2000, with one exception. If one places the temperature increase of the last decades in the climate history of the last one million years, it can be seen that there has never been such a strong temperature increase over such a relatively short period of time.
+>
+This rapid rise in temperature is developing its own dynamic. For example, high temperatures in the tundra cause the permafrost to thaw, releasing a large amount of CO<sub>2</sub>, a greenhouse gas that promotes even faster warming.
+

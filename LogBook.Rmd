@@ -88,7 +88,6 @@ General principles for the design of a scale for plant growth stages:
 ##### List the main drivers of climate change at the decade to century scale, and briefly explain the mechanism through which the currently most important driver affects our climate. 
 
 
-
 ```{r,echo=FALSE}
 library(readxl)
 mod <- read_excel("Drivers of Climate Change.xlsx")
@@ -170,8 +169,6 @@ library(kableExtra)
 ```{r, echo=TRUE}
 # have a look to the data set
 kable(head(Winters_hours_gaps), "pipe", caption = "Example Dataset: Winters_hours_gaps") 
-
-
 
 ```
 
@@ -287,12 +284,12 @@ step_model <- function (HourTemp,
 
 # define own temperature weighting
 
-# Hier wird nur ein "eigenes Datenfeld" definiert mit eigenen Grenzen, die ein 
-# eigenes Gewicht besitzen. 
-# Zum Beispiel wird von -100 °C bis 0 °C das Gewicht == 0 gesetzt. 
-# In diesem Fall findet keine "chillhour" statt. 
-# Liegt die Temperatur hingegen zwischen 0 °C und 2 °C beträgt das Gewicht der 
-# "chillhour" 0.5. Hier findet einen halbe "chillhour" statt. 
+# Hier wird nur ein "eigenes Datenfeld" definiert mit eigenen Grenzen, die ein
+# eigenes Gewicht besitzen.
+# Zum Beispiel wird von -100 °C bis 0 °C das Gewicht == 0 gesetzt.
+# In diesem Fall findet keine "chillhour" statt.
+# Liegt die Temperatur hingegen zwischen 0 °C und 2 °C beträgt das Gewicht der
+# "chillhour" 0.5. Hier findet einen halbe "chillhour" statt.
 
 own_df = data.frame (lower  = c(-100,0,  2, 4,  5, 6,   7    ),
                      upper  = c(  0, 2,  4, 5,  6, 7,   100  ),
@@ -450,7 +447,8 @@ Zuelpich_min_max = read.table("weather_data/Weather_Zuelpich_2019.csv",
 
 ```
 
-The dataset Zuelpich_hourly contains for the year 2019 one temperature value for each hour. Note that the hourly temperature value represents the mean value of the respective hour. The data set starts in February
+>
+The dataset `Zuelpich_hourly` contains one temperature value for each hour for the year 2019. It is important to note that the hourly temperature value represents the mean value for the respective hour. The dataset begins in February.
 
 ```{r, echo=FALSE}
 kable(head(Zuelpich_hourly))%>% kable_styling("striped", position = "left", font_size = 10)
@@ -666,7 +664,7 @@ ggplot(data = final_df_mod, aes(x = DATE, y = Temperature
 ##### Choose a location of interest and find the 25 closest weather stations using the handle_gsod function
 
 ```{r, echo= TRUE}
-# 
+
 # station_list_poland = handle_gsod(action="list_stations",
 #                            location=c(16.5,51.39),
 #                            time_interval=c(1990,2020))

@@ -1,0 +1,153 @@
+# Making hourly temperatures 
+
+## Task 1
+
+**Choose a location of interest, find out its latitude and produce plots of daily sunrise, sunset and daylength**
+
+>
+First, I would like to compare the lengths of days among locations of interest. I have selected Glogau in Poland, Zülpich in Germany, Tenerife in Spain, Moscow in Russia, and Karkaralinsk in Kazakhstan.
+
+
+```{r, echo= TRUE, message=FALSE, warning=FALSE}
+
+# initialize the variables with daylength, sunrise and sunset by the function daylength
+Glogau      <- daylength(latitude = 51.40, JDay = 1:365)
+Teneriffa   <- daylength(latitude = 28.19, JDay = 1:365)
+Zuelpich    <- daylength(latitude = 50.42, JDay = 1:365)
+Moskau      <- daylength(latitude = 55.45, JDay = 1:365)
+Karkaralinsk <- daylength(latitude = 49.24, JDay = 1:365)
+
+# Create a dataframe consisting of the variables "base" (days 1 to 365) and the
+# respective locations and containing only the day length for each location.
+df <- data.frame(
+  base         = seq(length(Glogau[[1]])),
+  Glogau       = Glogau[[3]],
+  Teneriffa    = Teneriffa[[3]],
+  Zülpich      = Zuelpich[[3]],
+  Moskau       = Moskau[[3]],
+  Karkaralinsk = Karkaralinsk[[3]]
+)
+
+
+kable(head(df), caption = "Differnt Locations") %>% kable_styling("striped", position = "left", font_size = 7)
+
+# create a pivot table
+df_long <-
+  pivot_longer(df, -"base", names_to = "Location", values_to = "daylength")
+
+kable(head(df_long)) %>% kable_styling("striped", position = "left", font_size = 10)
+
+
+# plot the result with ggplot
+ggplot(df_long, aes(x = base, y = daylength, groupe = Location)) +
+  geom_line(aes(color = Location), lwd = 1.0) +
+  ggtitle("Different day lengths in different places") +
+  labs(x = "Days", y = "Daylength [h]") + theme_gray(base_size = 15)
+
+```
+
+>
+Create a summary of the sunrise, sunset, and day length for Moscow.
+
+```{r, echo= TRUE, warning=FALSE, message=FALSE}
+
+Days <- daylength(latitude = 55.45, JDay = 1:365)
+
+Days_df <-
+  data.frame(
+    JDay = 1:365,
+    Sunrise = Days$Sunrise,
+    Sunset = Days$Sunset,
+    Daylength = Days$Daylength
+  )
+
+Days_df<-melt(Days_df, id=c("JDay")) 
+```
+
+>
+Show the final result
+
+```{r, echo=TRUE, warning=FALSE, out.width="80%"}
+ggplot(Days_df, aes(x = JDay, y = value)) + geom_line(lwd = 1.5, color = "red") + facet_grid(cols = vars(variable)) +
+  ylab("Time of Day / Daylength (Hours)") + theme_bw(base_size = 20) +
+  ggtitle("Sunrise, Sunset and Daylength of Moskau")
+
+```
+
+## Task 2
+
+
+**Produce an hourly dataset, based on idealized daily curves, for the KA_weather dataset (included in chillR)**
+
+>
+The following two tasks were performed in a modified form. In order to demonstrate the application of the chillR package, it was decided to use a currently active weather station and use its data as a basis. Data on the weather station can be found in the table below.
+
+
+```{r, echo=FALSE}
+location = data.frame(
+  Location = c("Zuelpich - Fuessenich"),
+  State = c("North Rhine-Westphalia"),
+  GPS = c("50.69527026369208, 6.615666577711913"),
+  Gauß_Krüger = c("Rechtswert:2543500 Hochwert: 5617798")
+)
+
+
+kable(location, caption = "Weather Station Fuessenich")%>%
+  kable_styling("striped", position = "left", font_size = 10)
+
+```
+
+First, corresponding data must be read in. The data are already prepared.
+
+```{r, echo =TRUE}
+Zuelpich_hourly = read.table(
+  "weather_data/Weather_Zuelpich_2019_hourly.csv",
+  header = TRUE,
+  sep = ","
+)
+
+Zuelpich_min_max = read.table("weather_data/Weather_Zuelpich_2019.csv",
+                              header = TRUE,
+                              sep = ",")
+
+```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(lubridate)
+```
+
+
+```{r,echo=TRUE}
+zuelpich_april = Zuelpich_hourly %>% filter("2019-04-01 00:00:00" < date) %>%
+  filter("2019-04-05 00:00:00" > date)
+
+zuelpich_april$date_new <- as.POSIXct(zuelpich_april[, 3])
+zuelpich_april$date_newnew = as.Date(zuelpich_april[, 3])
+
+kable(head(zuelpich_april), caption = "Dataset: zuelpich_april") %>%
+  kable_styling("striped", position = "left", font_size = 10)
+
+```
+
+>
+Next, the lows and highs for the corresponding days must be determined from the data set containing hourly data. 
+
+
+```{r,echo=TRUE}
+final <- zuelpich_april %>%
+  group_by(Tag = day(date_newnew)) %>%
+  summarise(
+    Mittel =  round(mean(temperature, na.rm = TRUE), digits = 1),
+    Tmax = max(temperature),
+    Tmin = min(temperature)
+  )
+
+kable(final, caption = "Dataset:Tmean Tmax Tmin")%>%
+  kable_styling("striped", position = "left", font_size = 10)
+```
+
+>
+Next, the dataset containing hourly temperature values must be extended with a column that will later represent the daily high and low values. First, the new column `Tmax_Tmin` is filled with "NAs". Then the maximum and minimum values are taken from the previously generated dataset `final`. These values are compared with the hourly values. If they match, the maximum or minimum value found is written to the previously created column `Tmax_Tmin`. In this way, the daily maximum and minimum values are placed in the table `zuelpich_april` at the same place where they were also measured.
+
+
+

@@ -1,0 +1,118 @@
+# Manual Chill Analysis
+
+```{r, message=FALSE,echo= FALSE}
+library(tidyverse)
+library(chillR)
+library(knitr)
+library(pander)
+library(kableExtra)
+require(reshape2)
+```
+
+
+>
+The `Winters_hours_gaps` data set has the columns: `Year`, `Month`, `Day`, `Hour`, `Temp_gaps`, `Temp`. First, the function `cleaned_data` is used to remove unnecessary columns such as `Temp_gaps()` from the data set.
+
+
+
+```{r, echo=TRUE}
+
+#Clean Function
+cleaned_data = function(data_source) {
+  data_source = 
+    data_source[, c("Year", "Month", "Day", "Hour", "Temp")]
+  return(data_source)
+}
+
+# Apply Function to Winters_hours_gaps
+kable(head(cleaned_data(data_source = Winters_hours_gaps)), 
+      "pipe", caption = "Cleaned  Dataset: Winters_hours_gaps")
+```
+
+
+
+
+## Task 1
+
+**Write a basic function that calculates warm hours (>25°C)**
+
+
+```{r, echo = TRUE}
+WH = function(hourtemps)
+{
+  hourtemps[, "warm_hours"] <- hourtemps$Temp >= 25.0
+  return(hourtemps)
+}
+```
+
+
+## Task 2
+
+**Apply this function to the Winters_hours_gaps dataset**
+
+
+```{r, echo=TRUE}
+# have a look to the data set
+kable(head(Winters_hours_gaps), 
+      "pipe", caption = 
+        "Example Dataset: Winters_hours_gaps") 
+```
+
+
+```{r,echo =TRUE}
+# Apply Function
+hourtemps = cleaned_data(data_source = Winters_hours_gaps)
+kable(head(WH(hourtemps = hourtemps)), "pipe")
+```
+
+
+## Task 3
+
+**Extend this function, so that it can take start and end dates as inputs and sums up warm hours between these dates**
+
+```{r,echo =TRUE}
+warm_hours_function = function(Input_Data,
+                               S_Jahr,
+                               S_Monat,
+                               S_Tag,
+                               S_Stunde,
+                               E_Jahr,
+                               E_Monat,
+                               E_Tag,
+                               E_Stunde) {
+  Start_Date <-
+    which(
+      hourtemps$Year == S_Jahr & hourtemps$Month == S_Monat &
+        hourtemps$Day == S_Tag &
+        hourtemps$Hour == S_Stunde
+    )
+  End_Date <- which(
+    hourtemps$Year == E_Jahr & hourtemps$Month == E_Monat &
+      hourtemps$Day == E_Tag & hourtemps$Hour == E_Stunde
+  )
+  
+  # Apply Function Warm Hours (WH)
+  hourtemps = WH(hourtemps = Input_Data)
+  
+  # Calculate warm_hours
+  warm_hours = sum(hourtemps$warm_hours[Start_Date:End_Date])
+  
+  return(cat("The number of heat hours is:", paste(warm_hours)))
+}
+
+warm_hours_function(
+  Input_Data = hourtemps,
+  S_Jahr = 2008,
+  S_Monat = 5,
+  S_Tag = 1,
+  S_Stunde = 12,
+  E_Jahr = 2008,
+  E_Monat = 8,
+  E_Tag = 31,
+  E_Stunde = 12
+)
+
+```
+
+
+

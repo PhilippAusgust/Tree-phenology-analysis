@@ -1,0 +1,32 @@
+# Tree dormancy {#treedormancy}
+
+## Task 1 
+**Put yourself in the place of a breeder who wants to calculate the temperature requirements of a newly released cultivar. Which method will you use to calculate the chilling and forcing periods? Please justify your answer.**
+
+
+> 
+Long-term phenological data does not exist, so a statistical approach is not optimal for newly released cultivars. It is better to work with an empirical approach. To do this, collect flower buds and place shoots in a chamber for 10 days under favorable conditions (temperature between 20 and 25 degrees). After 10 days, measure the weight of the shoots in the chamber and the shoots without the chamber. If the weight difference is greater than 30%, the cultivar is considered non-dormant. Otherwise, it is considered dormant
+
+
+## Task 2
+**Which are the advantages (2) of the BBCH scale compared with earlies scales?**
+
+>
+Not all parts of a tree are in the same development stage. Early scales only record the predominant state of the fruit tree. General principles for the design of a scale for plant growth stages include:
+>
+ - Growth stages are easily recognizable under field conditions
+> 
+ - Growth stages are graded in the order of appearance (early scales do not do this)
+> 
+ - Two-digit code: Principal growth stages | Secondary growth stages
+> 
+ - Applicable for all cereals in all parts of the world. (Old scales can only be used    for a specific group/fruit)
+ 
+## Task 3
+**Classify the following phenological stages of sweet cherry according to the BBCH scale:**
+ 
+![Picture 1 BBCH =55;  Picture 2 BBCH =67;  Picture 3 BBCH =89](./pheno_stages.png)
+
+
+
+

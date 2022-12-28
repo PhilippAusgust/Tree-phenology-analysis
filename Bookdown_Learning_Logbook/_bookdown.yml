@@ -1,0 +1,14 @@
+book_filename: "Tree Phenology"
+delete_merged_file: TRUE
+language:
+  ui:
+    chapter_name: "Chapter "
+rmd_files: [
+  "index.Rmd",
+  "01-introduction.Rmd",
+  "02-Tree_dormancy.Rmd",
+  "03-cl_change.Rmd",
+  "04-manual_chill_analysis.Rmd",
+  "04-chill_models.Rmd",
+  "Making_hourly_temperatures.Rmd"
+]
