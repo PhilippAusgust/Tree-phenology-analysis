@@ -23,7 +23,7 @@
 <meta name="author" content="Philipp Münker" />
 
 
-<meta name="date" content="2022-12-28" />
+<meta name="date" content="2022-12-29" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -759,8 +759,1212 @@ Tmin
 </tbody>
 </table>
 <blockquote>
-<p>Next, the dataset containing hourly temperature values must be extended with a column that will later represent the daily high and low values. First, the new column <code>Tmax_Tmin</code> is filled with “NAs”. Then the maximum and minimum values are taken from the previously generated dataset <code>final</code>. These values are compared with the hourly values. If they match, the maximum or minimum value found is written to the previously created column <code>Tmax_Tmin</code>. In this way, the daily maximum and minimum values are placed in the table <code>zuelpich_april</code> at the same place where they were also measured.</p>
+<p>Next, the dataset containing hourly temperature values must be extended with a column that will later represent the daily high and low values. First, the new column <code>Tmax_Tmin</code> is filled with <code>NAs</code>. Then the maximum and minimum values are taken from the previously generated dataset <code>final</code>. These values are compared with the hourly values. If they match, the maximum or minimum value found is written to the previously created column <code>Tmax_Tmin</code>. In this way, the daily maximum and minimum values are placed in the table <code>zuelpich_april</code> at the same place where they were also measured.</p>
 </blockquote>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="making-hourly-temperatures.html#cb21-1"></a><span class="co"># generate new coloumn with NAs </span></span>
+<span id="cb21-2"><a href="making-hourly-temperatures.html#cb21-2"></a>zuelpich_april<span class="op">$</span>Tmax_Tmin =<span class="st"> </span><span class="ot">NA</span></span>
+<span id="cb21-3"><a href="making-hourly-temperatures.html#cb21-3"></a></span>
+<span id="cb21-4"><a href="making-hourly-temperatures.html#cb21-4"></a><span class="co"># match Tmin</span></span>
+<span id="cb21-5"><a href="making-hourly-temperatures.html#cb21-5"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="kw">seq</span>(<span class="dv">1</span>, <span class="kw">nrow</span>(zuelpich_april))) {</span>
+<span id="cb21-6"><a href="making-hourly-temperatures.html#cb21-6"></a>  <span class="cf">for</span> (j <span class="cf">in</span> <span class="kw">seq</span>(<span class="dv">1</span>, <span class="kw">nrow</span>(final))) {</span>
+<span id="cb21-7"><a href="making-hourly-temperatures.html#cb21-7"></a>    <span class="cf">if</span> (zuelpich_april<span class="op">$</span>temperature[i] <span class="op">==</span><span class="st"> </span>final<span class="op">$</span>Tmax[j]) {</span>
+<span id="cb21-8"><a href="making-hourly-temperatures.html#cb21-8"></a>      zuelpich_april<span class="op">$</span>Tmax_Tmin[i] &lt;-<span class="st"> </span>final<span class="op">$</span>Tmax[j]</span>
+<span id="cb21-9"><a href="making-hourly-temperatures.html#cb21-9"></a>    }</span>
+<span id="cb21-10"><a href="making-hourly-temperatures.html#cb21-10"></a>  }</span>
+<span id="cb21-11"><a href="making-hourly-temperatures.html#cb21-11"></a>}</span>
+<span id="cb21-12"><a href="making-hourly-temperatures.html#cb21-12"></a></span>
+<span id="cb21-13"><a href="making-hourly-temperatures.html#cb21-13"></a><span class="co"># match Tmax </span></span>
+<span id="cb21-14"><a href="making-hourly-temperatures.html#cb21-14"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="kw">seq</span>(<span class="dv">1</span>, <span class="kw">nrow</span>(zuelpich_april))) {</span>
+<span id="cb21-15"><a href="making-hourly-temperatures.html#cb21-15"></a>  <span class="cf">for</span> (j <span class="cf">in</span> <span class="kw">seq</span>(<span class="dv">1</span>, <span class="kw">nrow</span>(final))) {</span>
+<span id="cb21-16"><a href="making-hourly-temperatures.html#cb21-16"></a>    <span class="cf">if</span> (zuelpich_april<span class="op">$</span>temperature[i] <span class="op">==</span><span class="st"> </span>final<span class="op">$</span>Tmin[j]) {</span>
+<span id="cb21-17"><a href="making-hourly-temperatures.html#cb21-17"></a>      zuelpich_april<span class="op">$</span>Tmax_Tmin[i] &lt;-<span class="st"> </span>final<span class="op">$</span>Tmin[j]</span>
+<span id="cb21-18"><a href="making-hourly-temperatures.html#cb21-18"></a>    }</span>
+<span id="cb21-19"><a href="making-hourly-temperatures.html#cb21-19"></a>  }</span>
+<span id="cb21-20"><a href="making-hourly-temperatures.html#cb21-20"></a>}</span>
+<span id="cb21-21"><a href="making-hourly-temperatures.html#cb21-21"></a></span>
+<span id="cb21-22"><a href="making-hourly-temperatures.html#cb21-22"></a></span>
+<span id="cb21-23"><a href="making-hourly-temperatures.html#cb21-23"></a><span class="kw">kable</span>(zuelpich_april[<span class="dv">1</span><span class="op">:</span><span class="dv">25</span>,], <span class="dt">caption =</span> <span class="st">&quot;Dataset: TmaxTminMatch&quot;</span>)<span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb21-24"><a href="making-hourly-temperatures.html#cb21-24"></a><span class="st">  </span><span class="kw">kable_styling</span>(<span class="st">&quot;striped&quot;</span>, <span class="dt">position =</span> <span class="st">&quot;left&quot;</span>, <span class="dt">font_size =</span> <span class="dv">10</span>)</span></code></pre></div>
+<table class="table table-striped" style="font-size: 10px; ">
+<caption style="font-size: initial !important;">
+<span id="tab:unnamed-chunk-22">Table 7.5: </span>Dataset: TmaxTminMatch
+</caption>
+<thead>
+<tr>
+<th style="text-align:right;">
+X
+</th>
+<th style="text-align:right;">
+temperature
+</th>
+<th style="text-align:left;">
+date
+</th>
+<th style="text-align:left;">
+date_new
+</th>
+<th style="text-align:left;">
+date_newnew
+</th>
+<th style="text-align:right;">
+Tmax_Tmin
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+1412
+</td>
+<td style="text-align:right;">
+3.4350000
+</td>
+<td style="text-align:left;">
+2019-04-01 01:00:00
+</td>
+<td style="text-align:left;">
+2019-04-01 01:00:00
+</td>
+<td style="text-align:left;">
+2019-04-01
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1413
+</td>
+<td style="text-align:right;">
+2.0900000
+</td>
+<td style="text-align:left;">
+2019-04-01 02:00:00
+</td>
+<td style="text-align:left;">
+2019-04-01 02:00:00
+</td>
+<td style="text-align:left;">
+2019-04-01
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1414
+</td>
+<td style="text-align:right;">
+1.2616667
+</td>
+<td style="text-align:left;">
+2019-04-01 03:00:00
+</td>
+<td style="text-align:left;">
+2019-04-01 03:00:00
+</td>
+<td style="text-align:left;">
+2019-04-01
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1415
+</td>
+<td style="text-align:right;">
+0.6150000
+</td>
+<td style="text-align:left;">
+2019-04-01 04:00:00
+</td>
+<td style="text-align:left;">
+2019-04-01 04:00:00
+</td>
+<td style="text-align:left;">
+2019-04-01
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1416
+</td>
+<td style="text-align:right;">
+0.0583333
+</td>
+<td style="text-align:left;">
+2019-04-01 05:00:00
+</td>
+<td style="text-align:left;">
+2019-04-01 05:00:00
+</td>
+<td style="text-align:left;">
+2019-04-01
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1417
+</td>
+<td style="text-align:right;">
+-0.3566667
+</td>
+<td style="text-align:left;">
+2019-04-01 06:00:00
+</td>
+<td style="text-align:left;">
+2019-04-01 06:00:00
+</td>
+<td style="text-align:left;">
+2019-04-01
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1418
+</td>
+<td style="text-align:right;">
+-0.4200000
+</td>
+<td style="text-align:left;">
+2019-04-01 07:00:00
+</td>
+<td style="text-align:left;">
+2019-04-01 07:00:00
+</td>
+<td style="text-align:left;">
+2019-04-01
+</td>
+<td style="text-align:right;">
+-0.42
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1419
+</td>
+<td style="text-align:right;">
+0.9666667
+</td>
+<td style="text-align:left;">
+2019-04-01 08:00:00
+</td>
+<td style="text-align:left;">
+2019-04-01 08:00:00
+</td>
+<td style="text-align:left;">
+2019-04-01
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1420
+</td>
+<td style="text-align:right;">
+3.9333334
+</td>
+<td style="text-align:left;">
+2019-04-01 09:00:00
+</td>
+<td style="text-align:left;">
+2019-04-01 09:00:00
+</td>
+<td style="text-align:left;">
+2019-04-01
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1421
+</td>
+<td style="text-align:right;">
+6.4183333
+</td>
+<td style="text-align:left;">
+2019-04-01 10:00:00
+</td>
+<td style="text-align:left;">
+2019-04-01 10:00:00
+</td>
+<td style="text-align:left;">
+2019-04-01
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1422
+</td>
+<td style="text-align:right;">
+9.2050000
+</td>
+<td style="text-align:left;">
+2019-04-01 11:00:00
+</td>
+<td style="text-align:left;">
+2019-04-01 11:00:00
+</td>
+<td style="text-align:left;">
+2019-04-01
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1423
+</td>
+<td style="text-align:right;">
+11.6483333
+</td>
+<td style="text-align:left;">
+2019-04-01 12:00:00
+</td>
+<td style="text-align:left;">
+2019-04-01 12:00:00
+</td>
+<td style="text-align:left;">
+2019-04-01
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1424
+</td>
+<td style="text-align:right;">
+13.0883333
+</td>
+<td style="text-align:left;">
+2019-04-01 13:00:00
+</td>
+<td style="text-align:left;">
+2019-04-01 13:00:00
+</td>
+<td style="text-align:left;">
+2019-04-01
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1425
+</td>
+<td style="text-align:right;">
+14.5100000
+</td>
+<td style="text-align:left;">
+2019-04-01 14:00:00
+</td>
+<td style="text-align:left;">
+2019-04-01 14:00:00
+</td>
+<td style="text-align:left;">
+2019-04-01
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1426
+</td>
+<td style="text-align:right;">
+16.2199999
+</td>
+<td style="text-align:left;">
+2019-04-01 15:00:00
+</td>
+<td style="text-align:left;">
+2019-04-01 15:00:00
+</td>
+<td style="text-align:left;">
+2019-04-01
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1427
+</td>
+<td style="text-align:right;">
+17.4650000
+</td>
+<td style="text-align:left;">
+2019-04-01 16:00:00
+</td>
+<td style="text-align:left;">
+2019-04-01 16:00:00
+</td>
+<td style="text-align:left;">
+2019-04-01
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1428
+</td>
+<td style="text-align:right;">
+17.8100000
+</td>
+<td style="text-align:left;">
+2019-04-01 17:00:00
+</td>
+<td style="text-align:left;">
+2019-04-01 17:00:00
+</td>
+<td style="text-align:left;">
+2019-04-01
+</td>
+<td style="text-align:right;">
+17.81
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1429
+</td>
+<td style="text-align:right;">
+16.8549999
+</td>
+<td style="text-align:left;">
+2019-04-01 18:00:00
+</td>
+<td style="text-align:left;">
+2019-04-01 18:00:00
+</td>
+<td style="text-align:left;">
+2019-04-01
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1430
+</td>
+<td style="text-align:right;">
+14.0283333
+</td>
+<td style="text-align:left;">
+2019-04-01 19:00:00
+</td>
+<td style="text-align:left;">
+2019-04-01 19:00:00
+</td>
+<td style="text-align:left;">
+2019-04-01
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1431
+</td>
+<td style="text-align:right;">
+10.4783333
+</td>
+<td style="text-align:left;">
+2019-04-01 20:00:00
+</td>
+<td style="text-align:left;">
+2019-04-01 20:00:00
+</td>
+<td style="text-align:left;">
+2019-04-01
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1432
+</td>
+<td style="text-align:right;">
+7.3850000
+</td>
+<td style="text-align:left;">
+2019-04-01 21:00:00
+</td>
+<td style="text-align:left;">
+2019-04-01 21:00:00
+</td>
+<td style="text-align:left;">
+2019-04-01
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1433
+</td>
+<td style="text-align:right;">
+6.1783334
+</td>
+<td style="text-align:left;">
+2019-04-01 22:00:00
+</td>
+<td style="text-align:left;">
+2019-04-01 22:00:00
+</td>
+<td style="text-align:left;">
+2019-04-01
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1434
+</td>
+<td style="text-align:right;">
+5.2233333
+</td>
+<td style="text-align:left;">
+2019-04-01 23:00:00
+</td>
+<td style="text-align:left;">
+2019-04-01 23:00:00
+</td>
+<td style="text-align:left;">
+2019-04-01
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1435
+</td>
+<td style="text-align:right;">
+4.9883333
+</td>
+<td style="text-align:left;">
+2019-04-02 00:00:00
+</td>
+<td style="text-align:left;">
+2019-04-02 00:00:00
+</td>
+<td style="text-align:left;">
+2019-04-02
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1436
+</td>
+<td style="text-align:right;">
+4.2500000
+</td>
+<td style="text-align:left;">
+2019-04-02 01:00:00
+</td>
+<td style="text-align:left;">
+2019-04-02 01:00:00
+</td>
+<td style="text-align:left;">
+2019-04-02
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>After creating a new column containing only the <code>Tmax</code> and <code>Tmin</code> temperatures, a plot can be created that shows the measured temperature history and includes information on <code>Tmax</code> and <code>Tmin</code>. The red dots symbolize the daily temperature values for <code>Tmax</code> and <code>Tmin</code>, respectively.</p>
+</blockquote>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="making-hourly-temperatures.html#cb22-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> zuelpich_april, <span class="kw">aes</span>(<span class="dt">x =</span> zuelpich_april[, <span class="dv">4</span>], <span class="dt">y =</span> zuelpich_april[, <span class="dv">2</span>])) <span class="op">+</span></span>
+<span id="cb22-2"><a href="making-hourly-temperatures.html#cb22-2"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">size =</span> <span class="fl">1.0</span>, <span class="dt">colour =</span> <span class="st">&quot;darkgreen&quot;</span>) <span class="op">+</span></span>
+<span id="cb22-3"><a href="making-hourly-temperatures.html#cb22-3"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">y =</span> zuelpich_april<span class="op">$</span>Tmax_Tmin),</span>
+<span id="cb22-4"><a href="making-hourly-temperatures.html#cb22-4"></a>             <span class="dt">colour =</span> <span class="st">&quot;red&quot;</span>,</span>
+<span id="cb22-5"><a href="making-hourly-temperatures.html#cb22-5"></a>             <span class="dt">size =</span> <span class="fl">3.0</span>) <span class="op">+</span></span>
+<span id="cb22-6"><a href="making-hourly-temperatures.html#cb22-6"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Date&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Temperature (C°)&quot;</span>) <span class="op">+</span></span>
+<span id="cb22-7"><a href="making-hourly-temperatures.html#cb22-7"></a><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;1 to 5 April 2019 weather station Zuelpich&quot;</span>) <span class="op">+</span></span>
+<span id="cb22-8"><a href="making-hourly-temperatures.html#cb22-8"></a><span class="st">  </span><span class="kw">theme_bw</span>(<span class="dt">base_size =</span> <span class="dv">13</span>)</span></code></pre></div>
+<p><img src="Tree-Phenology_files/figure-html/unnamed-chunk-23-1.png" width="672" />
+&gt;
+First, the dataset <code>ZU_weather</code> must be created. The columns <code>DATE</code>, <code>Year</code>, <code>Month</code>, <code>Day</code>, <code>Tcontinue</code>, and <code>Temp_inter</code> are created. The <code>Temp_inter</code> column contains temperature data with large gaps that must be interpolated between.</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="making-hourly-temperatures.html#cb23-1"></a>ZU_weather =<span class="st"> </span><span class="kw">data.frame</span>(</span>
+<span id="cb23-2"><a href="making-hourly-temperatures.html#cb23-2"></a>  <span class="dt">DATE =</span> zuelpich_april[, <span class="dv">4</span>],</span>
+<span id="cb23-3"><a href="making-hourly-temperatures.html#cb23-3"></a>  <span class="dt">Year =</span> <span class="kw">as.numeric</span>(<span class="kw">substr</span>(zuelpich_april[, <span class="dv">4</span>], <span class="dv">1</span>, <span class="dv">4</span>)),</span>
+<span id="cb23-4"><a href="making-hourly-temperatures.html#cb23-4"></a>  <span class="dt">Month =</span> <span class="kw">as.numeric</span>(<span class="kw">substr</span>(zuelpich_april[, <span class="dv">4</span>], <span class="dv">6</span>, <span class="dv">7</span>)),</span>
+<span id="cb23-5"><a href="making-hourly-temperatures.html#cb23-5"></a>  <span class="dt">Day =</span> <span class="kw">as.numeric</span>(<span class="kw">substr</span>(zuelpich_april[, <span class="dv">4</span>], <span class="dv">9</span>, <span class="dv">10</span>)),</span>
+<span id="cb23-6"><a href="making-hourly-temperatures.html#cb23-6"></a>  <span class="dt">Tcontinue =</span> zuelpich_april[, <span class="dv">2</span>],</span>
+<span id="cb23-7"><a href="making-hourly-temperatures.html#cb23-7"></a>  <span class="dt">Temp_inter =</span> zuelpich_april[, <span class="dv">6</span>]</span>
+<span id="cb23-8"><a href="making-hourly-temperatures.html#cb23-8"></a>)</span>
+<span id="cb23-9"><a href="making-hourly-temperatures.html#cb23-9"></a></span>
+<span id="cb23-10"><a href="making-hourly-temperatures.html#cb23-10"></a><span class="kw">kable</span>(ZU_weather[<span class="dv">1</span><span class="op">:</span><span class="dv">8</span>,])<span class="op">%&gt;%</span><span class="st"> </span><span class="kw">kable_styling</span>(<span class="st">&quot;striped&quot;</span>, <span class="dt">position =</span> <span class="st">&quot;left&quot;</span>, <span class="dt">font_size =</span> <span class="dv">10</span>,)</span></code></pre></div>
+<table class="table table-striped" style="font-size: 10px; ">
+<thead>
+<tr>
+<th style="text-align:left;">
+DATE
+</th>
+<th style="text-align:right;">
+Year
+</th>
+<th style="text-align:right;">
+Month
+</th>
+<th style="text-align:right;">
+Day
+</th>
+<th style="text-align:right;">
+Tcontinue
+</th>
+<th style="text-align:right;">
+Temp_inter
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+2019-04-01 01:00:00
+</td>
+<td style="text-align:right;">
+2019
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+3.4350000
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2019-04-01 02:00:00
+</td>
+<td style="text-align:right;">
+2019
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+2.0900000
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2019-04-01 03:00:00
+</td>
+<td style="text-align:right;">
+2019
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1.2616667
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2019-04-01 04:00:00
+</td>
+<td style="text-align:right;">
+2019
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.6150000
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2019-04-01 05:00:00
+</td>
+<td style="text-align:right;">
+2019
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.0583333
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2019-04-01 06:00:00
+</td>
+<td style="text-align:right;">
+2019
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+-0.3566667
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2019-04-01 07:00:00
+</td>
+<td style="text-align:right;">
+2019
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+-0.4200000
+</td>
+<td style="text-align:right;">
+-0.42
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2019-04-01 08:00:00
+</td>
+<td style="text-align:right;">
+2019
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.9666667
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>The next step is to use the <code>interpolate_gaps()</code> function to calculate the missing temperatures between <code>Tmax</code> and <code>Tmin</code>. The function <code>interpolate_gaps()</code> returns a list with two entries. The first entry of the list contains the interpolated values, which can be accessed using <code>$interp</code> or <code>[[1]]</code>. The second entry, <code>$missing</code>, gives information on whether a value needs to be interpolated or if a real value is present. The function <code>interpolate_gaps()</code> linearly interpolates between gaps in the temperature records. The interpolated values are written directly to the Temp_inter column using the first list entry created by the <code>interpolate_gaps()</code> function.</p>
+</blockquote>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="making-hourly-temperatures.html#cb24-1"></a><span class="co"># interpolate between gaps in coloum Temp_inter </span></span>
+<span id="cb24-2"><a href="making-hourly-temperatures.html#cb24-2"></a>ZU_weather<span class="op">$</span>Temp_inter &lt;-<span class="st"> </span><span class="kw">interpolate_gaps</span>(ZU_weather<span class="op">$</span>Temp_inter)[[<span class="dv">1</span>]]</span>
+<span id="cb24-3"><a href="making-hourly-temperatures.html#cb24-3"></a></span>
+<span id="cb24-4"><a href="making-hourly-temperatures.html#cb24-4"></a><span class="co"># have a look at the first 10 entries</span></span>
+<span id="cb24-5"><a href="making-hourly-temperatures.html#cb24-5"></a><span class="kw">kable</span>(ZU_weather[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, ]) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb24-6"><a href="making-hourly-temperatures.html#cb24-6"></a><span class="st">  </span><span class="kw">kable_styling</span>(<span class="st">&quot;striped&quot;</span>, <span class="dt">position =</span> <span class="st">&quot;left&quot;</span>, <span class="dt">font_size =</span> <span class="dv">10</span>, )</span></code></pre></div>
+<table class="table table-striped" style="font-size: 10px; ">
+<thead>
+<tr>
+<th style="text-align:left;">
+DATE
+</th>
+<th style="text-align:right;">
+Year
+</th>
+<th style="text-align:right;">
+Month
+</th>
+<th style="text-align:right;">
+Day
+</th>
+<th style="text-align:right;">
+Tcontinue
+</th>
+<th style="text-align:right;">
+Temp_inter
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+2019-04-01 01:00:00
+</td>
+<td style="text-align:right;">
+2019
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+3.4350000
+</td>
+<td style="text-align:right;">
+-0.420
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2019-04-01 02:00:00
+</td>
+<td style="text-align:right;">
+2019
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+2.0900000
+</td>
+<td style="text-align:right;">
+-0.420
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2019-04-01 03:00:00
+</td>
+<td style="text-align:right;">
+2019
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1.2616667
+</td>
+<td style="text-align:right;">
+-0.420
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2019-04-01 04:00:00
+</td>
+<td style="text-align:right;">
+2019
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.6150000
+</td>
+<td style="text-align:right;">
+-0.420
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2019-04-01 05:00:00
+</td>
+<td style="text-align:right;">
+2019
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.0583333
+</td>
+<td style="text-align:right;">
+-0.420
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2019-04-01 06:00:00
+</td>
+<td style="text-align:right;">
+2019
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+-0.3566667
+</td>
+<td style="text-align:right;">
+-0.420
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2019-04-01 07:00:00
+</td>
+<td style="text-align:right;">
+2019
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+-0.4200000
+</td>
+<td style="text-align:right;">
+-0.420
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2019-04-01 08:00:00
+</td>
+<td style="text-align:right;">
+2019
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0.9666667
+</td>
+<td style="text-align:right;">
+1.403
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2019-04-01 09:00:00
+</td>
+<td style="text-align:right;">
+2019
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+3.9333334
+</td>
+<td style="text-align:right;">
+3.226
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2019-04-01 10:00:00
+</td>
+<td style="text-align:right;">
+2019
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+6.4183333
+</td>
+<td style="text-align:right;">
+5.049
+</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Thus, all gaps in the column <code>Temp_inter</code> are filled by linear interpolation. The interpolation is performed between the gaps.</p>
+<p>The non-linear interpolation method considers the sun’s position at the respective location in the interpolation. In addition, the <code>stack_hourly_temps()</code> function requires a dataset as input that only contains <code>Tmax</code> and <code>Tmin</code> values. In this example, this dataset is called <code>ZU_weather_min_max</code> and consists of five columns: <code>Year</code>, <code>Month</code>, <code>Day</code>, <code>Tmax</code>, and <code>Tmin</code>.</p>
+</blockquote>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="making-hourly-temperatures.html#cb25-1"></a><span class="co"># create dataframe for non-linear interpolation</span></span>
+<span id="cb25-2"><a href="making-hourly-temperatures.html#cb25-2"></a>ZU_weather_min_max =<span class="st"> </span><span class="kw">data.frame</span>(</span>
+<span id="cb25-3"><a href="making-hourly-temperatures.html#cb25-3"></a>  <span class="dt">Year =</span> <span class="kw">as.numeric</span>(<span class="kw">substr</span>(Zuelpich_min_max[, <span class="dv">2</span>], <span class="dv">1</span>, <span class="dv">4</span>)),</span>
+<span id="cb25-4"><a href="making-hourly-temperatures.html#cb25-4"></a>  <span class="dt">Month =</span> <span class="kw">as.numeric</span>(<span class="kw">substr</span>(Zuelpich_min_max[, <span class="dv">2</span>], <span class="dv">6</span>, <span class="dv">7</span>)),</span>
+<span id="cb25-5"><a href="making-hourly-temperatures.html#cb25-5"></a>  <span class="dt">Day =</span> <span class="kw">as.numeric</span>(<span class="kw">substr</span>(Zuelpich_min_max[, <span class="dv">2</span>], <span class="dv">9</span>, <span class="dv">10</span>)),</span>
+<span id="cb25-6"><a href="making-hourly-temperatures.html#cb25-6"></a>  <span class="dt">Tmax =</span> final[, <span class="dv">3</span>],</span>
+<span id="cb25-7"><a href="making-hourly-temperatures.html#cb25-7"></a>  <span class="dt">Tmin =</span> final[, <span class="dv">4</span>]</span>
+<span id="cb25-8"><a href="making-hourly-temperatures.html#cb25-8"></a>)</span>
+<span id="cb25-9"><a href="making-hourly-temperatures.html#cb25-9"></a><span class="kw">kable</span>(ZU_weather_min_max[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>,])<span class="op">%&gt;%</span><span class="st"> </span><span class="kw">kable_styling</span>(<span class="st">&quot;striped&quot;</span>, <span class="dt">position =</span> <span class="st">&quot;left&quot;</span>, <span class="dt">font_size =</span> <span class="dv">10</span>,)</span></code></pre></div>
+<table class="table table-striped" style="font-size: 10px; ">
+<thead>
+<tr>
+<th style="text-align:right;">
+Year
+</th>
+<th style="text-align:right;">
+Month
+</th>
+<th style="text-align:right;">
+Day
+</th>
+<th style="text-align:right;">
+Tmax
+</th>
+<th style="text-align:right;">
+Tmin
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+2019
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+17.810000
+</td>
+<td style="text-align:right;">
+-0.420000
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2019
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+17.096667
+</td>
+<td style="text-align:right;">
+2.693333
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2019
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+9.983333
+</td>
+<td style="text-align:right;">
+5.481667
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2019
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+7.763333
+</td>
+<td style="text-align:right;">
+3.566667
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2019
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+17.810000
+</td>
+<td style="text-align:right;">
+-0.420000
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2019
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+17.096667
+</td>
+<td style="text-align:right;">
+2.693333
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2019
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+9.983333
+</td>
+<td style="text-align:right;">
+5.481667
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2019
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+9
+</td>
+<td style="text-align:right;">
+7.763333
+</td>
+<td style="text-align:right;">
+3.566667
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2019
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+17.810000
+</td>
+<td style="text-align:right;">
+-0.420000
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2019
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:right;">
+17.096667
+</td>
+<td style="text-align:right;">
+2.693333
+</td>
+</tr>
+</tbody>
+</table>
 
 </div>
 </div>
@@ -820,7 +2024,10 @@ gitbook.start({
 "toc": {
 "collapse": "subsection"
 },
-"toc_float": true
+"toc_float": true,
+"book_navbar": {
+"collapse": true
+}
 });
 });
 </script>

@@ -9,6 +9,8 @@ bookdown::gitbook:
     toc_float: yes
     edit: https://github.com/USERNAME/REPO/edit/BRANCH/%s
     download: ["pdf", "epub"]
+    book_navbar:
+      collapse: TRUE
 bookdown::pdf_book:
   includes:
     in_header: preamble.tex

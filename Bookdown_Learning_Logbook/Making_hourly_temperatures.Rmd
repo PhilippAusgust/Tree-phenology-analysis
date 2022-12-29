@@ -147,7 +147,96 @@ kable(final, caption = "Dataset:Tmean Tmax Tmin")%>%
 ```
 
 >
-Next, the dataset containing hourly temperature values must be extended with a column that will later represent the daily high and low values. First, the new column `Tmax_Tmin` is filled with "NAs". Then the maximum and minimum values are taken from the previously generated dataset `final`. These values are compared with the hourly values. If they match, the maximum or minimum value found is written to the previously created column `Tmax_Tmin`. In this way, the daily maximum and minimum values are placed in the table `zuelpich_april` at the same place where they were also measured.
+Next, the dataset containing hourly temperature values must be extended with a column that will later represent the daily high and low values. First, the new column `Tmax_Tmin` is filled with `NAs`. Then the maximum and minimum values are taken from the previously generated dataset `final`. These values are compared with the hourly values. If they match, the maximum or minimum value found is written to the previously created column `Tmax_Tmin`. In this way, the daily maximum and minimum values are placed in the table `zuelpich_april` at the same place where they were also measured.
 
 
+```{r, echo=TRUE}
+# generate new coloumn with NAs 
+zuelpich_april$Tmax_Tmin = NA
+
+# match Tmin
+for (i in seq(1, nrow(zuelpich_april))) {
+  for (j in seq(1, nrow(final))) {
+    if (zuelpich_april$temperature[i] == final$Tmax[j]) {
+      zuelpich_april$Tmax_Tmin[i] <- final$Tmax[j]
+    }
+  }
+}
+
+# match Tmax 
+for(i in seq(1, nrow(zuelpich_april))) {
+  for (j in seq(1, nrow(final))) {
+    if (zuelpich_april$temperature[i] == final$Tmin[j]) {
+      zuelpich_april$Tmax_Tmin[i] <- final$Tmin[j]
+    }
+  }
+}
+
+
+kable(zuelpich_april[1:25,], caption = "Dataset: TmaxTminMatch")%>% 
+  kable_styling("striped", position = "left", font_size = 10)
+```
+>
+After creating a new column containing only the `Tmax` and `Tmin` temperatures, a plot can be created that shows the measured temperature history and includes information on `Tmax` and `Tmin`. The red dots symbolize the daily temperature values for `Tmax` and `Tmin`, respectively.
+
+
+```{r,echo=TRUE, warning=FALSE, message=FALSE}
+
+ggplot(data = zuelpich_april, aes(x = zuelpich_april[, 4], y = zuelpich_april[, 2])) +
+  geom_line(size = 1.0, colour = "darkgreen") +
+  geom_point(aes(y = zuelpich_april$Tmax_Tmin),
+             colour = "red",
+             size = 3.0) +
+  labs(x = "Date", y = "Temperature (C°)") +
+  ggtitle("1 to 5 April 2019 weather station Zuelpich") +
+  theme_bw(base_size = 13)
+
+```
+>
+First, the dataset `ZU_weather` must be created. The columns `DATE`, `Year`, `Month`, `Day`, `Tcontinue`, and `Temp_inter` are created. The `Temp_inter` column contains temperature data with large gaps that must be interpolated between.
+
+```{r, echo = TRUE}
+ZU_weather = data.frame(
+  DATE = zuelpich_april[, 4],
+  Year = as.numeric(substr(zuelpich_april[, 4], 1, 4)),
+  Month = as.numeric(substr(zuelpich_april[, 4], 6, 7)),
+  Day = as.numeric(substr(zuelpich_april[, 4], 9, 10)),
+  Tcontinue = zuelpich_april[, 2],
+  Temp_inter = zuelpich_april[, 6]
+)
+
+kable(ZU_weather[1:8,])%>% kable_styling("striped", position = "left", font_size = 10,)
+```
+>
+The next step is to use the `interpolate_gaps()` function to calculate the missing temperatures between `Tmax` and `Tmin`. The function `interpolate_gaps()` returns a list with two entries. The first entry of the list contains the interpolated values, which can be accessed using `$interp` or `[[1]]`. The second entry, `$missing`, gives information on whether a value needs to be interpolated or if a real value is present. The function `interpolate_gaps()` linearly interpolates between gaps in the temperature records. The interpolated values are written directly to the Temp_inter column using the first list entry created by the `interpolate_gaps()` function.
+
+
+```{r, echo=TRUE}
+
+# interpolate between gaps in coloum Temp_inter 
+ZU_weather$Temp_inter <- interpolate_gaps(ZU_weather$Temp_inter)[[1]]
+
+# have a look at the first 10 entries
+kable(ZU_weather[1:10, ]) %>% 
+  kable_styling("striped", position = "left", font_size = 10, )
+
+```
+
+>
+Thus, all gaps in the column `Temp_inter` are filled by linear interpolation. The interpolation is performed between the gaps.
+>
+The non-linear interpolation method considers the sun's position at the respective location in the interpolation. In addition, the `stack_hourly_temps()` function requires a dataset as input that only contains `Tmax` and `Tmin` values. In this example, this dataset is called `ZU_weather_min_max` and consists of five columns: `Year`, `Month`, `Day`, `Tmax`, and `Tmin`.
+
+
+```{r, echo = TRUE}
+# create dataframe for non-linear interpolation
+ZU_weather_min_max = data.frame(
+  Year = as.numeric(substr(Zuelpich_min_max[, 2], 1, 4)),
+  Month = as.numeric(substr(Zuelpich_min_max[, 2], 6, 7)),
+  Day = as.numeric(substr(Zuelpich_min_max[, 2], 9, 10)),
+  Tmax = final[, 3],
+  Tmin = final[, 4]
+)
+kable(ZU_weather_min_max[1:10,])%>% kable_styling("striped", position = "left", font_size = 10,)
+```
 

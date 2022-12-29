@@ -127,7 +127,7 @@
 
 \title{Learning LogBook Tree phenology analysis with R}
 \author{Philipp Münker}
-\date{2022-12-28}
+\date{2022-12-29}
 
 \begin{document}
 \maketitle
@@ -855,8 +855,252 @@ Tag & Mittel & Tmax & Tmin\\
 \end{table}
 
 \begin{quote}
-Next, the dataset containing hourly temperature values must be extended with a column that will later represent the daily high and low values. First, the new column \texttt{Tmax\_Tmin} is filled with ``NAs''. Then the maximum and minimum values are taken from the previously generated dataset \texttt{final}. These values are compared with the hourly values. If they match, the maximum or minimum value found is written to the previously created column \texttt{Tmax\_Tmin}. In this way, the daily maximum and minimum values are placed in the table \texttt{zuelpich\_april} at the same place where they were also measured.
+Next, the dataset containing hourly temperature values must be extended with a column that will later represent the daily high and low values. First, the new column \texttt{Tmax\_Tmin} is filled with \texttt{NAs}. Then the maximum and minimum values are taken from the previously generated dataset \texttt{final}. These values are compared with the hourly values. If they match, the maximum or minimum value found is written to the previously created column \texttt{Tmax\_Tmin}. In this way, the daily maximum and minimum values are placed in the table \texttt{zuelpich\_april} at the same place where they were also measured.
 \end{quote}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# generate new coloumn with NAs }
+\NormalTok{zuelpich_april}\OperatorTok{$}\NormalTok{Tmax_Tmin =}\StringTok{ }\OtherTok{NA}
+
+\CommentTok{# match Tmin}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \KeywordTok{seq}\NormalTok{(}\DecValTok{1}\NormalTok{, }\KeywordTok{nrow}\NormalTok{(zuelpich_april))) \{}
+  \ControlFlowTok{for}\NormalTok{ (j }\ControlFlowTok{in} \KeywordTok{seq}\NormalTok{(}\DecValTok{1}\NormalTok{, }\KeywordTok{nrow}\NormalTok{(final))) \{}
+    \ControlFlowTok{if}\NormalTok{ (zuelpich_april}\OperatorTok{$}\NormalTok{temperature[i] }\OperatorTok{==}\StringTok{ }\NormalTok{final}\OperatorTok{$}\NormalTok{Tmax[j]) \{}
+\NormalTok{      zuelpich_april}\OperatorTok{$}\NormalTok{Tmax_Tmin[i] <-}\StringTok{ }\NormalTok{final}\OperatorTok{$}\NormalTok{Tmax[j]}
+\NormalTok{    \}}
+\NormalTok{  \}}
+\NormalTok{\}}
+
+\CommentTok{# match Tmax }
+\ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in} \KeywordTok{seq}\NormalTok{(}\DecValTok{1}\NormalTok{, }\KeywordTok{nrow}\NormalTok{(zuelpich_april))) \{}
+  \ControlFlowTok{for}\NormalTok{ (j }\ControlFlowTok{in} \KeywordTok{seq}\NormalTok{(}\DecValTok{1}\NormalTok{, }\KeywordTok{nrow}\NormalTok{(final))) \{}
+    \ControlFlowTok{if}\NormalTok{ (zuelpich_april}\OperatorTok{$}\NormalTok{temperature[i] }\OperatorTok{==}\StringTok{ }\NormalTok{final}\OperatorTok{$}\NormalTok{Tmin[j]) \{}
+\NormalTok{      zuelpich_april}\OperatorTok{$}\NormalTok{Tmax_Tmin[i] <-}\StringTok{ }\NormalTok{final}\OperatorTok{$}\NormalTok{Tmin[j]}
+\NormalTok{    \}}
+\NormalTok{  \}}
+\NormalTok{\}}
+
+
+\KeywordTok{kable}\NormalTok{(zuelpich_april[}\DecValTok{1}\OperatorTok{:}\DecValTok{25}\NormalTok{,], }\DataTypeTok{caption =} \StringTok{"Dataset: TmaxTminMatch"}\NormalTok{)}\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{kable_styling}\NormalTok{(}\StringTok{"striped"}\NormalTok{, }\DataTypeTok{position =} \StringTok{"left"}\NormalTok{, }\DataTypeTok{font_size =} \DecValTok{10}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}
+
+\caption{\label{tab:unnamed-chunk-22}Dataset: TmaxTminMatch}
+\fontsize{10}{12}\selectfont
+\begin{tabular}[t]{r|r|l|l|l|r}
+\hline
+X & temperature & date & date\_new & date\_newnew & Tmax\_Tmin\\
+\hline
+1412 & 3.4350000 & 2019-04-01 01:00:00 & 2019-04-01 01:00:00 & 2019-04-01 & NA\\
+\hline
+1413 & 2.0900000 & 2019-04-01 02:00:00 & 2019-04-01 02:00:00 & 2019-04-01 & NA\\
+\hline
+1414 & 1.2616667 & 2019-04-01 03:00:00 & 2019-04-01 03:00:00 & 2019-04-01 & NA\\
+\hline
+1415 & 0.6150000 & 2019-04-01 04:00:00 & 2019-04-01 04:00:00 & 2019-04-01 & NA\\
+\hline
+1416 & 0.0583333 & 2019-04-01 05:00:00 & 2019-04-01 05:00:00 & 2019-04-01 & NA\\
+\hline
+1417 & -0.3566667 & 2019-04-01 06:00:00 & 2019-04-01 06:00:00 & 2019-04-01 & NA\\
+\hline
+1418 & -0.4200000 & 2019-04-01 07:00:00 & 2019-04-01 07:00:00 & 2019-04-01 & -0.42\\
+\hline
+1419 & 0.9666667 & 2019-04-01 08:00:00 & 2019-04-01 08:00:00 & 2019-04-01 & NA\\
+\hline
+1420 & 3.9333334 & 2019-04-01 09:00:00 & 2019-04-01 09:00:00 & 2019-04-01 & NA\\
+\hline
+1421 & 6.4183333 & 2019-04-01 10:00:00 & 2019-04-01 10:00:00 & 2019-04-01 & NA\\
+\hline
+1422 & 9.2050000 & 2019-04-01 11:00:00 & 2019-04-01 11:00:00 & 2019-04-01 & NA\\
+\hline
+1423 & 11.6483333 & 2019-04-01 12:00:00 & 2019-04-01 12:00:00 & 2019-04-01 & NA\\
+\hline
+1424 & 13.0883333 & 2019-04-01 13:00:00 & 2019-04-01 13:00:00 & 2019-04-01 & NA\\
+\hline
+1425 & 14.5100000 & 2019-04-01 14:00:00 & 2019-04-01 14:00:00 & 2019-04-01 & NA\\
+\hline
+1426 & 16.2199999 & 2019-04-01 15:00:00 & 2019-04-01 15:00:00 & 2019-04-01 & NA\\
+\hline
+1427 & 17.4650000 & 2019-04-01 16:00:00 & 2019-04-01 16:00:00 & 2019-04-01 & NA\\
+\hline
+1428 & 17.8100000 & 2019-04-01 17:00:00 & 2019-04-01 17:00:00 & 2019-04-01 & 17.81\\
+\hline
+1429 & 16.8549999 & 2019-04-01 18:00:00 & 2019-04-01 18:00:00 & 2019-04-01 & NA\\
+\hline
+1430 & 14.0283333 & 2019-04-01 19:00:00 & 2019-04-01 19:00:00 & 2019-04-01 & NA\\
+\hline
+1431 & 10.4783333 & 2019-04-01 20:00:00 & 2019-04-01 20:00:00 & 2019-04-01 & NA\\
+\hline
+1432 & 7.3850000 & 2019-04-01 21:00:00 & 2019-04-01 21:00:00 & 2019-04-01 & NA\\
+\hline
+1433 & 6.1783334 & 2019-04-01 22:00:00 & 2019-04-01 22:00:00 & 2019-04-01 & NA\\
+\hline
+1434 & 5.2233333 & 2019-04-01 23:00:00 & 2019-04-01 23:00:00 & 2019-04-01 & NA\\
+\hline
+1435 & 4.9883333 & 2019-04-02 00:00:00 & 2019-04-02 00:00:00 & 2019-04-02 & NA\\
+\hline
+1436 & 4.2500000 & 2019-04-02 01:00:00 & 2019-04-02 01:00:00 & 2019-04-02 & NA\\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{quote}
+After creating a new column containing only the \texttt{Tmax} and \texttt{Tmin} temperatures, a plot can be created that shows the measured temperature history and includes information on \texttt{Tmax} and \texttt{Tmin}. The red dots symbolize the daily temperature values for \texttt{Tmax} and \texttt{Tmin}, respectively.
+\end{quote}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ zuelpich_april, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ zuelpich_april[, }\DecValTok{4}\NormalTok{], }\DataTypeTok{y =}\NormalTok{ zuelpich_april[, }\DecValTok{2}\NormalTok{])) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_line}\NormalTok{(}\DataTypeTok{size =} \FloatTok{1.0}\NormalTok{, }\DataTypeTok{colour =} \StringTok{"darkgreen"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{y =}\NormalTok{ zuelpich_april}\OperatorTok{$}\NormalTok{Tmax_Tmin),}
+             \DataTypeTok{colour =} \StringTok{"red"}\NormalTok{,}
+             \DataTypeTok{size =} \FloatTok{3.0}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{x =} \StringTok{"Date"}\NormalTok{, }\DataTypeTok{y =} \StringTok{"Temperature (C°)"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{ggtitle}\NormalTok{(}\StringTok{"1 to 5 April 2019 weather station Zuelpich"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{theme_bw}\NormalTok{(}\DataTypeTok{base_size =} \DecValTok{13}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Tree-Phenology_files/figure-latex/unnamed-chunk-23-1.pdf}
+\textgreater{}
+First, the dataset \texttt{ZU\_weather} must be created. The columns \texttt{DATE}, \texttt{Year}, \texttt{Month}, \texttt{Day}, \texttt{Tcontinue}, and \texttt{Temp\_inter} are created. The \texttt{Temp\_inter} column contains temperature data with large gaps that must be interpolated between.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ZU_weather =}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}
+  \DataTypeTok{DATE =}\NormalTok{ zuelpich_april[, }\DecValTok{4}\NormalTok{],}
+  \DataTypeTok{Year =} \KeywordTok{as.numeric}\NormalTok{(}\KeywordTok{substr}\NormalTok{(zuelpich_april[, }\DecValTok{4}\NormalTok{], }\DecValTok{1}\NormalTok{, }\DecValTok{4}\NormalTok{)),}
+  \DataTypeTok{Month =} \KeywordTok{as.numeric}\NormalTok{(}\KeywordTok{substr}\NormalTok{(zuelpich_april[, }\DecValTok{4}\NormalTok{], }\DecValTok{6}\NormalTok{, }\DecValTok{7}\NormalTok{)),}
+  \DataTypeTok{Day =} \KeywordTok{as.numeric}\NormalTok{(}\KeywordTok{substr}\NormalTok{(zuelpich_april[, }\DecValTok{4}\NormalTok{], }\DecValTok{9}\NormalTok{, }\DecValTok{10}\NormalTok{)),}
+  \DataTypeTok{Tcontinue =}\NormalTok{ zuelpich_april[, }\DecValTok{2}\NormalTok{],}
+  \DataTypeTok{Temp_inter =}\NormalTok{ zuelpich_april[, }\DecValTok{6}\NormalTok{]}
+\NormalTok{)}
+
+\KeywordTok{kable}\NormalTok{(ZU_weather[}\DecValTok{1}\OperatorTok{:}\DecValTok{8}\NormalTok{,])}\OperatorTok{%>%}\StringTok{ }\KeywordTok{kable_styling}\NormalTok{(}\StringTok{"striped"}\NormalTok{, }\DataTypeTok{position =} \StringTok{"left"}\NormalTok{, }\DataTypeTok{font_size =} \DecValTok{10}\NormalTok{,)}
+\end{Highlighting}
+\end{Shaded}
+
+\begingroup\fontsize{10}{12}\selectfont
+
+\begin{tabular}{l|r|r|r|r|r}
+\hline
+DATE & Year & Month & Day & Tcontinue & Temp\_inter\\
+\hline
+2019-04-01 01:00:00 & 2019 & 4 & 1 & 3.4350000 & NA\\
+\hline
+2019-04-01 02:00:00 & 2019 & 4 & 1 & 2.0900000 & NA\\
+\hline
+2019-04-01 03:00:00 & 2019 & 4 & 1 & 1.2616667 & NA\\
+\hline
+2019-04-01 04:00:00 & 2019 & 4 & 1 & 0.6150000 & NA\\
+\hline
+2019-04-01 05:00:00 & 2019 & 4 & 1 & 0.0583333 & NA\\
+\hline
+2019-04-01 06:00:00 & 2019 & 4 & 1 & -0.3566667 & NA\\
+\hline
+2019-04-01 07:00:00 & 2019 & 4 & 1 & -0.4200000 & -0.42\\
+\hline
+2019-04-01 08:00:00 & 2019 & 4 & 1 & 0.9666667 & NA\\
+\hline
+\end{tabular}
+\endgroup{}
+
+\begin{quote}
+The next step is to use the \texttt{interpolate\_gaps()} function to calculate the missing temperatures between \texttt{Tmax} and \texttt{Tmin}. The function \texttt{interpolate\_gaps()} returns a list with two entries. The first entry of the list contains the interpolated values, which can be accessed using \texttt{\$interp} or \texttt{{[}{[}1{]}{]}}. The second entry, \texttt{\$missing}, gives information on whether a value needs to be interpolated or if a real value is present. The function \texttt{interpolate\_gaps()} linearly interpolates between gaps in the temperature records. The interpolated values are written directly to the Temp\_inter column using the first list entry created by the \texttt{interpolate\_gaps()} function.
+\end{quote}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# interpolate between gaps in coloum Temp_inter }
+\NormalTok{ZU_weather}\OperatorTok{$}\NormalTok{Temp_inter <-}\StringTok{ }\KeywordTok{interpolate_gaps}\NormalTok{(ZU_weather}\OperatorTok{$}\NormalTok{Temp_inter)[[}\DecValTok{1}\NormalTok{]]}
+
+\CommentTok{# have a look at the first 10 entries}
+\KeywordTok{kable}\NormalTok{(ZU_weather[}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{, ]) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{kable_styling}\NormalTok{(}\StringTok{"striped"}\NormalTok{, }\DataTypeTok{position =} \StringTok{"left"}\NormalTok{, }\DataTypeTok{font_size =} \DecValTok{10}\NormalTok{, )}
+\end{Highlighting}
+\end{Shaded}
+
+\begingroup\fontsize{10}{12}\selectfont
+
+\begin{tabular}{l|r|r|r|r|r}
+\hline
+DATE & Year & Month & Day & Tcontinue & Temp\_inter\\
+\hline
+2019-04-01 01:00:00 & 2019 & 4 & 1 & 3.4350000 & -0.420\\
+\hline
+2019-04-01 02:00:00 & 2019 & 4 & 1 & 2.0900000 & -0.420\\
+\hline
+2019-04-01 03:00:00 & 2019 & 4 & 1 & 1.2616667 & -0.420\\
+\hline
+2019-04-01 04:00:00 & 2019 & 4 & 1 & 0.6150000 & -0.420\\
+\hline
+2019-04-01 05:00:00 & 2019 & 4 & 1 & 0.0583333 & -0.420\\
+\hline
+2019-04-01 06:00:00 & 2019 & 4 & 1 & -0.3566667 & -0.420\\
+\hline
+2019-04-01 07:00:00 & 2019 & 4 & 1 & -0.4200000 & -0.420\\
+\hline
+2019-04-01 08:00:00 & 2019 & 4 & 1 & 0.9666667 & 1.403\\
+\hline
+2019-04-01 09:00:00 & 2019 & 4 & 1 & 3.9333334 & 3.226\\
+\hline
+2019-04-01 10:00:00 & 2019 & 4 & 1 & 6.4183333 & 5.049\\
+\hline
+\end{tabular}
+\endgroup{}
+
+\begin{quote}
+Thus, all gaps in the column \texttt{Temp\_inter} are filled by linear interpolation. The interpolation is performed between the gaps.
+
+The non-linear interpolation method considers the sun's position at the respective location in the interpolation. In addition, the \texttt{stack\_hourly\_temps()} function requires a dataset as input that only contains \texttt{Tmax} and \texttt{Tmin} values. In this example, this dataset is called \texttt{ZU\_weather\_min\_max} and consists of five columns: \texttt{Year}, \texttt{Month}, \texttt{Day}, \texttt{Tmax}, and \texttt{Tmin}.
+\end{quote}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# create dataframe for non-linear interpolation}
+\NormalTok{ZU_weather_min_max =}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}
+  \DataTypeTok{Year =} \KeywordTok{as.numeric}\NormalTok{(}\KeywordTok{substr}\NormalTok{(Zuelpich_min_max[, }\DecValTok{2}\NormalTok{], }\DecValTok{1}\NormalTok{, }\DecValTok{4}\NormalTok{)),}
+  \DataTypeTok{Month =} \KeywordTok{as.numeric}\NormalTok{(}\KeywordTok{substr}\NormalTok{(Zuelpich_min_max[, }\DecValTok{2}\NormalTok{], }\DecValTok{6}\NormalTok{, }\DecValTok{7}\NormalTok{)),}
+  \DataTypeTok{Day =} \KeywordTok{as.numeric}\NormalTok{(}\KeywordTok{substr}\NormalTok{(Zuelpich_min_max[, }\DecValTok{2}\NormalTok{], }\DecValTok{9}\NormalTok{, }\DecValTok{10}\NormalTok{)),}
+  \DataTypeTok{Tmax =}\NormalTok{ final[, }\DecValTok{3}\NormalTok{],}
+  \DataTypeTok{Tmin =}\NormalTok{ final[, }\DecValTok{4}\NormalTok{]}
+\NormalTok{)}
+\KeywordTok{kable}\NormalTok{(ZU_weather_min_max[}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{,])}\OperatorTok{%>%}\StringTok{ }\KeywordTok{kable_styling}\NormalTok{(}\StringTok{"striped"}\NormalTok{, }\DataTypeTok{position =} \StringTok{"left"}\NormalTok{, }\DataTypeTok{font_size =} \DecValTok{10}\NormalTok{,)}
+\end{Highlighting}
+\end{Shaded}
+
+\begingroup\fontsize{10}{12}\selectfont
+
+\begin{tabular}{r|r|r|r|r}
+\hline
+Year & Month & Day & Tmax & Tmin\\
+\hline
+2019 & 2 & 2 & 17.810000 & -0.420000\\
+\hline
+2019 & 2 & 3 & 17.096667 & 2.693333\\
+\hline
+2019 & 2 & 4 & 9.983333 & 5.481667\\
+\hline
+2019 & 2 & 5 & 7.763333 & 3.566667\\
+\hline
+2019 & 2 & 6 & 17.810000 & -0.420000\\
+\hline
+2019 & 2 & 7 & 17.096667 & 2.693333\\
+\hline
+2019 & 2 & 8 & 9.983333 & 5.481667\\
+\hline
+2019 & 2 & 9 & 7.763333 & 3.566667\\
+\hline
+2019 & 2 & 10 & 17.810000 & -0.420000\\
+\hline
+2019 & 2 & 11 & 17.096667 & 2.693333\\
+\hline
+\end{tabular}
+\endgroup{}
 
   \bibliography{book.bib,packages.bib}
 
