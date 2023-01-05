@@ -23,7 +23,7 @@
 <meta name="author" content="Philipp Münker" />
 
 
-<meta name="date" content="2022-12-29" />
+<meta name="date" content="2023-01-05" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -55,6 +55,14 @@
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="libs/proj4-2.6.2/proj4.min.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-binding-2.1.1/leaflet.js"></script>
 
 
 <style type="text/css">
@@ -164,6 +172,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.1" data-path="making-hourly-temperatures.html"><a href="making-hourly-temperatures.html#task-1-4"><i class="fa fa-check"></i><b>7.1</b> Task 1</a></li>
 <li class="chapter" data-level="7.2" data-path="making-hourly-temperatures.html"><a href="making-hourly-temperatures.html#task-2-3"><i class="fa fa-check"></i><b>7.2</b> Task 2</a></li>
 </ul></li>
+<li class="chapter" data-level="8" data-path="getting-temperature-data.html"><a href="getting-temperature-data.html"><i class="fa fa-check"></i><b>8</b> Getting temperature data</a><ul>
+<li class="chapter" data-level="8.1" data-path="getting-temperature-data.html"><a href="getting-temperature-data.html#task-1-5"><i class="fa fa-check"></i><b>8.1</b> Task 1</a></li>
+<li class="chapter" data-level="8.2" data-path="getting-temperature-data.html"><a href="getting-temperature-data.html#task-2-4"><i class="fa fa-check"></i><b>8.2</b> Task 2</a></li>
+<li class="chapter" data-level="8.3" data-path="getting-temperature-data.html"><a href="getting-temperature-data.html#task-3-2"><i class="fa fa-check"></i><b>8.3</b> Task 3</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="filling-gaps-in-temperature-records.html"><a href="filling-gaps-in-temperature-records.html"><i class="fa fa-check"></i><b>9</b> Filling gaps in temperature records</a><ul>
+<li class="chapter" data-level="9.1" data-path="filling-gaps-in-temperature-records.html"><a href="filling-gaps-in-temperature-records.html#task-1-6"><i class="fa fa-check"></i><b>9.1</b> Task 1</a></li>
+<li class="chapter" data-level="9.2" data-path="filling-gaps-in-temperature-records.html"><a href="filling-gaps-in-temperature-records.html#task-2-5"><i class="fa fa-check"></i><b>9.2</b> Task 2</a></li>
+<li class="chapter" data-level="9.3" data-path="filling-gaps-in-temperature-records.html"><a href="filling-gaps-in-temperature-records.html#task-3-3"><i class="fa fa-check"></i><b>9.3</b> Task 3</a></li>
+<li class="chapter" data-level="9.4" data-path="filling-gaps-in-temperature-records.html"><a href="filling-gaps-in-temperature-records.html#task-4"><i class="fa fa-check"></i><b>9.4</b> Task 4</a></li>
+<li class="chapter" data-level="9.5" data-path="filling-gaps-in-temperature-records.html"><a href="filling-gaps-in-temperature-records.html#task-5"><i class="fa fa-check"></i><b>9.5</b> Task 5</a></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -202,8 +222,10 @@ The <code>chilling()</code> function combines the functions described above and 
 <span id="cb7-5"><a href="chill-models.html#cb7-5"></a>           <span class="dt">End_JDay =</span> <span class="dv">100</span>)</span>
 <span id="cb7-6"><a href="chill-models.html#cb7-6"></a></span>
 <span id="cb7-7"><a href="chill-models.html#cb7-7"></a><span class="kw">kable</span>(output, <span class="dt">caption =</span><span class="st">&quot;chilling function on Winters_hours_gap&quot;</span>) <span class="op">%&gt;%</span></span>
-<span id="cb7-8"><a href="chill-models.html#cb7-8"></a><span class="kw">kable_classic_2</span>(<span class="dt">full_width =</span> F, <span class="dt">font_size =</span> <span class="dv">7</span>)</span></code></pre></div>
-<table class=" lightable-classic-2" style='font-size: 7px; font-family: "Arial Narrow", "Source Sans Pro", sans-serif; width: auto !important; margin-left: auto; margin-right: auto;'>
+<span id="cb7-8"><a href="chill-models.html#cb7-8"></a><span class="st">        </span><span class="kw">kable_styling</span>(<span class="st">&quot;striped&quot;</span>, <span class="dt">position =</span> <span class="st">&quot;left&quot;</span>, <span class="dt">font_size =</span> <span class="dv">10</span>)<span class="op">%&gt;%</span></span>
+<span id="cb7-9"><a href="chill-models.html#cb7-9"></a><span class="st">        </span><span class="kw">scroll_box</span>(<span class="dt">width =</span> <span class="st">&quot;100%&quot;</span>)</span></code></pre></div>
+<div style="border: 1px solid #ddd; padding: 5px; overflow-x: scroll; width:100%; ">
+<table class="table table-striped" style="font-size: 10px; ">
 <caption style="font-size: initial !important;">
 <span id="tab:unnamed-chunk-9">Table 6.1: </span>chilling function on Winters_hours_gap
 </caption>
@@ -270,6 +292,7 @@ GDH
 </tr>
 </tbody>
 </table>
+</div>
 </div>
 <div id="task2" class="section level2 hasAnchor">
 <h2><span class="header-section-number">6.2</span> Task2<a href="chill-models.html#task2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -341,8 +364,10 @@ temperature can be multiplied by the corresponding weight to obtain the amount o
 <span id="cb12-13"><a href="chill-models.html#cb12-13"></a></span>
 <span id="cb12-14"><a href="chill-models.html#cb12-14"></a><span class="co"># display result</span></span>
 <span id="cb12-15"><a href="chill-models.html#cb12-15"></a><span class="kw">kable</span>(output, <span class="dt">caption =</span> <span class="st">&quot;Summarized some models&quot;</span>) <span class="op">%&gt;%</span></span>
-<span id="cb12-16"><a href="chill-models.html#cb12-16"></a><span class="st">  </span><span class="kw">kable_styling</span>(<span class="st">&quot;striped&quot;</span>, <span class="dt">position =</span> <span class="st">&quot;left&quot;</span>, <span class="dt">font_size =</span> <span class="dv">7</span>)</span></code></pre></div>
-<table class="table table-striped" style="font-size: 7px; ">
+<span id="cb12-16"><a href="chill-models.html#cb12-16"></a><span class="st">        </span><span class="kw">kable_styling</span>(<span class="st">&quot;striped&quot;</span>, <span class="dt">position =</span> <span class="st">&quot;left&quot;</span>, <span class="dt">font_size =</span> <span class="dv">10</span>)<span class="op">%&gt;%</span></span>
+<span id="cb12-17"><a href="chill-models.html#cb12-17"></a><span class="st">        </span><span class="kw">scroll_box</span>(<span class="dt">width =</span> <span class="st">&quot;100%&quot;</span>)</span></code></pre></div>
+<div style="border: 1px solid #ddd; padding: 5px; overflow-x: scroll; width:100%; ">
+<table class="table table-striped" style="font-size: 10px; ">
 <caption style="font-size: initial !important;">
 <span id="tab:unnamed-chunk-13">Table 6.2: </span>Summarized some models
 </caption>
@@ -409,6 +434,7 @@ Utah_Model
 </tr>
 </tbody>
 </table>
+</div>
 <blockquote>
 <p>If the Utah Model is included, which is based on the default settings of the Step Model, a clear difference between the modified Step Model and the Utah Model can be observed.</p>
 </blockquote>

@@ -25,7 +25,8 @@ output =
            End_JDay = 100)
 
 kable(output, caption ="chilling function on Winters_hours_gap") %>%
-kable_classic_2(full_width = F, font_size = 7)
+        kable_styling("striped", position = "left", font_size = 10)%>%
+        scroll_box(width = "100%")
 ```
 
 
@@ -107,7 +108,8 @@ output <-
 
 # display result
 kable(output, caption = "Summarized some models") %>%
-  kable_styling("striped", position = "left", font_size = 7)
+        kable_styling("striped", position = "left", font_size = 10)%>%
+        scroll_box(width = "100%")
 ```
 
 >

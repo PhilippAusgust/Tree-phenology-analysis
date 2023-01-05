@@ -8,6 +8,11 @@ tab:unnamed-chunk-17
 tab:unnamed-chunk-20
 tab:unnamed-chunk-21
 tab:unnamed-chunk-22
+tab:unnamed-chunk-29
+tab:unnamed-chunk-30
+tab:unnamed-chunk-31
+tab:unnamed-chunk-32
+tab:unnamed-chunk-33
 introduction
 tree-phenology
 treedormancy
@@ -28,3 +33,13 @@ task3
 making-hourly-temperatures
 task-1-4
 task-2-3
+getting-temperature-data
+task-1-5
+task-2-4
+task-3-2
+filling-gaps-in-temperature-records
+task-1-6
+task-2-5
+task-3-3
+task-4
+task-5

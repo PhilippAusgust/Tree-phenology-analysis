@@ -10,5 +10,7 @@ rmd_files: [
   "03-cl_change.Rmd",
   "04-manual_chill_analysis.Rmd",
   "04-chill_models.Rmd",
-  "Making_hourly_temperatures.Rmd"
+  "Making_hourly_temperatures.Rmd",
+  "Getting_temperature_data.Rmd",
+  "Filling_gaps_in_temperature_records.Rmd"
 ]

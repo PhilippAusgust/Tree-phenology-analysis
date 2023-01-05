@@ -1,0 +1,115 @@
+# Filling gaps in temperature records
+
+## Task 1
+
+**Use chillR functions to find out how many gaps you have in this dataset  (even if you have none, please still follow all further steps)**
+
+
+```{r,echo=TRUE}
+
+Leszno = read.csv("weather_data/Poland_leszno_chillR_weather.csv")
+
+# detected many gaps 
+Leszno_QC = fix_weather(Leszno)$QC
+
+kable(Leszno_QC, caption = "Quality Check  for Data Leszno ") %>%
+  kable_styling("striped", position = "left", font_size = 10) %>%
+  scroll_box(width = "100%")
+```
+
+>
+Upon closer examination, the seemingly promising location of Leszno exhibits many gaps in temperature data, particularly after 2005. These gaps must be filled with temperature data from neighboring stations.
+
+## Task 2 
+
+**Create a list of the 25 closest weather stations using the handle_gsod function**
+
+```{r, echo = TRUE}
+# station_list_close_to_leszno<-
+#   handle_gsod(action="list_stations",location=c(16.57,51.85),time_interval=c(1990,2020))
+
+# write.csv(station_list_close_to_leszno,"station_list_close_to_leszno.csv" )
+
+station_list_close_to_leszno = read.csv("station_list_close_to_leszno.csv")
+
+kable(station_list_close_to_leszno[1:10,], 
+      caption="List of GSOD weather stations close to Leszno")%>%
+  kable_styling("striped", position = "left", font_size = 10) %>%
+  scroll_box(width = "100%")
+```
+
+## Task 3
+
+**Identify suitable weather stations for patching gaps**
+
+>
+After reviewing the nearest weather stations to the Leszno location, KRZESINY, BABIMOST and LAWICA stations were identified as suitable for filling in the gaps in temperature data. These stations are ranked 4th, 6th and 7th on the list. All used locations have been plotted on the map.
+
+```{r, echo=TRUE}
+
+library(leaflet)
+df <- data.frame(lat = c(52.332, 52.139, 52.421, 51.833),
+                 lng = c(16.966, 15.799, 16.826, 16.533),
+                 label = c("KRZESINY", "BABIMOST", "LAWICA", "LESZNO"))
+m <- leaflet(width = "600px", height = "400px")
+m <- addTiles(m)
+m <- addMarkers(m, data = df, label = ~label, lat = ~lat, lng = ~lng,
+                labelOptions = labelOptions(direction = "auto"))
+m
+```
+
+## Task 4
+
+**Download weather data for promising stations, convert them to chillR format and compile them in a list**
+
+
+>
+Weather data from the previously selected stations must now be downloaded. To avoid having to do this every time, the data is saved using the `save_temperature_scenario()` function and subsequently loaded using the `load_temperature_scenarios()` function. Afterwards, some statistics are used to determine the success of the data completion.
+```{r, echo =TRUE}
+
+# create a vector for looping
+# positions_in_station_list<-c(4,6,7)
+
+# create empty list 
+# patch_weather<-list()
+
+
+
+# for(i in 1:length(positions_in_station_list))
+# {
+#   patch_weather[[i]] <-
+#     handle_gsod(
+#       handle_gsod(
+#         action = "download_weather",
+#         location = station_list_close_to_leszno$chillR_code[positions_in_station_list[i]],
+#         time_interval = c(1990, 2020)
+#       )
+#     )[[1]]$weather
+#   names(patch_weather)[i] <-
+#     station_list_close_to_leszno$STATION.NAME[positions_in_station_list[i]]
+# }
+
+# save result
+# save_temperature_scenarios(patch_weather,"weather_data/gepatchtes_Wetter_PL", "patch_weather_pl")
+
+#load result
+patch_weather<-load_temperature_scenarios("weather_data/gepatchtes_Wetter_PL", "patch_weather_pl")
+```
+
+
+
+
+## Task 5
+
+**Use the patch_daily_temperatures function to fill gaps**
+
+```{r, echo=TRUE}
+patched<-patch_daily_temperatures(weather = Leszno,
+                                  patch_weather = patch_weather)
+
+```
+
+
+
+
+

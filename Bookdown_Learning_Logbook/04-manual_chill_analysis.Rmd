@@ -25,8 +25,10 @@ cleaned_data = function(data_source) {
 }
 
 # Apply Function to Winters_hours_gaps
-kable(head(cleaned_data(data_source = Winters_hours_gaps)), 
-      "pipe", caption = "Cleaned  Dataset: Winters_hours_gaps")
+kable(head(cleaned_data(data_source = Winters_hours_gaps)),
+      caption = "Cleaned  Dataset: Winters_hours_gaps")%>%
+      kable_styling("striped", position = "left", font_size = 10)%>%
+      scroll_box(width = "100%")
 ```
 
 
@@ -53,16 +55,19 @@ WH = function(hourtemps)
 
 ```{r, echo=TRUE}
 # have a look to the data set
-kable(head(Winters_hours_gaps), 
-      "pipe", caption = 
-        "Example Dataset: Winters_hours_gaps") 
+kable(head(Winters_hours_gaps),caption = 
+        "Example Dataset: Winters_hours_gaps")%>%
+        kable_styling("striped", position = "left", font_size = 10)%>%
+        scroll_box(width = "100%")
 ```
 
 
 ```{r,echo =TRUE}
 # Apply Function
 hourtemps = cleaned_data(data_source = Winters_hours_gaps)
-kable(head(WH(hourtemps = hourtemps)), "pipe")
+kable(head(WH(hourtemps = hourtemps)))%>%
+        kable_styling("striped", position = "left", font_size = 10)%>%
+        scroll_box(width = "100%")
 ```
 
 

@@ -127,7 +127,7 @@
 
 \title{Learning LogBook Tree phenology analysis with R}
 \author{Philipp Münker}
-\date{2022-12-29}
+\date{2023-01-05}
 
 \begin{document}
 \maketitle
@@ -293,29 +293,37 @@ The \texttt{Winters\_hours\_gaps} data set has the columns: \texttt{Year}, \text
 \NormalTok{\}}
 
 \CommentTok{# Apply Function to Winters_hours_gaps}
-\KeywordTok{kable}\NormalTok{(}\KeywordTok{head}\NormalTok{(}\KeywordTok{cleaned_data}\NormalTok{(}\DataTypeTok{data_source =}\NormalTok{ Winters_hours_gaps)), }
-      \StringTok{"pipe"}\NormalTok{, }\DataTypeTok{caption =} \StringTok{"Cleaned  Dataset: Winters_hours_gaps"}\NormalTok{)}
+\KeywordTok{kable}\NormalTok{(}\KeywordTok{head}\NormalTok{(}\KeywordTok{cleaned_data}\NormalTok{(}\DataTypeTok{data_source =}\NormalTok{ Winters_hours_gaps)),}
+      \DataTypeTok{caption =} \StringTok{"Cleaned  Dataset: Winters_hours_gaps"}\NormalTok{)}\OperatorTok{%>%}
+\StringTok{      }\KeywordTok{kable_styling}\NormalTok{(}\StringTok{"striped"}\NormalTok{, }\DataTypeTok{position =} \StringTok{"left"}\NormalTok{, }\DataTypeTok{font_size =} \DecValTok{10}\NormalTok{)}\OperatorTok{%>%}
+\StringTok{      }\KeywordTok{scroll_box}\NormalTok{(}\DataTypeTok{width =} \StringTok{"100%"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{longtable}[]{@{}rrrrr@{}}
-\caption{\label{tab:unnamed-chunk-4}Cleaned Dataset: Winters\_hours\_gaps}\tabularnewline
-\toprule
-Year & Month & Day & Hour & Temp\tabularnewline
-\midrule
-\endfirsthead
-\toprule
-Year & Month & Day & Hour & Temp\tabularnewline
-\midrule
-\endhead
-2008 & 3 & 3 & 10 & 15.127\tabularnewline
-2008 & 3 & 3 & 11 & 17.153\tabularnewline
-2008 & 3 & 3 & 12 & 18.699\tabularnewline
-2008 & 3 & 3 & 13 & 18.699\tabularnewline
-2008 & 3 & 3 & 14 & 18.842\tabularnewline
-2008 & 3 & 3 & 15 & 19.508\tabularnewline
-\bottomrule
-\end{longtable}
+\textbackslash begin\{table\}
+
+\textbackslash caption\{\label{tab:unnamed-chunk-4}Cleaned Dataset: Winters\_hours\_gaps\}
+\fontsize{10}{12}\selectfont
+
+\begin{tabular}[t]{r|r|r|r|r}
+\hline
+Year & Month & Day & Hour & Temp\\
+\hline
+2008 & 3 & 3 & 10 & 15.127\\
+\hline
+2008 & 3 & 3 & 11 & 17.153\\
+\hline
+2008 & 3 & 3 & 12 & 18.699\\
+\hline
+2008 & 3 & 3 & 13 & 18.699\\
+\hline
+2008 & 3 & 3 & 14 & 18.842\\
+\hline
+2008 & 3 & 3 & 15 & 19.508\\
+\hline
+\end{tabular}
+
+\textbackslash end\{table\}
 
 \hypertarget{task-1-2}{%
 \section{Task 1}\label{task-1-2}}
@@ -340,52 +348,68 @@ Year & Month & Day & Hour & Temp\tabularnewline
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{# have a look to the data set}
-\KeywordTok{kable}\NormalTok{(}\KeywordTok{head}\NormalTok{(Winters_hours_gaps), }
-      \StringTok{"pipe"}\NormalTok{, }\DataTypeTok{caption =} 
-        \StringTok{"Example Dataset: Winters_hours_gaps"}\NormalTok{) }
+\KeywordTok{kable}\NormalTok{(}\KeywordTok{head}\NormalTok{(Winters_hours_gaps),}\DataTypeTok{caption =} 
+        \StringTok{"Example Dataset: Winters_hours_gaps"}\NormalTok{)}\OperatorTok{%>%}
+\StringTok{        }\KeywordTok{kable_styling}\NormalTok{(}\StringTok{"striped"}\NormalTok{, }\DataTypeTok{position =} \StringTok{"left"}\NormalTok{, }\DataTypeTok{font_size =} \DecValTok{10}\NormalTok{)}\OperatorTok{%>%}
+\StringTok{        }\KeywordTok{scroll_box}\NormalTok{(}\DataTypeTok{width =} \StringTok{"100%"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{longtable}[]{@{}rrrrrr@{}}
-\caption{\label{tab:unnamed-chunk-6}Example Dataset: Winters\_hours\_gaps}\tabularnewline
-\toprule
-Year & Month & Day & Hour & Temp\_gaps & Temp\tabularnewline
-\midrule
-\endfirsthead
-\toprule
-Year & Month & Day & Hour & Temp\_gaps & Temp\tabularnewline
-\midrule
-\endhead
-2008 & 3 & 3 & 10 & 15.127 & 15.127\tabularnewline
-2008 & 3 & 3 & 11 & 17.153 & 17.153\tabularnewline
-2008 & 3 & 3 & 12 & 18.699 & 18.699\tabularnewline
-2008 & 3 & 3 & 13 & 18.699 & 18.699\tabularnewline
-2008 & 3 & 3 & 14 & 18.842 & 18.842\tabularnewline
-2008 & 3 & 3 & 15 & 19.508 & 19.508\tabularnewline
-\bottomrule
-\end{longtable}
+\textbackslash begin\{table\}
+
+\textbackslash caption\{\label{tab:unnamed-chunk-6}Example Dataset: Winters\_hours\_gaps\}
+\fontsize{10}{12}\selectfont
+
+\begin{tabular}[t]{r|r|r|r|r|r}
+\hline
+Year & Month & Day & Hour & Temp\_gaps & Temp\\
+\hline
+2008 & 3 & 3 & 10 & 15.127 & 15.127\\
+\hline
+2008 & 3 & 3 & 11 & 17.153 & 17.153\\
+\hline
+2008 & 3 & 3 & 12 & 18.699 & 18.699\\
+\hline
+2008 & 3 & 3 & 13 & 18.699 & 18.699\\
+\hline
+2008 & 3 & 3 & 14 & 18.842 & 18.842\\
+\hline
+2008 & 3 & 3 & 15 & 19.508 & 19.508\\
+\hline
+\end{tabular}
+
+\textbackslash end\{table\}
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{# Apply Function}
 \NormalTok{hourtemps =}\StringTok{ }\KeywordTok{cleaned_data}\NormalTok{(}\DataTypeTok{data_source =}\NormalTok{ Winters_hours_gaps)}
-\KeywordTok{kable}\NormalTok{(}\KeywordTok{head}\NormalTok{(}\KeywordTok{WH}\NormalTok{(}\DataTypeTok{hourtemps =}\NormalTok{ hourtemps)), }\StringTok{"pipe"}\NormalTok{)}
+\KeywordTok{kable}\NormalTok{(}\KeywordTok{head}\NormalTok{(}\KeywordTok{WH}\NormalTok{(}\DataTypeTok{hourtemps =}\NormalTok{ hourtemps)))}\OperatorTok{%>%}
+\StringTok{        }\KeywordTok{kable_styling}\NormalTok{(}\StringTok{"striped"}\NormalTok{, }\DataTypeTok{position =} \StringTok{"left"}\NormalTok{, }\DataTypeTok{font_size =} \DecValTok{10}\NormalTok{)}\OperatorTok{%>%}
+\StringTok{        }\KeywordTok{scroll_box}\NormalTok{(}\DataTypeTok{width =} \StringTok{"100%"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{longtable}[]{@{}rrrrrl@{}}
-\toprule
-Year & Month & Day & Hour & Temp & warm\_hours\tabularnewline
-\midrule
-\endhead
-2008 & 3 & 3 & 10 & 15.127 & FALSE\tabularnewline
-2008 & 3 & 3 & 11 & 17.153 & FALSE\tabularnewline
-2008 & 3 & 3 & 12 & 18.699 & FALSE\tabularnewline
-2008 & 3 & 3 & 13 & 18.699 & FALSE\tabularnewline
-2008 & 3 & 3 & 14 & 18.842 & FALSE\tabularnewline
-2008 & 3 & 3 & 15 & 19.508 & FALSE\tabularnewline
-\bottomrule
-\end{longtable}
+\begingroup\fontsize{10}{12}\selectfont
+
+\begin{tabular}{r|r|r|r|r|l}
+\hline
+Year & Month & Day & Hour & Temp & warm\_hours\\
+\hline
+2008 & 3 & 3 & 10 & 15.127 & FALSE\\
+\hline
+2008 & 3 & 3 & 11 & 17.153 & FALSE\\
+\hline
+2008 & 3 & 3 & 12 & 18.699 & FALSE\\
+\hline
+2008 & 3 & 3 & 13 & 18.699 & FALSE\\
+\hline
+2008 & 3 & 3 & 14 & 18.842 & FALSE\\
+\hline
+2008 & 3 & 3 & 15 & 19.508 & FALSE\\
+\hline
+\end{tabular}
+\endgroup{}
 
 \hypertarget{task-3-1}{%
 \section{Task 3}\label{task-3-1}}
@@ -465,15 +489,15 @@ The \texttt{chilling()} function combines the functions described above and pres
            \DataTypeTok{End_JDay =} \DecValTok{100}\NormalTok{)}
 
 \KeywordTok{kable}\NormalTok{(output, }\DataTypeTok{caption =}\StringTok{"chilling function on Winters_hours_gap"}\NormalTok{) }\OperatorTok{%>%}
-\KeywordTok{kable_classic_2}\NormalTok{(}\DataTypeTok{full_width =}\NormalTok{ F, }\DataTypeTok{font_size =} \DecValTok{7}\NormalTok{)}
+\StringTok{        }\KeywordTok{kable_styling}\NormalTok{(}\StringTok{"striped"}\NormalTok{, }\DataTypeTok{position =} \StringTok{"left"}\NormalTok{, }\DataTypeTok{font_size =} \DecValTok{10}\NormalTok{)}\OperatorTok{%>%}
+\StringTok{        }\KeywordTok{scroll_box}\NormalTok{(}\DataTypeTok{width =} \StringTok{"100%"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
 \textbackslash begin\{table\}
 
 \textbackslash caption\{\label{tab:unnamed-chunk-9}chilling function on Winters\_hours\_gap\}
-\centering
-\fontsize{7}{9}\selectfont
+\fontsize{10}{12}\selectfont
 
 \begin{tabular}[t]{l|r|r|r|r|r|r|r|r}
 \hline
@@ -582,14 +606,15 @@ The \texttt{tempResponse()} function can display and summarize some chill models
 
 \CommentTok{# display result}
 \KeywordTok{kable}\NormalTok{(output, }\DataTypeTok{caption =} \StringTok{"Summarized some models"}\NormalTok{) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{kable_styling}\NormalTok{(}\StringTok{"striped"}\NormalTok{, }\DataTypeTok{position =} \StringTok{"left"}\NormalTok{, }\DataTypeTok{font_size =} \DecValTok{7}\NormalTok{)}
+\StringTok{        }\KeywordTok{kable_styling}\NormalTok{(}\StringTok{"striped"}\NormalTok{, }\DataTypeTok{position =} \StringTok{"left"}\NormalTok{, }\DataTypeTok{font_size =} \DecValTok{10}\NormalTok{)}\OperatorTok{%>%}
+\StringTok{        }\KeywordTok{scroll_box}\NormalTok{(}\DataTypeTok{width =} \StringTok{"100%"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{table}
 
 \caption{\label{tab:unnamed-chunk-13}Summarized some models}
-\fontsize{7}{9}\selectfont
+\fontsize{10}{12}\selectfont
 \begin{tabular}[t]{l|r|r|r|r|r|r|r|r}
 \hline
 Season & End\_year & Season\_days & Data\_days & Perc\_complete & Chill\_Portions & GDH & weather\_mill & Utah\_Model\\
@@ -636,14 +661,16 @@ First, I would like to compare the lengths of days among locations of interest. 
 \NormalTok{)}
 
 
-\KeywordTok{kable}\NormalTok{(}\KeywordTok{head}\NormalTok{(df), }\DataTypeTok{caption =} \StringTok{"Differnt Locations"}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{kable_styling}\NormalTok{(}\StringTok{"striped"}\NormalTok{, }\DataTypeTok{position =} \StringTok{"left"}\NormalTok{, }\DataTypeTok{font_size =} \DecValTok{7}\NormalTok{)}
+\KeywordTok{kable}\NormalTok{(}\KeywordTok{head}\NormalTok{(df), }\DataTypeTok{caption =} \StringTok{"Differnt Locations"}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{       }\KeywordTok{kable_styling}\NormalTok{(}\StringTok{"striped"}\NormalTok{, }\DataTypeTok{position =} \StringTok{"left"}\NormalTok{, }\DataTypeTok{font_size =} \DecValTok{10}\NormalTok{)}\OperatorTok{%>%}
+\StringTok{        }\KeywordTok{scroll_box}\NormalTok{(}\DataTypeTok{width =} \StringTok{"100%"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{table}
 
 \caption{\label{tab:unnamed-chunk-14}Differnt Locations}
-\fontsize{7}{9}\selectfont
+\fontsize{10}{12}\selectfont
 \begin{tabular}[t]{r|r|r|r|r|r}
 \hline
 base & Glogau & Teneriffa & Zülpich & Moskau & Karkaralinsk\\
@@ -669,7 +696,9 @@ base & Glogau & Teneriffa & Zülpich & Moskau & Karkaralinsk\\
 \NormalTok{df_long <-}
 \StringTok{  }\KeywordTok{pivot_longer}\NormalTok{(df, }\OperatorTok{-}\StringTok{"base"}\NormalTok{, }\DataTypeTok{names_to =} \StringTok{"Location"}\NormalTok{, }\DataTypeTok{values_to =} \StringTok{"daylength"}\NormalTok{)}
 
-\KeywordTok{kable}\NormalTok{(}\KeywordTok{head}\NormalTok{(df_long)) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{kable_styling}\NormalTok{(}\StringTok{"striped"}\NormalTok{, }\DataTypeTok{position =} \StringTok{"left"}\NormalTok{, }\DataTypeTok{font_size =} \DecValTok{10}\NormalTok{)}
+\KeywordTok{kable}\NormalTok{(}\KeywordTok{head}\NormalTok{(df_long)) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{      }\KeywordTok{kable_styling}\NormalTok{(}\StringTok{"striped"}\NormalTok{, }\DataTypeTok{position =} \StringTok{"left"}\NormalTok{, }\DataTypeTok{font_size =} \DecValTok{10}\NormalTok{)}\OperatorTok{%>%}
+\StringTok{      }\KeywordTok{scroll_box}\NormalTok{(}\DataTypeTok{width =} \StringTok{"100%"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -787,7 +816,8 @@ First, corresponding data must be read in. The data are already prepared.
 \NormalTok{zuelpich_april}\OperatorTok{$}\NormalTok{date_newnew =}\StringTok{ }\KeywordTok{as.Date}\NormalTok{(zuelpich_april[, }\DecValTok{3}\NormalTok{])}
 
 \KeywordTok{kable}\NormalTok{(}\KeywordTok{head}\NormalTok{(zuelpich_april), }\DataTypeTok{caption =} \StringTok{"Dataset: zuelpich_april"}\NormalTok{) }\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{kable_styling}\NormalTok{(}\StringTok{"striped"}\NormalTok{, }\DataTypeTok{position =} \StringTok{"left"}\NormalTok{, }\DataTypeTok{font_size =} \DecValTok{10}\NormalTok{)}
+\StringTok{        }\KeywordTok{kable_styling}\NormalTok{(}\StringTok{"striped"}\NormalTok{, }\DataTypeTok{position =} \StringTok{"left"}\NormalTok{, }\DataTypeTok{font_size =} \DecValTok{10}\NormalTok{)}\OperatorTok{%>%}
+\StringTok{       }\KeywordTok{scroll_box}\NormalTok{(}\DataTypeTok{width =} \StringTok{"100%"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -831,7 +861,8 @@ Next, the lows and highs for the corresponding days must be determined from the 
 \NormalTok{  )}
 
 \KeywordTok{kable}\NormalTok{(final, }\DataTypeTok{caption =} \StringTok{"Dataset:Tmean Tmax Tmin"}\NormalTok{)}\OperatorTok{%>%}
-\StringTok{  }\KeywordTok{kable_styling}\NormalTok{(}\StringTok{"striped"}\NormalTok{, }\DataTypeTok{position =} \StringTok{"left"}\NormalTok{, }\DataTypeTok{font_size =} \DecValTok{10}\NormalTok{)}
+\StringTok{        }\KeywordTok{kable_styling}\NormalTok{(}\StringTok{"striped"}\NormalTok{, }\DataTypeTok{position =} \StringTok{"left"}\NormalTok{, }\DataTypeTok{font_size =} \DecValTok{10}\NormalTok{)}\OperatorTok{%>%}
+\StringTok{        }\KeywordTok{scroll_box}\NormalTok{(}\DataTypeTok{width =} \StringTok{"100%"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -883,7 +914,8 @@ Next, the dataset containing hourly temperature values must be extended with a c
 
 
 \KeywordTok{kable}\NormalTok{(zuelpich_april[}\DecValTok{1}\OperatorTok{:}\DecValTok{25}\NormalTok{,], }\DataTypeTok{caption =} \StringTok{"Dataset: TmaxTminMatch"}\NormalTok{)}\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{kable_styling}\NormalTok{(}\StringTok{"striped"}\NormalTok{, }\DataTypeTok{position =} \StringTok{"left"}\NormalTok{, }\DataTypeTok{font_size =} \DecValTok{10}\NormalTok{)}
+\StringTok{        }\KeywordTok{kable_styling}\NormalTok{(}\StringTok{"striped"}\NormalTok{, }\DataTypeTok{position =} \StringTok{"left"}\NormalTok{, }\DataTypeTok{font_size =} \DecValTok{10}\NormalTok{)}\OperatorTok{%>%}
+\StringTok{        }\KeywordTok{scroll_box}\NormalTok{(}\DataTypeTok{width =} \StringTok{"100%"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -966,8 +998,10 @@ After creating a new column containing only the \texttt{Tmax} and \texttt{Tmin} 
 \end{Shaded}
 
 \includegraphics{Tree-Phenology_files/figure-latex/unnamed-chunk-23-1.pdf}
-\textgreater{}
+
+\begin{quote}
 First, the dataset \texttt{ZU\_weather} must be created. The columns \texttt{DATE}, \texttt{Year}, \texttt{Month}, \texttt{Day}, \texttt{Tcontinue}, and \texttt{Temp\_inter} are created. The \texttt{Temp\_inter} column contains temperature data with large gaps that must be interpolated between.
+\end{quote}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -980,7 +1014,9 @@ First, the dataset \texttt{ZU\_weather} must be created. The columns \texttt{DAT
   \DataTypeTok{Temp_inter =}\NormalTok{ zuelpich_april[, }\DecValTok{6}\NormalTok{]}
 \NormalTok{)}
 
-\KeywordTok{kable}\NormalTok{(ZU_weather[}\DecValTok{1}\OperatorTok{:}\DecValTok{8}\NormalTok{,])}\OperatorTok{%>%}\StringTok{ }\KeywordTok{kable_styling}\NormalTok{(}\StringTok{"striped"}\NormalTok{, }\DataTypeTok{position =} \StringTok{"left"}\NormalTok{, }\DataTypeTok{font_size =} \DecValTok{10}\NormalTok{,)}
+\KeywordTok{kable}\NormalTok{(ZU_weather[}\DecValTok{1}\OperatorTok{:}\DecValTok{8}\NormalTok{,])}\OperatorTok{%>%}\StringTok{ }
+\StringTok{        }\KeywordTok{kable_styling}\NormalTok{(}\StringTok{"striped"}\NormalTok{, }\DataTypeTok{position =} \StringTok{"left"}\NormalTok{, }\DataTypeTok{font_size =} \DecValTok{10}\NormalTok{)}\OperatorTok{%>%}
+\StringTok{      }\KeywordTok{scroll_box}\NormalTok{(}\DataTypeTok{width =} \StringTok{"100%"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1020,7 +1056,8 @@ The next step is to use the \texttt{interpolate\_gaps()} function to calculate t
 
 \CommentTok{# have a look at the first 10 entries}
 \KeywordTok{kable}\NormalTok{(ZU_weather[}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{, ]) }\OperatorTok{%>%}\StringTok{ }
-\StringTok{  }\KeywordTok{kable_styling}\NormalTok{(}\StringTok{"striped"}\NormalTok{, }\DataTypeTok{position =} \StringTok{"left"}\NormalTok{, }\DataTypeTok{font_size =} \DecValTok{10}\NormalTok{, )}
+\StringTok{        }\KeywordTok{kable_styling}\NormalTok{(}\StringTok{"striped"}\NormalTok{, }\DataTypeTok{position =} \StringTok{"left"}\NormalTok{, }\DataTypeTok{font_size =} \DecValTok{10}\NormalTok{)}\OperatorTok{%>%}
+\StringTok{        }\KeywordTok{scroll_box}\NormalTok{(}\DataTypeTok{width =} \StringTok{"100%"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1069,7 +1106,9 @@ The non-linear interpolation method considers the sun's position at the respecti
   \DataTypeTok{Tmax =}\NormalTok{ final[, }\DecValTok{3}\NormalTok{],}
   \DataTypeTok{Tmin =}\NormalTok{ final[, }\DecValTok{4}\NormalTok{]}
 \NormalTok{)}
-\KeywordTok{kable}\NormalTok{(ZU_weather_min_max[}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{,])}\OperatorTok{%>%}\StringTok{ }\KeywordTok{kable_styling}\NormalTok{(}\StringTok{"striped"}\NormalTok{, }\DataTypeTok{position =} \StringTok{"left"}\NormalTok{, }\DataTypeTok{font_size =} \DecValTok{10}\NormalTok{,)}
+\KeywordTok{kable}\NormalTok{(ZU_weather_min_max[}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{,])}\OperatorTok{%>%}
+\StringTok{      }\KeywordTok{kable_styling}\NormalTok{(}\StringTok{"striped"}\NormalTok{, }\DataTypeTok{position =} \StringTok{"left"}\NormalTok{, }\DataTypeTok{font_size =} \DecValTok{10}\NormalTok{)}\OperatorTok{%>%}
+\StringTok{      }\KeywordTok{scroll_box}\NormalTok{(}\DataTypeTok{width =} \StringTok{"100%"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1101,6 +1140,449 @@ Year & Month & Day & Tmax & Tmin\\
 \hline
 \end{tabular}
 \endgroup{}
+
+\begin{quote}
+The function \texttt{stack\_hourly\_temps()} can be passed the entire dataset \texttt{ZU\_weather\_min\_max}. This function sets the \texttt{Tmax} values to 6:00 PM and the Tmin values to 6:00 AM, without performing any interpolation between the times when the \texttt{Tmax} and \texttt{Tmin} values actually occurred. The resulting interpolation is written to a new dataset, \texttt{ZU\_hourly}. A new column called \texttt{DATE} is then created in this dataset to store the date, and the first row is removed due to an index shift.
+\end{quote}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ZU_hourly =}\StringTok{ }\KeywordTok{stack_hourly_temps}\NormalTok{(ZU_weather_min_max, }\DataTypeTok{latitude =} \FloatTok{50.4}\NormalTok{)}
+
+\NormalTok{ZU_hourly}\OperatorTok{$}\NormalTok{hourtemps[, }\StringTok{"DATE"}\NormalTok{] =}
+\StringTok{  }\KeywordTok{ISOdate}\NormalTok{(}
+\NormalTok{    ZU_hourly}\OperatorTok{$}\NormalTok{hourtemps}\OperatorTok{$}\NormalTok{Year,}
+\NormalTok{    ZU_hourly}\OperatorTok{$}\NormalTok{hourtemps}\OperatorTok{$}\NormalTok{Month,}
+\NormalTok{    ZU_hourly}\OperatorTok{$}\NormalTok{hourtemps}\OperatorTok{$}\NormalTok{Day,}
+\NormalTok{    ZU_hourly}\OperatorTok{$}\NormalTok{hourtemps}\OperatorTok{$}\NormalTok{Hour}
+\NormalTok{  )}
+
+\NormalTok{ZU_hourly_mod =}\StringTok{ }\NormalTok{ZU_hourly[[}\DecValTok{1}\NormalTok{]][}\OperatorTok{-}\DecValTok{1}\NormalTok{, ]}
+
+\KeywordTok{kable}\NormalTok{(ZU_hourly_mod[}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{,])}\OperatorTok{%>%}\StringTok{ }
+\StringTok{      }\KeywordTok{kable_styling}\NormalTok{(}\StringTok{"striped"}\NormalTok{, }\DataTypeTok{position =} \StringTok{"left"}\NormalTok{, }\DataTypeTok{font_size =} \DecValTok{10}\NormalTok{)}\OperatorTok{%>%}
+\StringTok{      }\KeywordTok{scroll_box}\NormalTok{(}\DataTypeTok{width =} \StringTok{"100%"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begingroup\fontsize{10}{12}\selectfont
+
+\begin{tabular}{l|r|r|r|r|r|r|r|r|l}
+\hline
+  & Year & Month & Day & Tmax & Tmin & JDay & Hour & Temp & DATE\\
+\hline
+609 & 2019 & 2 & 2 & 17.81 & -0.42 & 33 & 1 & -0.420000 & 2019-02-02 01:00:00\\
+\hline
+1217 & 2019 & 2 & 2 & 17.81 & -0.42 & 33 & 2 & -0.420000 & 2019-02-02 02:00:00\\
+\hline
+1825 & 2019 & 2 & 2 & 17.81 & -0.42 & 33 & 3 & -0.420000 & 2019-02-02 03:00:00\\
+\hline
+2433 & 2019 & 2 & 2 & 17.81 & -0.42 & 33 & 4 & -0.420000 & 2019-02-02 04:00:00\\
+\hline
+3041 & 2019 & 2 & 2 & 17.81 & -0.42 & 33 & 5 & -0.420000 & 2019-02-02 05:00:00\\
+\hline
+3649 & 2019 & 2 & 2 & 17.81 & -0.42 & 33 & 6 & -0.420000 & 2019-02-02 06:00:00\\
+\hline
+4257 & 2019 & 2 & 2 & 17.81 & -0.42 & 33 & 7 & -0.420000 & 2019-02-02 07:00:00\\
+\hline
+4865 & 2019 & 2 & 2 & 17.81 & -0.42 & 33 & 8 & 2.355706 & 2019-02-02 08:00:00\\
+\hline
+5473 & 2019 & 2 & 2 & 17.81 & -0.42 & 33 & 9 & 6.496980 & 2019-02-02 09:00:00\\
+\hline
+6081 & 2019 & 2 & 2 & 17.81 & -0.42 & 33 & 10 & 10.253744 & 2019-02-02 10:00:00\\
+\hline
+\end{tabular}
+\endgroup{}
+
+\begin{quote}
+Finally, a dataset is generated containing the actual measured temperature data, as well as the interpolated values calculated using both linear and non-linear interpolation. The results can be effectively visualized in a plot.
+\end{quote}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# final_df = data.frame(}
+\CommentTok{#   DATE = zuelpich_april[, 4],}
+\CommentTok{#   Measured_Temp = zuelpich_april[, 2],}
+\CommentTok{#   Linear_Interp  = ZU_weather[, 6],}
+\CommentTok{#   Non_Linear_Interp = ZU_hourly_mod[, 8]}
+\CommentTok{# )}
+\CommentTok{#write.csv(final_df, "weather_data/final_df_non_linear.csv")}
+
+\CommentTok{# read final dataframe}
+\NormalTok{final_df_m =}\StringTok{ }\KeywordTok{read.table}\NormalTok{(}\StringTok{"weather_data/final_df_non_linear.csv"}\NormalTok{,}
+                        \DataTypeTok{header =} \OtherTok{TRUE}\NormalTok{,}
+                        \DataTypeTok{sep =} \StringTok{","}\NormalTok{)}
+
+\CommentTok{#remove index}
+\NormalTok{final_df_mx =}\StringTok{ }\NormalTok{final_df_m[, }\DecValTok{-1}\NormalTok{]}
+
+\CommentTok{#generate Date}
+\NormalTok{final_df_mx}\OperatorTok{$}\NormalTok{DATE =}\StringTok{  }\KeywordTok{as.POSIXct}\NormalTok{(final_df_mx}\OperatorTok{$}\NormalTok{DATE)}
+
+\CommentTok{#create pivot table}
+\NormalTok{final_df_mod  =}\StringTok{ }\KeywordTok{pivot_longer}\NormalTok{(final_df_mx,}
+                             \OperatorTok{-}\StringTok{"DATE"}\NormalTok{,}
+                             \DataTypeTok{names_to =} \StringTok{"Method"}\NormalTok{,}
+                             \DataTypeTok{values_to =} \StringTok{"Temperature"}\NormalTok{)}
+
+\CommentTok{#plot final result and compare methods}
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ final_df_mod, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ DATE, }\DataTypeTok{y =}\NormalTok{ Temperature}
+\NormalTok{                                , }\DataTypeTok{colour =}\NormalTok{ Method)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_line}\NormalTok{(}\DataTypeTok{lwd =} \FloatTok{1.3}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{x =} \StringTok{"Date"}\NormalTok{, }\DataTypeTok{y =} \StringTok{"Temperature (C°)"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{ggtitle}\NormalTok{(}\StringTok{"1 to 5 April 2019  Zuelpich"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{scale_color_manual}\NormalTok{(}\DataTypeTok{values =} \KeywordTok{c}\NormalTok{(}\StringTok{"red"}\NormalTok{, }\StringTok{"darkgreen"}\NormalTok{, }\StringTok{"darkblue"}\NormalTok{)) }\OperatorTok{+}
+\StringTok{  }\CommentTok{#facet_wrap(vars(Method)) +}
+\StringTok{  }\KeywordTok{theme_bw}\NormalTok{(}\DataTypeTok{base_size =} \DecValTok{15}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Tree-Phenology_files/figure-latex/unnamed-chunk-28-1.pdf}
+
+\hypertarget{getting-temperature-data}{%
+\chapter{Getting temperature data}\label{getting-temperature-data}}
+
+\hypertarget{task-1-5}{%
+\section{Task 1}\label{task-1-5}}
+
+\textbf{Choose a location of interest and find the 25 closest weather stations using the handle\_gsod function}
+
+\begin{quote}
+I have decided to conduct a phonology analysis at a location in Poland. The city of Glogau, situated on the banks of the Oder, was chosen as the starting point. For more information about the location, the following website can be visited \href{https://de.wikipedia.org/wiki/G\%C5\%82og\%C3\%B3w}{here}.
+The climate at the location is relatively similar to Bonn, although the climate is generally more continental, which can be reflected in colder winters and drier, slightly warmer summers.
+Here is a picture of a typical landscape in Lower Silesia in Poland.
+\end{quote}
+
+\begin{quote}
+Beautiful Glogau City
+\end{quote}
+
+\begin{quote}
+Ok, here really beautiful old city of Glogau
+\end{quote}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# station_list_poland = handle_gsod(action="list_stations",}
+\CommentTok{#                            location=c(16.5,51.39),}
+\CommentTok{#                            time_interval=c(1990,2020))}
+\CommentTok{# kable(station_list_poland[1:10,]) %>% kable_styling("striped", position = "left", font_size = 10)}
+
+\CommentTok{# write.csv(station_list_poland,"weather_data/Poland_station_list.csv",row.names=FALSE)}
+
+\NormalTok{list_poland_weather =}\StringTok{ }\KeywordTok{read.table}\NormalTok{(}\StringTok{"weather_data/Poland_station_list.csv"}\NormalTok{, }\DataTypeTok{header =} \OtherTok{TRUE}\NormalTok{, }\DataTypeTok{sep=}\StringTok{","}\NormalTok{)}
+\KeywordTok{kable}\NormalTok{(list_poland_weather[}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{,], }\DataTypeTok{caption =} \StringTok{"Station List"}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\KeywordTok{kable_styling}\NormalTok{(}\StringTok{"striped"}\NormalTok{, }\DataTypeTok{position =} \StringTok{"left"}\NormalTok{, }\DataTypeTok{font_size =} \DecValTok{10}\NormalTok{)}\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{scroll_box}\NormalTok{(}\DataTypeTok{width =} \StringTok{"100%"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}
+
+\caption{\label{tab:unnamed-chunk-29}Station List}
+\fontsize{10}{12}\selectfont
+\begin{tabular}[t]{l|l|l|r|r|r|r|r|r|r}
+\hline
+chillR\_code & STATION.NAME & CTRY & Lat & Long & BEGIN & END & distance & Overlap\_years & Perc\_interval\_covered\\
+\hline
+124170\_99999 & LUBIN MIASTO & PL & 51.417 & 16.200 & 19390810 & 19411231 & 21.09 & 0.00 & 0.00\\
+\hline
+124150\_99999 & LEGNICA & PL & 51.200 & 16.200 & 19370401 & 20221110 & 29.74 & 31.00 & 100.00\\
+\hline
+124250\_99999 & WROCLAW I & PL & 51.117 & 16.883 & 19280101 & 20220614 & 40.47 & 31.00 & 100.00\\
+\hline
+124240\_99999 & STRACHOWICE & PL & 51.103 & 16.886 & 19390102 & 20221110 & 41.78 & 31.00 & 100.00\\
+\hline
+124280\_99999 & WROCLAW/STRACHOWICE & PL & 51.100 & 16.883 & 20020601 & 20220901 & 41.91 & 18.59 & 59.95\\
+\hline
+124160\_99999 & WSCHOWA & PL & 51.800 & 16.317 & 19360102 & 19420630 & 47.35 & 0.00 & 0.00\\
+\hline
+124180\_99999 & LESZNO & PL & 51.833 & 16.533 & 19730101 & 20211212 & 49.34 & 31.00 & 100.00\\
+\hline
+125010\_99999 & MIROSLAWICE & PL & 50.950 & 16.767 & 19390901 & 19420628 & 52.39 & 0.00 & 0.00\\
+\hline
+125230\_99999 & SWIDNICA & PL & 50.850 & 16.483 & 19410114 & 19431231 & 60.09 & 0.00 & 0.00\\
+\hline
+125220\_99999 & SLEZA & PL & 50.867 & 16.717 & 19400414 & 19420630 & 60.13 & 0.00 & 0.00\\
+\hline
+\end{tabular}
+\end{table}
+
+\hypertarget{task-2-4}{%
+\section{Task 2}\label{task-2-4}}
+
+\textbf{Download weather data for the most promising station on the list}
+
+\begin{quote}
+The most promising station for obtaining continuous weather recording is represented by the weather station in Leszno, located approximately 50 kilometers (by air) from Glogau. This location is listed as the seventh entry in the ``Station List'' table.
+
+To avoid constantly loading the weather data, it is stored in the \texttt{weather\_poland\_leszno} variable. The file is then saved as a CSV and read in using the \texttt{read.table()} function.
+\end{quote}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# weather_poland_leszno <- handle_gsod(}
+\CommentTok{#   action = "download_weather",}
+\CommentTok{#   location = station_list_poland$chillR_code[7],}
+\CommentTok{#   time_interval = c(1990, 2020))}
+
+
+\CommentTok{# kable(weather_poland_leszno[[1]][[2]][1:10, ]) %>%}
+\CommentTok{#   kable_styling("striped", position = "left", font_size = 10)}
+
+\CommentTok{#write.csv(weather_poland_leszno[[1]][[2]],"weather_data/Poland_leszno_weather.csv",row.names=FALSE)}
+
+\NormalTok{weather_poland_leszno_place =}\StringTok{ }
+\StringTok{  }\KeywordTok{read.table}\NormalTok{(}\StringTok{"weather_data/Poland_leszno_weather.csv"}\NormalTok{, }\DataTypeTok{header =} \OtherTok{TRUE}\NormalTok{, }\DataTypeTok{sep=}\StringTok{","}\NormalTok{)}
+
+\KeywordTok{kable}\NormalTok{(weather_poland_leszno_place[}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{, ], }\DataTypeTok{caption =} \StringTok{"Weather Data Leszno "}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{   }\KeywordTok{kable_styling}\NormalTok{(}\StringTok{"striped"}\NormalTok{, }\DataTypeTok{position =} \StringTok{"left"}\NormalTok{, }\DataTypeTok{font_size =} \DecValTok{10}\NormalTok{)}\OperatorTok{%>%}
+\StringTok{   }\KeywordTok{scroll_box}\NormalTok{(}\DataTypeTok{width =} \StringTok{"100%"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}
+
+\caption{\label{tab:unnamed-chunk-30}Weather Data Leszno }
+\fontsize{10}{12}\selectfont
+\begin{tabular}[t]{l|r|r|r|r|r|r|r|r|r|r|r|r|r|r|r|r|r|r|l|r|l|r|l|r|l|r|r|r|r|r}
+\hline
+DATE & STN... & WBAN & YEAR & MONTH & DAY & TEMP & Count1 & DEWP & Count2 & SLP & Count3 & STP & Count4 & VISIB & Count5 & WDSP & Count6 & MXSPD & GUST & MAX & MaxFlag & MIN & MinFlag & PRCP & PrcpFlag & SNDP & FRSHTT & Year & Month & Day\\
+\hline
+1990-01-01 12:00:00 & 124180 & 99999 & 1990 & 1 & 1 & -1.1111111 & 7 & 28.6 & 7 & 1022.2 & 7 & NA & 0 & 1.1 & 7 & 1.9 & 7 & 3.9 & NA & -0.6111111 &  & -2.000000 &  & 0.000 & E & NA & 1000 & 1990 & 1 & 1\\
+\hline
+1990-01-02 12:00:00 & 124180 & 99999 & 1990 & 1 & 2 & -1.7222222 & 8 & 25.9 & 8 & 1023.3 & 8 & NA & 0 & 1.5 & 8 & 3.2 & 8 & 5.8 & NA & -1.2777778 &  & -2.111111 & * & 0.000 & F & NA & 1000 & 1990 & 1 & 2\\
+\hline
+1990-01-03 12:00:00 & 124180 & 99999 & 1990 & 1 & 3 & -1.7777778 & 7 & 25.6 & 7 & 1028.2 & 7 & NA & 0 & 1.9 & 7 & 3.6 & 7 & 5.8 & NA & -0.7777778 &  & -2.611111 &  & 0.000 & F & NA & 1000 & 1990 & 1 & 3\\
+\hline
+1990-01-04 12:00:00 & 124180 & 99999 & 1990 & 1 & 4 & -2.4444444 & 7 & 22.5 & 7 & 1029.0 & 7 & NA & 0 & 2.9 & 7 & 6.1 & 7 & 11.7 & NA & -0.7777778 &  & -5.277778 & * & 0.000 & C & NA & 0 & 1990 & 1 & 4\\
+\hline
+1990-01-05 12:00:00 & 124180 & 99999 & 1990 & 1 & 5 & -2.3888889 & 7 & 22.6 & 7 & 1026.5 & 6 & NA & 0 & 2.2 & 7 & 4.4 & 7 & 7.8 & NA & -0.3888889 &  & -7.722222 &  & 0.000 & D & NA & 0 & 1990 & 1 & 5\\
+\hline
+1990-01-06 12:00:00 & 124180 & 99999 & 1990 & 1 & 6 & -4.7777778 & 7 & 21.3 & 7 & 1032.6 & 6 & NA & 0 & 1.4 & 7 & 2.5 & 7 & 3.9 & NA & 0.0000000 &  & -7.000000 &  & 0.000 & C & NA & 0 & 1990 & 1 & 6\\
+\hline
+1990-01-07 12:00:00 & 124180 & 99999 & 1990 & 1 & 7 & -7.3333333 & 8 & 15.4 & 8 & 1033.4 & 8 & NA & 0 & 1.1 & 8 & 3.4 & 8 & 5.8 & NA & -2.7222222 & * & -11.611111 &  & 0.000 & D & NA & 0 & 1990 & 1 & 7\\
+\hline
+1990-01-08 12:00:00 & 124180 & 99999 & 1990 & 1 & 8 & -4.5555556 & 8 & 18.0 & 8 & 1033.4 & 8 & NA & 0 & 1.6 & 8 & 4.6 & 8 & 7.8 & NA & 1.1111111 &  & -10.500000 &  & 0.000 & D & NA & 0 & 1990 & 1 & 8\\
+\hline
+1990-01-09 12:00:00 & 124180 & 99999 & 1990 & 1 & 9 & 0.8333333 & 6 & 33.1 & 6 & 1033.8 & 6 & NA & 0 & 0.7 & 6 & 6.6 & 5 & 7.8 & NA & 2.1111111 & * & -1.777778 &  & 0.000 & E & NA & 110000 & 1990 & 1 & 9\\
+\hline
+1990-01-10 12:00:00 & 124180 & 99999 & 1990 & 1 & 10 & 2.7222222 & 7 & 36.3 & 7 & 1030.9 & 6 & NA & 0 & 1.1 & 7 & 6.9 & 7 & 9.7 & NA & 3.2777778 & * & 1.500000 &  & 0.254 & F & NA & 110000 & 1990 & 1 & 10\\
+\hline
+\end{tabular}
+\end{table}
+
+\hypertarget{task-3-2}{%
+\section{Task 3}\label{task-3-2}}
+
+\textbf{Convert the weather data into chillR format}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# weather_pl <- weather_poland_leszno$LESZNO[[2]]}
+\CommentTok{# cleaned_weather_pl <- handle_gsod(weather_pl)}
+
+\CommentTok{# kable(cleaned_weather_pl[1:20,]) %>%}
+\CommentTok{#   kable_styling("striped", position = "left", font_size = 10)}
+
+\CommentTok{#write.csv(cleaned_weather_pl,"weather_data/Poland_leszno_chillR_weather.csv",row.names=FALSE)}
+
+\NormalTok{cleaned_weather_pl_leszno =}\StringTok{ }\KeywordTok{read.table}\NormalTok{(}\StringTok{"weather_data/Poland_leszno_chillR_weather.csv"}\NormalTok{, }\DataTypeTok{header =} \OtherTok{TRUE}\NormalTok{, }\DataTypeTok{sep =} \StringTok{","}\NormalTok{)}
+
+\KeywordTok{kable}\NormalTok{(cleaned_weather_pl_leszno[}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{, ], }\DataTypeTok{caption =} \StringTok{"Cleaned Weather Data Leszno"}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{   }\KeywordTok{kable_styling}\NormalTok{(}\StringTok{"striped"}\NormalTok{, }\DataTypeTok{position =} \StringTok{"left"}\NormalTok{, }\DataTypeTok{font_size =} \DecValTok{10}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}
+
+\caption{\label{tab:unnamed-chunk-31}Cleaned Weather Data Leszno}
+\fontsize{10}{12}\selectfont
+\begin{tabular}[t]{l|r|r|r|r|r|r|r}
+\hline
+DATE & Year & Month & Day & Tmin & Tmax & Tmean & Prec\\
+\hline
+1990-01-01 12:00:00 & 1990 & 1 & 1 & -2.000000 & -0.6111111 & -1.1111111 & 0.000\\
+\hline
+1990-01-02 12:00:00 & 1990 & 1 & 2 & -2.111111 & -1.2777778 & -1.7222222 & 0.000\\
+\hline
+1990-01-03 12:00:00 & 1990 & 1 & 3 & -2.611111 & -0.7777778 & -1.7777778 & 0.000\\
+\hline
+1990-01-04 12:00:00 & 1990 & 1 & 4 & -5.277778 & -0.7777778 & -2.4444444 & 0.000\\
+\hline
+1990-01-05 12:00:00 & 1990 & 1 & 5 & -7.722222 & -0.3888889 & -2.3888889 & 0.000\\
+\hline
+1990-01-06 12:00:00 & 1990 & 1 & 6 & -7.000000 & 0.0000000 & -4.7777778 & 0.000\\
+\hline
+1990-01-07 12:00:00 & 1990 & 1 & 7 & -11.611111 & -2.7222222 & -7.3333333 & 0.000\\
+\hline
+1990-01-08 12:00:00 & 1990 & 1 & 8 & -10.500000 & 1.1111111 & -4.5555556 & 0.000\\
+\hline
+1990-01-09 12:00:00 & 1990 & 1 & 9 & -1.777778 & 2.1111111 & 0.8333333 & 0.000\\
+\hline
+1990-01-10 12:00:00 & 1990 & 1 & 10 & 1.500000 & 3.2777778 & 2.7222222 & 0.254\\
+\hline
+\end{tabular}
+\end{table}
+
+\hypertarget{filling-gaps-in-temperature-records}{%
+\chapter{Filling gaps in temperature records}\label{filling-gaps-in-temperature-records}}
+
+\hypertarget{task-1-6}{%
+\section{Task 1}\label{task-1-6}}
+
+\textbf{Use chillR functions to find out how many gaps you have in this dataset (even if you have none, please still follow all further steps)}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Leszno =}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\StringTok{"weather_data/Poland_leszno_chillR_weather.csv"}\NormalTok{)}
+
+\CommentTok{# detected many gaps }
+\NormalTok{Leszno_QC =}\StringTok{ }\KeywordTok{fix_weather}\NormalTok{(Leszno)}\OperatorTok{$}\NormalTok{QC}
+
+\KeywordTok{kable}\NormalTok{(Leszno_QC, }\DataTypeTok{caption =} \StringTok{"Quality Check  for Data Leszno "}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{kable_styling}\NormalTok{(}\StringTok{"striped"}\NormalTok{, }\DataTypeTok{position =} \StringTok{"left"}\NormalTok{, }\DataTypeTok{font_size =} \DecValTok{10}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{scroll_box}\NormalTok{(}\DataTypeTok{width =} \StringTok{"100%"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}
+
+\caption{\label{tab:unnamed-chunk-32}Quality Check  for Data Leszno }
+\fontsize{10}{12}\selectfont
+\begin{tabular}[t]{l|r|r|r|r|r|r|r}
+\hline
+Season & End\_year & Season\_days & Data\_days & Missing\_Tmin & Missing\_Tmax & Incomplete\_days & Perc\_complete\\
+\hline
+1989/1990 & 1990 & 365 & 365 & 1 & 1 & 1 & 99.7\\
+\hline
+1990/1991 & 1991 & 365 & 365 & 26 & 26 & 26 & 92.9\\
+\hline
+1991/1992 & 1992 & 366 & 366 & 284 & 284 & 284 & 22.4\\
+\hline
+1992/1993 & 1993 & 365 & 365 & 140 & 140 & 140 & 61.6\\
+\hline
+1993/1994 & 1994 & 365 & 365 & 57 & 57 & 57 & 84.4\\
+\hline
+1994/1995 & 1995 & 365 & 365 & 4 & 4 & 4 & 98.9\\
+\hline
+1995/1996 & 1996 & 366 & 366 & 5 & 5 & 5 & 98.6\\
+\hline
+1996/1997 & 1997 & 365 & 365 & 75 & 75 & 75 & 79.5\\
+\hline
+1997/1998 & 1998 & 365 & 365 & 140 & 140 & 140 & 61.6\\
+\hline
+1998/1999 & 1999 & 365 & 365 & 39 & 39 & 39 & 89.3\\
+\hline
+1999/2000 & 2000 & 366 & 366 & 1 & 1 & 1 & 99.7\\
+\hline
+2000/2001 & 2001 & 365 & 365 & 23 & 23 & 23 & 93.7\\
+\hline
+2001/2002 & 2002 & 365 & 365 & 4 & 4 & 4 & 98.9\\
+\hline
+2002/2003 & 2003 & 365 & 365 & 1 & 1 & 1 & 99.7\\
+\hline
+2003/2004 & 2004 & 366 & 366 & 2 & 2 & 2 & 99.5\\
+\hline
+2004/2005 & 2005 & 365 & 365 & 365 & 365 & 365 & 0.0\\
+\hline
+2005/2006 & 2006 & 365 & 365 & 365 & 365 & 365 & 0.0\\
+\hline
+2006/2007 & 2007 & 365 & 365 & 365 & 365 & 365 & 0.0\\
+\hline
+2007/2008 & 2008 & 366 & 366 & 366 & 366 & 366 & 0.0\\
+\hline
+2008/2009 & 2009 & 365 & 365 & 365 & 365 & 365 & 0.0\\
+\hline
+2009/2010 & 2010 & 365 & 365 & 365 & 365 & 365 & 0.0\\
+\hline
+2010/2011 & 2011 & 365 & 365 & 365 & 365 & 365 & 0.0\\
+\hline
+2011/2012 & 2012 & 366 & 366 & 366 & 366 & 366 & 0.0\\
+\hline
+2012/2013 & 2013 & 365 & 365 & 365 & 365 & 365 & 0.0\\
+\hline
+2013/2014 & 2014 & 365 & 365 & 365 & 365 & 365 & 0.0\\
+\hline
+2014/2015 & 2015 & 365 & 365 & 365 & 365 & 365 & 0.0\\
+\hline
+2015/2016 & 2016 & 366 & 366 & 366 & 366 & 366 & 0.0\\
+\hline
+2016/2017 & 2017 & 365 & 365 & 365 & 365 & 365 & 0.0\\
+\hline
+2017/2018 & 2018 & 365 & 365 & 365 & 365 & 365 & 0.0\\
+\hline
+2018/2019 & 2019 & 365 & 365 & 365 & 365 & 365 & 0.0\\
+\hline
+2019/2020 & 2020 & 366 & 366 & 366 & 366 & 366 & 0.0\\
+\hline
+\end{tabular}
+\end{table}
+
+\begin{quote}
+Upon closer examination, the seemingly promising location of Leszno exhibits many gaps in temperature data, particularly after 2005. These gaps must be filled with temperature data from neighboring stations.
+\end{quote}
+
+\hypertarget{task-2-5}{%
+\section{Task 2}\label{task-2-5}}
+
+\textbf{Create a list of the 25 closest weather stations using the handle\_gsod function}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# station_list_close_to_leszno<-}
+\CommentTok{#   handle_gsod(action="list_stations",location=c(16.57,51.85),time_interval=c(1990,2020))}
+
+\CommentTok{# write.csv(station_list_close_to_leszno,"station_list_close_to_leszno.csv" )}
+
+\NormalTok{station_list_close_to_leszno =}\StringTok{ }\KeywordTok{read.csv}\NormalTok{(}\StringTok{"station_list_close_to_leszno.csv"}\NormalTok{)}
+
+\KeywordTok{kable}\NormalTok{(station_list_close_to_leszno[}\DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{,], }
+      \DataTypeTok{caption=}\StringTok{"List of GSOD weather stations close to Leszno"}\NormalTok{)}\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{kable_styling}\NormalTok{(}\StringTok{"striped"}\NormalTok{, }\DataTypeTok{position =} \StringTok{"left"}\NormalTok{, }\DataTypeTok{font_size =} \DecValTok{10}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{scroll_box}\NormalTok{(}\DataTypeTok{width =} \StringTok{"100%"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{table}
+
+\caption{\label{tab:unnamed-chunk-33}List of GSOD weather stations close to Leszno}
+\fontsize{10}{12}\selectfont
+\begin{tabular}[t]{r|l|l|l|r|r|r|r|r|r|r}
+\hline
+X & chillR\_code & STATION.NAME & CTRY & Lat & Long & BEGIN & END & distance & Overlap\_years & Perc\_interval\_covered\\
+\hline
+4162 & 124180\_99999 & LESZNO & PL & 51.833 & 16.533 & 19730101 & 20211212 & 3.17 & 31.00 & 100.00\\
+\hline
+4160 & 124160\_99999 & WSCHOWA & PL & 51.800 & 16.317 & 19360102 & 19420630 & 18.31 & 0.00 & 0.00\\
+\hline
+4161 & 124170\_99999 & LUBIN MIASTO & PL & 51.417 & 16.200 & 19390810 & 19411231 & 54.56 & 0.00 & 0.00\\
+\hline
+4122 & 123260\_99999 & KRZESINY & PL & 52.332 & 16.966 & 20020601 & 20230103 & 60.11 & 18.59 & 59.95\\
+\hline
+4153 & 124030\_99999 & NOWE MIASTECZKO & PL & 51.683 & 15.733 & 19360102 & 19420630 & 60.70 & 0.00 & 0.00\\
+\hline
+4118 & 123120\_99999 & BABIMOST & PL & 52.139 & 15.799 & 20020603 & 20230103 & 61.96 & 18.58 & 59.94\\
+\hline
+4124 & 123300\_99999 & LAWICA & PL & 52.421 & 16.826 & 19310102 & 20230103 & 65.91 & 31.00 & 100.00\\
+\hline
+4163 & 124190\_99999 & JAROCIN & PL & 51.967 & 17.550 & 19391113 & 19420630 & 68.69 & 0.00 & 0.00\\
+\hline
+4150 & 124000\_99999 & ZIELONA GORA & PL & 51.933 & 15.533 & 19310101 & 20230103 & 71.99 & 31.00 & 100.00\\
+\hline
+4156 & 124060\_99999 & SZPROTAWA-WIECHLICE & PL & 51.561 & 15.585 & 19390815 & 20191108 & 75.30 & 29.85 & 96.30\\
+\hline
+\end{tabular}
+\end{table}
+
+\hypertarget{task-3-3}{%
+\section{Task 3}\label{task-3-3}}
+
+\textbf{Identify suitable weather stations for patching gaps}
+
+\begin{quote}
+After reviewing the nearest weather stations to the Leszno location, KRZESINY, BABIMOST and LAWICA stations were identified as suitable for filling in the gaps in temperature data. These stations are ranked 4th, 6th and 7th on the list.
+\end{quote}
 
   \bibliography{book.bib,packages.bib}
 

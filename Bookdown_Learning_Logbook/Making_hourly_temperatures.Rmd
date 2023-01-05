@@ -29,13 +29,17 @@ df <- data.frame(
 )
 
 
-kable(head(df), caption = "Differnt Locations") %>% kable_styling("striped", position = "left", font_size = 7)
+kable(head(df), caption = "Differnt Locations") %>% 
+       kable_styling("striped", position = "left", font_size = 10)%>%
+        scroll_box(width = "100%")
 
 # create a pivot table
 df_long <-
   pivot_longer(df, -"base", names_to = "Location", values_to = "daylength")
 
-kable(head(df_long)) %>% kable_styling("striped", position = "left", font_size = 10)
+kable(head(df_long)) %>% 
+      kable_styling("striped", position = "left", font_size = 10)%>%
+      scroll_box(width = "100%")
 
 
 # plot the result with ggplot
@@ -93,7 +97,8 @@ location = data.frame(
 
 
 kable(location, caption = "Weather Station Fuessenich")%>%
-  kable_styling("striped", position = "left", font_size = 10)
+        kable_styling("striped", position = "left", font_size = 10)%>%
+        scroll_box(width = "100%")
 
 ```
 
@@ -125,7 +130,8 @@ zuelpich_april$date_new <- as.POSIXct(zuelpich_april[, 3])
 zuelpich_april$date_newnew = as.Date(zuelpich_april[, 3])
 
 kable(head(zuelpich_april), caption = "Dataset: zuelpich_april") %>%
-  kable_styling("striped", position = "left", font_size = 10)
+        kable_styling("striped", position = "left", font_size = 10)%>%
+       scroll_box(width = "100%")
 
 ```
 
@@ -143,7 +149,8 @@ final <- zuelpich_april %>%
   )
 
 kable(final, caption = "Dataset:Tmean Tmax Tmin")%>%
-  kable_styling("striped", position = "left", font_size = 10)
+        kable_styling("striped", position = "left", font_size = 10)%>%
+        scroll_box(width = "100%")
 ```
 
 >
@@ -174,7 +181,8 @@ for(i in seq(1, nrow(zuelpich_april))) {
 
 
 kable(zuelpich_april[1:25,], caption = "Dataset: TmaxTminMatch")%>% 
-  kable_styling("striped", position = "left", font_size = 10)
+        kable_styling("striped", position = "left", font_size = 10)%>%
+        scroll_box(width = "100%")
 ```
 >
 After creating a new column containing only the `Tmax` and `Tmin` temperatures, a plot can be created that shows the measured temperature history and includes information on `Tmax` and `Tmin`. The red dots symbolize the daily temperature values for `Tmax` and `Tmin`, respectively.
@@ -192,6 +200,7 @@ ggplot(data = zuelpich_april, aes(x = zuelpich_april[, 4], y = zuelpich_april[, 
   theme_bw(base_size = 13)
 
 ```
+
 >
 First, the dataset `ZU_weather` must be created. The columns `DATE`, `Year`, `Month`, `Day`, `Tcontinue`, and `Temp_inter` are created. The `Temp_inter` column contains temperature data with large gaps that must be interpolated between.
 
@@ -205,7 +214,9 @@ ZU_weather = data.frame(
   Temp_inter = zuelpich_april[, 6]
 )
 
-kable(ZU_weather[1:8,])%>% kable_styling("striped", position = "left", font_size = 10,)
+kable(ZU_weather[1:8,])%>% 
+        kable_styling("striped", position = "left", font_size = 10)%>%
+      scroll_box(width = "100%")
 ```
 >
 The next step is to use the `interpolate_gaps()` function to calculate the missing temperatures between `Tmax` and `Tmin`. The function `interpolate_gaps()` returns a list with two entries. The first entry of the list contains the interpolated values, which can be accessed using `$interp` or `[[1]]`. The second entry, `$missing`, gives information on whether a value needs to be interpolated or if a real value is present. The function `interpolate_gaps()` linearly interpolates between gaps in the temperature records. The interpolated values are written directly to the Temp_inter column using the first list entry created by the `interpolate_gaps()` function.
@@ -218,7 +229,8 @@ ZU_weather$Temp_inter <- interpolate_gaps(ZU_weather$Temp_inter)[[1]]
 
 # have a look at the first 10 entries
 kable(ZU_weather[1:10, ]) %>% 
-  kable_styling("striped", position = "left", font_size = 10, )
+        kable_styling("striped", position = "left", font_size = 10)%>%
+        scroll_box(width = "100%")
 
 ```
 
@@ -237,6 +249,76 @@ ZU_weather_min_max = data.frame(
   Tmax = final[, 3],
   Tmin = final[, 4]
 )
-kable(ZU_weather_min_max[1:10,])%>% kable_styling("striped", position = "left", font_size = 10,)
+kable(ZU_weather_min_max[1:10,])%>%
+      kable_styling("striped", position = "left", font_size = 10)%>%
+      scroll_box(width = "100%")
 ```
+
+
+>
+The function `stack_hourly_temps()` can be passed the entire dataset `ZU_weather_min_max`. This function sets the `Tmax` values to 6:00 PM and the Tmin values to 6:00 AM, without performing any interpolation between the times when the `Tmax` and `Tmin` values actually occurred. The resulting interpolation is written to a new dataset, `ZU_hourly`. A new column called `DATE` is then created in this dataset to store the date, and the first row is removed due to an index shift.
+
+
+```{r, echo=TRUE}
+ZU_hourly = stack_hourly_temps(ZU_weather_min_max, latitude = 50.4)
+
+ZU_hourly$hourtemps[, "DATE"] =
+  ISOdate(
+    ZU_hourly$hourtemps$Year,
+    ZU_hourly$hourtemps$Month,
+    ZU_hourly$hourtemps$Day,
+    ZU_hourly$hourtemps$Hour
+  )
+
+ZU_hourly_mod = ZU_hourly[[1]][-1, ]
+
+kable(ZU_hourly_mod[1:10,])%>% 
+      kable_styling("striped", position = "left", font_size = 10)%>%
+      scroll_box(width = "100%")
+```
+
+>
+Finally, a dataset is generated containing the actual measured temperature data, as well as the interpolated values calculated using both linear and non-linear interpolation. The results can be effectively visualized in a plot.
+
+
+```{r, echo = TRUE, message=FALSE, warning= FALSE}
+# final_df = data.frame(
+#   DATE = zuelpich_april[, 4],
+#   Measured_Temp = zuelpich_april[, 2],
+#   Linear_Interp  = ZU_weather[, 6],
+#   Non_Linear_Interp = ZU_hourly_mod[, 8]
+# )
+#write.csv(final_df, "weather_data/final_df_non_linear.csv")
+
+# read final dataframe
+final_df_m = read.table("weather_data/final_df_non_linear.csv",
+                        header = TRUE,
+                        sep = ",")
+
+#remove index
+final_df_mx = final_df_m[, -1]
+
+#generate Date
+final_df_mx$DATE =  as.POSIXct(final_df_mx$DATE)
+
+#create pivot table
+final_df_mod  = pivot_longer(final_df_mx,
+                             -"DATE",
+                             names_to = "Method",
+                             values_to = "Temperature")
+
+#plot final result and compare methods
+ggplot(data = final_df_mod, aes(x = DATE, y = Temperature
+                                , colour = Method)) +
+  geom_line(lwd = 1.3) +
+  labs(x = "Date", y = "Temperature (C°)") +
+  ggtitle("1 to 5 April 2019  Zuelpich") +
+  scale_color_manual(values = c("red", "darkgreen", "darkblue")) +
+  #facet_wrap(vars(Method)) +
+  theme_bw(base_size = 15)
+
+```
+
+
+
 
