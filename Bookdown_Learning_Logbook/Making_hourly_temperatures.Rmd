@@ -84,8 +84,11 @@ ggplot(Days_df, aes(x = JDay, y = value)) + geom_line(lwd = 1.5, color = "red") 
 **Produce an hourly dataset, based on idealized daily curves, for the KA_weather dataset (included in chillR)**
 
 >
-The following two tasks were performed in a modified form. In order to demonstrate the application of the chillR package, it was decided to use a currently active weather station and use its data as a basis. Data on the weather station can be found in the table below.
+The following two tasks were performed in a modified form. In order to demonstrate the application of the chillR package, it was decided to use a currently active weather station and use its data as a basis. Data on the weather station can be found in the table below. Here is a picture of the weather station:
 
+
+
+<img src="wetterstation.jpg" alt="description of image" width="50%" style="display: block; margin: 0 auto;">
 
 ```{r, echo=FALSE}
 location = data.frame(

@@ -12,5 +12,6 @@ rmd_files: [
   "04-chill_models.Rmd",
   "Making_hourly_temperatures.Rmd",
   "Getting_temperature_data.Rmd",
-  "Filling_gaps_in_temperature_records.Rmd"
+  "Filling_gaps_in_temperature_records.Rmd",
+  "Generating_Temperature_Scenarios.Rmd"
 ]

@@ -23,7 +23,7 @@
 <meta name="author" content="Philipp Münker" />
 
 
-<meta name="date" content="2023-01-05" />
+<meta name="date" content="2023-01-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="getting-temperature-data.html"/>
-
+<link rel="next" href="generating-temperature-scenarios.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -183,6 +183,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.3" data-path="filling-gaps-in-temperature-records.html"><a href="filling-gaps-in-temperature-records.html#task-3-3"><i class="fa fa-check"></i><b>9.3</b> Task 3</a></li>
 <li class="chapter" data-level="9.4" data-path="filling-gaps-in-temperature-records.html"><a href="filling-gaps-in-temperature-records.html#task-4"><i class="fa fa-check"></i><b>9.4</b> Task 4</a></li>
 <li class="chapter" data-level="9.5" data-path="filling-gaps-in-temperature-records.html"><a href="filling-gaps-in-temperature-records.html#task-5"><i class="fa fa-check"></i><b>9.5</b> Task 5</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="generating-temperature-scenarios.html"><a href="generating-temperature-scenarios.html"><i class="fa fa-check"></i><b>10</b> Generating temperature scenarios</a><ul>
+<li class="chapter" data-level="10.1" data-path="generating-temperature-scenarios.html"><a href="generating-temperature-scenarios.html#task-1-7"><i class="fa fa-check"></i><b>10.1</b> Task 1</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -1490,8 +1493,8 @@ PL
 <span id="cb33-7"><a href="filling-gaps-in-temperature-records.html#cb33-7"></a>m &lt;-<span class="st"> </span><span class="kw">addMarkers</span>(m, <span class="dt">data =</span> df, <span class="dt">label =</span> <span class="op">~</span>label, <span class="dt">lat =</span> <span class="op">~</span>lat, <span class="dt">lng =</span> <span class="op">~</span>lng,</span>
 <span id="cb33-8"><a href="filling-gaps-in-temperature-records.html#cb33-8"></a>                <span class="dt">labelOptions =</span> <span class="kw">labelOptions</span>(<span class="dt">direction =</span> <span class="st">&quot;auto&quot;</span>))</span>
 <span id="cb33-9"><a href="filling-gaps-in-temperature-records.html#cb33-9"></a>m</span></code></pre></div>
-<div id="htmlwidget-e7b99a61b38345e9dbd7" style="width:600px;height:400px;" class="leaflet html-widget"></div>
-<script type="application/json" data-for="htmlwidget-e7b99a61b38345e9dbd7">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addMarkers","args":[[52.332,52.139,52.421,51.833],[16.966,15.799,16.826,16.533],null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},null,null,null,null,["KRZESINY","BABIMOST","LAWICA","LESZNO"],{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[51.833,52.421],"lng":[15.799,16.966]}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-1ac705053bb51d4bc1ad" style="width:600px;height:400px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1ac705053bb51d4bc1ad">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addMarkers","args":[[52.332,52.139,52.421,51.833],[16.966,15.799,16.826,16.533],null,null,null,{"interactive":true,"draggable":false,"keyboard":true,"title":"","alt":"","zIndexOffset":0,"opacity":1,"riseOnHover":false,"riseOffset":250},null,null,null,null,["KRZESINY","BABIMOST","LAWICA","LESZNO"],{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[51.833,52.421],"lng":[15.799,16.966]}},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="task-4" class="section level2 hasAnchor">
 <h2><span class="header-section-number">9.4</span> Task 4<a href="filling-gaps-in-temperature-records.html#task-4" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -1530,8 +1533,1282 @@ PL
 <div id="task-5" class="section level2 hasAnchor">
 <h2><span class="header-section-number">9.5</span> Task 5<a href="filling-gaps-in-temperature-records.html#task-5" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><strong>Use the patch_daily_temperatures function to fill gaps</strong></p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="filling-gaps-in-temperature-records.html#cb35-1"></a>patched&lt;-<span class="kw">patch_daily_temperatures</span>(<span class="dt">weather =</span> Leszno,</span>
-<span id="cb35-2"><a href="filling-gaps-in-temperature-records.html#cb35-2"></a>                                  <span class="dt">patch_weather =</span> patch_weather)</span></code></pre></div>
+<blockquote>
+<p>The <code>patch_daily_temperatures()</code> function can be used to fill in missing data in the records of the starting weather station, in this case Leszno.</p>
+</blockquote>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="filling-gaps-in-temperature-records.html#cb35-1"></a><span class="co"># Fill in the gaps in Leszno and save in a new variable patched</span></span>
+<span id="cb35-2"><a href="filling-gaps-in-temperature-records.html#cb35-2"></a>patched&lt;-<span class="kw">patch_daily_temperatures</span>(<span class="dt">weather =</span> Leszno,</span>
+<span id="cb35-3"><a href="filling-gaps-in-temperature-records.html#cb35-3"></a>                                  <span class="dt">patch_weather =</span> patch_weather)</span></code></pre></div>
+<blockquote>
+<p>Let’s first look at the statistics in Table 9.3 Patches statistics for <code>KRZESNY</code>.
+The table consists of two rows in total, <code>Tmin</code> and <code>Tmax</code>. The first column is called <code>mean_bias</code>. In Table 9.3, it shows <code>-0.931</code> for <code>Tmin</code> and <code>0.730</code> for <code>Tmax</code>. These numbers represent the average difference in mean temperature for daily maximum and minimum temperature, respectively, between the stations <code>Leszno</code> and <code>KRZESNY</code>. All data that is available for both stations is compared.
+The <code>filled</code> column indicates how many days were filled with data from the auxiliary station. In this case, 5347 days were taken from the records of station <code>KRZESNY</code> and inserted into the dataset of station <code>Leszno</code>. The <code>gaps_remain</code> column shows how many gaps still exist.</p>
+</blockquote>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="filling-gaps-in-temperature-records.html#cb36-1"></a><span class="kw">kable</span>(patched<span class="op">$</span>statistics[[<span class="dv">1</span>]],</span>
+<span id="cb36-2"><a href="filling-gaps-in-temperature-records.html#cb36-2"></a>      <span class="dt">caption =</span> <span class="kw">paste</span>(<span class="st">&quot;Patch statistics for&quot;</span>,</span>
+<span id="cb36-3"><a href="filling-gaps-in-temperature-records.html#cb36-3"></a>                      <span class="kw">names</span>(patched<span class="op">$</span>statistics)[<span class="dv">1</span>])) <span class="op">%&gt;%</span></span>
+<span id="cb36-4"><a href="filling-gaps-in-temperature-records.html#cb36-4"></a><span class="st">  </span><span class="kw">kable_styling</span>(<span class="st">&quot;striped&quot;</span>, <span class="dt">position =</span> <span class="st">&quot;left&quot;</span>, <span class="dt">font_size =</span> <span class="dv">10</span>) <span class="op">%&gt;%</span></span>
+<span id="cb36-5"><a href="filling-gaps-in-temperature-records.html#cb36-5"></a><span class="st">  </span><span class="kw">scroll_box</span>(<span class="dt">width =</span> <span class="st">&quot;100%&quot;</span>)</span></code></pre></div>
+<div style="border: 1px solid #ddd; padding: 5px; overflow-x: scroll; width:100%; ">
+<table class="table table-striped" style="font-size: 10px; ">
+<caption style="font-size: initial !important;">
+<span id="tab:unnamed-chunk-37">Table 9.3: </span>Patch statistics for KRZESINY
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+mean_bias
+</th>
+<th style="text-align:right;">
+stdev_bias
+</th>
+<th style="text-align:right;">
+filled
+</th>
+<th style="text-align:right;">
+gaps_remain
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Tmin
+</td>
+<td style="text-align:right;">
+-0.931
+</td>
+<td style="text-align:right;">
+1.632
+</td>
+<td style="text-align:right;">
+5347
+</td>
+<td style="text-align:right;">
+1299
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Tmax
+</td>
+<td style="text-align:right;">
+0.730
+</td>
+<td style="text-align:right;">
+1.365
+</td>
+<td style="text-align:right;">
+5347
+</td>
+<td style="text-align:right;">
+1299
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="filling-gaps-in-temperature-records.html#cb37-1"></a><span class="kw">kable</span>(patched<span class="op">$</span>statistics[[<span class="dv">2</span>]],</span>
+<span id="cb37-2"><a href="filling-gaps-in-temperature-records.html#cb37-2"></a>      <span class="dt">caption =</span> <span class="kw">paste</span>(<span class="st">&quot;Patch statistics for&quot;</span>,</span>
+<span id="cb37-3"><a href="filling-gaps-in-temperature-records.html#cb37-3"></a>                      <span class="kw">names</span>(patched<span class="op">$</span>statistics)[<span class="dv">2</span>])) <span class="op">%&gt;%</span></span>
+<span id="cb37-4"><a href="filling-gaps-in-temperature-records.html#cb37-4"></a><span class="st">  </span><span class="kw">kable_styling</span>(<span class="st">&quot;striped&quot;</span>, <span class="dt">position =</span> <span class="st">&quot;left&quot;</span>, <span class="dt">font_size =</span> <span class="dv">10</span>) <span class="op">%&gt;%</span></span>
+<span id="cb37-5"><a href="filling-gaps-in-temperature-records.html#cb37-5"></a><span class="st">  </span><span class="kw">scroll_box</span>(<span class="dt">width =</span> <span class="st">&quot;100%&quot;</span>)</span></code></pre></div>
+<div style="border: 1px solid #ddd; padding: 5px; overflow-x: scroll; width:100%; ">
+<table class="table table-striped" style="font-size: 10px; ">
+<caption style="font-size: initial !important;">
+<span id="tab:unnamed-chunk-37">Table 9.3: </span>Patch statistics for BABIMOST
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+mean_bias
+</th>
+<th style="text-align:right;">
+stdev_bias
+</th>
+<th style="text-align:right;">
+filled
+</th>
+<th style="text-align:right;">
+gaps_remain
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Tmin
+</td>
+<td style="text-align:right;">
+-1.114
+</td>
+<td style="text-align:right;">
+2.14
+</td>
+<td style="text-align:right;">
+334
+</td>
+<td style="text-align:right;">
+965
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Tmax
+</td>
+<td style="text-align:right;">
+0.297
+</td>
+<td style="text-align:right;">
+1.37
+</td>
+<td style="text-align:right;">
+334
+</td>
+<td style="text-align:right;">
+965
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="filling-gaps-in-temperature-records.html#cb38-1"></a><span class="kw">kable</span>(patched<span class="op">$</span>statistics[[<span class="dv">3</span>]],</span>
+<span id="cb38-2"><a href="filling-gaps-in-temperature-records.html#cb38-2"></a>      <span class="dt">caption =</span> <span class="kw">paste</span>(<span class="st">&quot;Patch statistics for&quot;</span>,</span>
+<span id="cb38-3"><a href="filling-gaps-in-temperature-records.html#cb38-3"></a>                      <span class="kw">names</span>(patched<span class="op">$</span>statistics)[<span class="dv">3</span>])) <span class="op">%&gt;%</span></span>
+<span id="cb38-4"><a href="filling-gaps-in-temperature-records.html#cb38-4"></a><span class="st">  </span><span class="kw">kable_styling</span>(<span class="st">&quot;striped&quot;</span>, <span class="dt">position =</span> <span class="st">&quot;left&quot;</span>, <span class="dt">font_size =</span> <span class="dv">10</span>) <span class="op">%&gt;%</span></span>
+<span id="cb38-5"><a href="filling-gaps-in-temperature-records.html#cb38-5"></a><span class="st">  </span><span class="kw">scroll_box</span>(<span class="dt">width =</span> <span class="st">&quot;100%&quot;</span>)</span></code></pre></div>
+<div style="border: 1px solid #ddd; padding: 5px; overflow-x: scroll; width:100%; ">
+<table class="table table-striped" style="font-size: 10px; ">
+<caption style="font-size: initial !important;">
+<span id="tab:unnamed-chunk-37">Table 9.3: </span>Patch statistics for LAWICA
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+mean_bias
+</th>
+<th style="text-align:right;">
+stdev_bias
+</th>
+<th style="text-align:right;">
+filled
+</th>
+<th style="text-align:right;">
+gaps_remain
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Tmin
+</td>
+<td style="text-align:right;">
+-0.415
+</td>
+<td style="text-align:right;">
+1.533
+</td>
+<td style="text-align:right;">
+963
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Tmax
+</td>
+<td style="text-align:right;">
+0.134
+</td>
+<td style="text-align:right;">
+1.230
+</td>
+<td style="text-align:right;">
+963
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p>The <code>patch_daily_temperatures()</code> function allows the use of the arguments <code>max_mean_bias</code> and <code>max_stdev_bias</code>. These can be used to identify large temperature differences between the starting station and auxiliary station. For example, if these arguments are set to 1 °C for <code>max_mean_bias</code> and 2 °C <code>max_stdev_bias</code>, temperatures from the corresponding auxiliary station are only used if the deviation <code>from max_mean_bias</code> is less than or equal to 1 and <code>from max_stdev_bias</code> if the deviation is less than or equal to 2.</p>
+</blockquote>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="filling-gaps-in-temperature-records.html#cb39-1"></a><span class="co"># Fill in the gaps in Leszno and save in a new variable patched</span></span>
+<span id="cb39-2"><a href="filling-gaps-in-temperature-records.html#cb39-2"></a><span class="co"># set max_mean_bias = 1 and max_stdev_bias = 2</span></span>
+<span id="cb39-3"><a href="filling-gaps-in-temperature-records.html#cb39-3"></a>patched&lt;-<span class="kw">patch_daily_temperatures</span>(<span class="dt">weather =</span> Leszno,</span>
+<span id="cb39-4"><a href="filling-gaps-in-temperature-records.html#cb39-4"></a>                                  <span class="dt">patch_weather =</span> patch_weather,</span>
+<span id="cb39-5"><a href="filling-gaps-in-temperature-records.html#cb39-5"></a>                                  <span class="dt">max_mean_bias =</span> <span class="dv">1</span>,</span>
+<span id="cb39-6"><a href="filling-gaps-in-temperature-records.html#cb39-6"></a>                                  <span class="dt">max_stdev_bias =</span> <span class="dv">2</span>)</span></code></pre></div>
+<blockquote>
+<p>If we look at Table 9.4 Patch statistics for BABIMOST, we can see that no <code>Tmin</code> temperatures were used to fill in the <code>Leszno</code> dataset. The <code>mean_bias</code> in this example is <code>-1.114</code> and <code>stdev_bias</code> is <code>2.14</code>. The amount of both values is therefore greater than 1 and 2. The filled column, as expected, shows that no data was used to fill in the starting weather station <code>Leszno</code>.</p>
+</blockquote>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="filling-gaps-in-temperature-records.html#cb40-1"></a><span class="kw">kable</span>(patched<span class="op">$</span>statistics[[<span class="dv">1</span>]],</span>
+<span id="cb40-2"><a href="filling-gaps-in-temperature-records.html#cb40-2"></a>      <span class="dt">caption =</span> <span class="kw">paste</span>(<span class="st">&quot;Patch statistics for&quot;</span>,</span>
+<span id="cb40-3"><a href="filling-gaps-in-temperature-records.html#cb40-3"></a>                      <span class="kw">names</span>(patched<span class="op">$</span>statistics)[<span class="dv">1</span>])) <span class="op">%&gt;%</span></span>
+<span id="cb40-4"><a href="filling-gaps-in-temperature-records.html#cb40-4"></a><span class="st">  </span><span class="kw">kable_styling</span>(<span class="st">&quot;striped&quot;</span>, <span class="dt">position =</span> <span class="st">&quot;left&quot;</span>, <span class="dt">font_size =</span> <span class="dv">10</span>) <span class="op">%&gt;%</span></span>
+<span id="cb40-5"><a href="filling-gaps-in-temperature-records.html#cb40-5"></a><span class="st">  </span><span class="kw">scroll_box</span>(<span class="dt">width =</span> <span class="st">&quot;100%&quot;</span>)</span></code></pre></div>
+<div style="border: 1px solid #ddd; padding: 5px; overflow-x: scroll; width:100%; ">
+<table class="table table-striped" style="font-size: 10px; ">
+<caption style="font-size: initial !important;">
+<span id="tab:unnamed-chunk-39">Table 9.4: </span>Patch statistics for KRZESINY
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+mean_bias
+</th>
+<th style="text-align:right;">
+stdev_bias
+</th>
+<th style="text-align:right;">
+filled
+</th>
+<th style="text-align:right;">
+gaps_remain
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Tmin
+</td>
+<td style="text-align:right;">
+-0.931
+</td>
+<td style="text-align:right;">
+1.632
+</td>
+<td style="text-align:right;">
+5347
+</td>
+<td style="text-align:right;">
+1299
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Tmax
+</td>
+<td style="text-align:right;">
+0.730
+</td>
+<td style="text-align:right;">
+1.365
+</td>
+<td style="text-align:right;">
+5347
+</td>
+<td style="text-align:right;">
+1299
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="filling-gaps-in-temperature-records.html#cb41-1"></a><span class="kw">kable</span>(patched<span class="op">$</span>statistics[[<span class="dv">2</span>]],</span>
+<span id="cb41-2"><a href="filling-gaps-in-temperature-records.html#cb41-2"></a>      <span class="dt">caption =</span> <span class="kw">paste</span>(<span class="st">&quot;Patch statistics for&quot;</span>,</span>
+<span id="cb41-3"><a href="filling-gaps-in-temperature-records.html#cb41-3"></a>                      <span class="kw">names</span>(patched<span class="op">$</span>statistics)[<span class="dv">2</span>])) <span class="op">%&gt;%</span></span>
+<span id="cb41-4"><a href="filling-gaps-in-temperature-records.html#cb41-4"></a><span class="st">  </span><span class="kw">kable_styling</span>(<span class="st">&quot;striped&quot;</span>, <span class="dt">position =</span> <span class="st">&quot;left&quot;</span>, <span class="dt">font_size =</span> <span class="dv">10</span>) <span class="op">%&gt;%</span></span>
+<span id="cb41-5"><a href="filling-gaps-in-temperature-records.html#cb41-5"></a><span class="st">  </span><span class="kw">scroll_box</span>(<span class="dt">width =</span> <span class="st">&quot;100%&quot;</span>)</span></code></pre></div>
+<div style="border: 1px solid #ddd; padding: 5px; overflow-x: scroll; width:100%; ">
+<table class="table table-striped" style="font-size: 10px; ">
+<caption style="font-size: initial !important;">
+<span id="tab:unnamed-chunk-39">Table 9.4: </span>Patch statistics for BABIMOST
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+mean_bias
+</th>
+<th style="text-align:right;">
+stdev_bias
+</th>
+<th style="text-align:right;">
+filled
+</th>
+<th style="text-align:right;">
+gaps_remain
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Tmin
+</td>
+<td style="text-align:right;">
+-1.114
+</td>
+<td style="text-align:right;">
+2.14
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1299
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Tmax
+</td>
+<td style="text-align:right;">
+0.297
+</td>
+<td style="text-align:right;">
+1.37
+</td>
+<td style="text-align:right;">
+334
+</td>
+<td style="text-align:right;">
+965
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="filling-gaps-in-temperature-records.html#cb42-1"></a><span class="kw">kable</span>(patched<span class="op">$</span>statistics[[<span class="dv">3</span>]],</span>
+<span id="cb42-2"><a href="filling-gaps-in-temperature-records.html#cb42-2"></a>      <span class="dt">caption =</span> <span class="kw">paste</span>(<span class="st">&quot;Patch statistics for&quot;</span>,</span>
+<span id="cb42-3"><a href="filling-gaps-in-temperature-records.html#cb42-3"></a>                      <span class="kw">names</span>(patched<span class="op">$</span>statistics)[<span class="dv">3</span>])) <span class="op">%&gt;%</span></span>
+<span id="cb42-4"><a href="filling-gaps-in-temperature-records.html#cb42-4"></a><span class="st">  </span><span class="kw">kable_styling</span>(<span class="st">&quot;striped&quot;</span>, <span class="dt">position =</span> <span class="st">&quot;left&quot;</span>, <span class="dt">font_size =</span> <span class="dv">10</span>) <span class="op">%&gt;%</span></span>
+<span id="cb42-5"><a href="filling-gaps-in-temperature-records.html#cb42-5"></a><span class="st">  </span><span class="kw">scroll_box</span>(<span class="dt">width =</span> <span class="st">&quot;100%&quot;</span>)</span></code></pre></div>
+<div style="border: 1px solid #ddd; padding: 5px; overflow-x: scroll; width:100%; ">
+<table class="table table-striped" style="font-size: 10px; ">
+<caption style="font-size: initial !important;">
+<span id="tab:unnamed-chunk-39">Table 9.4: </span>Patch statistics for LAWICA
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+mean_bias
+</th>
+<th style="text-align:right;">
+stdev_bias
+</th>
+<th style="text-align:right;">
+filled
+</th>
+<th style="text-align:right;">
+gaps_remain
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Tmin
+</td>
+<td style="text-align:right;">
+-0.388
+</td>
+<td style="text-align:right;">
+1.517
+</td>
+<td style="text-align:right;">
+1297
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Tmax
+</td>
+<td style="text-align:right;">
+0.134
+</td>
+<td style="text-align:right;">
+1.230
+</td>
+<td style="text-align:right;">
+963
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p>Finally, the <code>fix_weather()</code> function can be used to check how well the temperature dataset can be completed</p>
+</blockquote>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="filling-gaps-in-temperature-records.html#cb43-1"></a>post_patch_stats&lt;-<span class="kw">fix_weather</span>(patched)<span class="op">$</span>QC</span>
+<span id="cb43-2"><a href="filling-gaps-in-temperature-records.html#cb43-2"></a></span>
+<span id="cb43-3"><a href="filling-gaps-in-temperature-records.html#cb43-3"></a></span>
+<span id="cb43-4"><a href="filling-gaps-in-temperature-records.html#cb43-4"></a><span class="kw">kable</span>(post_patch_stats,</span>
+<span id="cb43-5"><a href="filling-gaps-in-temperature-records.html#cb43-5"></a>      <span class="dt">caption =</span> <span class="st">&quot;Data completeness table for the weather record from</span></span>
+<span id="cb43-6"><a href="filling-gaps-in-temperature-records.html#cb43-6"></a><span class="st">      Leszno, after applying the patch procedure&quot;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb43-7"><a href="filling-gaps-in-temperature-records.html#cb43-7"></a><span class="st">  </span><span class="kw">kable_styling</span>(<span class="st">&quot;striped&quot;</span>, <span class="dt">position =</span> <span class="st">&quot;left&quot;</span>, <span class="dt">font_size =</span> <span class="dv">10</span>) <span class="op">%&gt;%</span></span>
+<span id="cb43-8"><a href="filling-gaps-in-temperature-records.html#cb43-8"></a><span class="st">  </span><span class="kw">scroll_box</span>(<span class="dt">width =</span> <span class="st">&quot;100%&quot;</span>)</span></code></pre></div>
+<div style="border: 1px solid #ddd; padding: 5px; overflow-x: scroll; width:100%; ">
+<table class="table table-striped" style="font-size: 10px; ">
+<caption style="font-size: initial !important;">
+<span id="tab:unnamed-chunk-40">Table 9.5: </span>Data completeness table for the weather record from
+Leszno, after applying the patch procedure
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+Season
+</th>
+<th style="text-align:right;">
+End_year
+</th>
+<th style="text-align:right;">
+Season_days
+</th>
+<th style="text-align:right;">
+Data_days
+</th>
+<th style="text-align:right;">
+Missing_Tmin
+</th>
+<th style="text-align:right;">
+Missing_Tmax
+</th>
+<th style="text-align:right;">
+Incomplete_days
+</th>
+<th style="text-align:right;">
+Perc_complete
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+1989/1990
+</td>
+<td style="text-align:right;">
+1990
+</td>
+<td style="text-align:right;">
+365
+</td>
+<td style="text-align:right;">
+365
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+100.0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1990/1991
+</td>
+<td style="text-align:right;">
+1991
+</td>
+<td style="text-align:right;">
+365
+</td>
+<td style="text-align:right;">
+365
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+100.0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1991/1992
+</td>
+<td style="text-align:right;">
+1992
+</td>
+<td style="text-align:right;">
+366
+</td>
+<td style="text-align:right;">
+366
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+100.0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1992/1993
+</td>
+<td style="text-align:right;">
+1993
+</td>
+<td style="text-align:right;">
+365
+</td>
+<td style="text-align:right;">
+365
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+100.0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1993/1994
+</td>
+<td style="text-align:right;">
+1994
+</td>
+<td style="text-align:right;">
+365
+</td>
+<td style="text-align:right;">
+365
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+100.0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1994/1995
+</td>
+<td style="text-align:right;">
+1995
+</td>
+<td style="text-align:right;">
+365
+</td>
+<td style="text-align:right;">
+365
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+100.0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1995/1996
+</td>
+<td style="text-align:right;">
+1996
+</td>
+<td style="text-align:right;">
+366
+</td>
+<td style="text-align:right;">
+366
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+100.0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1996/1997
+</td>
+<td style="text-align:right;">
+1997
+</td>
+<td style="text-align:right;">
+365
+</td>
+<td style="text-align:right;">
+365
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+100.0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1997/1998
+</td>
+<td style="text-align:right;">
+1998
+</td>
+<td style="text-align:right;">
+365
+</td>
+<td style="text-align:right;">
+365
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+100.0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1998/1999
+</td>
+<td style="text-align:right;">
+1999
+</td>
+<td style="text-align:right;">
+365
+</td>
+<td style="text-align:right;">
+365
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+99.7
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+1999/2000
+</td>
+<td style="text-align:right;">
+2000
+</td>
+<td style="text-align:right;">
+366
+</td>
+<td style="text-align:right;">
+366
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+100.0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2000/2001
+</td>
+<td style="text-align:right;">
+2001
+</td>
+<td style="text-align:right;">
+365
+</td>
+<td style="text-align:right;">
+365
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+100.0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2001/2002
+</td>
+<td style="text-align:right;">
+2002
+</td>
+<td style="text-align:right;">
+365
+</td>
+<td style="text-align:right;">
+365
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+100.0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2002/2003
+</td>
+<td style="text-align:right;">
+2003
+</td>
+<td style="text-align:right;">
+365
+</td>
+<td style="text-align:right;">
+365
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+100.0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2003/2004
+</td>
+<td style="text-align:right;">
+2004
+</td>
+<td style="text-align:right;">
+366
+</td>
+<td style="text-align:right;">
+366
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+100.0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2004/2005
+</td>
+<td style="text-align:right;">
+2005
+</td>
+<td style="text-align:right;">
+365
+</td>
+<td style="text-align:right;">
+365
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+100.0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2005/2006
+</td>
+<td style="text-align:right;">
+2006
+</td>
+<td style="text-align:right;">
+365
+</td>
+<td style="text-align:right;">
+365
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+100.0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2006/2007
+</td>
+<td style="text-align:right;">
+2007
+</td>
+<td style="text-align:right;">
+365
+</td>
+<td style="text-align:right;">
+365
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+100.0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2007/2008
+</td>
+<td style="text-align:right;">
+2008
+</td>
+<td style="text-align:right;">
+366
+</td>
+<td style="text-align:right;">
+366
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+100.0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2008/2009
+</td>
+<td style="text-align:right;">
+2009
+</td>
+<td style="text-align:right;">
+365
+</td>
+<td style="text-align:right;">
+365
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+100.0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2009/2010
+</td>
+<td style="text-align:right;">
+2010
+</td>
+<td style="text-align:right;">
+365
+</td>
+<td style="text-align:right;">
+365
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+100.0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2010/2011
+</td>
+<td style="text-align:right;">
+2011
+</td>
+<td style="text-align:right;">
+365
+</td>
+<td style="text-align:right;">
+365
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+100.0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2011/2012
+</td>
+<td style="text-align:right;">
+2012
+</td>
+<td style="text-align:right;">
+366
+</td>
+<td style="text-align:right;">
+366
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+100.0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2012/2013
+</td>
+<td style="text-align:right;">
+2013
+</td>
+<td style="text-align:right;">
+365
+</td>
+<td style="text-align:right;">
+365
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+100.0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2013/2014
+</td>
+<td style="text-align:right;">
+2014
+</td>
+<td style="text-align:right;">
+365
+</td>
+<td style="text-align:right;">
+365
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+100.0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2014/2015
+</td>
+<td style="text-align:right;">
+2015
+</td>
+<td style="text-align:right;">
+365
+</td>
+<td style="text-align:right;">
+365
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+100.0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2015/2016
+</td>
+<td style="text-align:right;">
+2016
+</td>
+<td style="text-align:right;">
+366
+</td>
+<td style="text-align:right;">
+366
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+100.0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2016/2017
+</td>
+<td style="text-align:right;">
+2017
+</td>
+<td style="text-align:right;">
+365
+</td>
+<td style="text-align:right;">
+365
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+100.0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2017/2018
+</td>
+<td style="text-align:right;">
+2018
+</td>
+<td style="text-align:right;">
+365
+</td>
+<td style="text-align:right;">
+365
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+100.0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2018/2019
+</td>
+<td style="text-align:right;">
+2019
+</td>
+<td style="text-align:right;">
+365
+</td>
+<td style="text-align:right;">
+365
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+100.0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+2019/2020
+</td>
+<td style="text-align:right;">
+2020
+</td>
+<td style="text-align:right;">
+366
+</td>
+<td style="text-align:right;">
+366
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+99.7
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="filling-gaps-in-temperature-records.html#cb44-1"></a>Leszno_weather_fix =<span class="st"> </span><span class="kw">fix_weather</span>(patched)</span>
+<span id="cb44-2"><a href="filling-gaps-in-temperature-records.html#cb44-2"></a><span class="co">#write.csv(Leszno_weather_fix$weather,&quot;weather_data/Leszno_weather.csv&quot;)</span></span></code></pre></div>
 
 </div>
 </div>
@@ -1540,8 +2817,8 @@ PL
           </div>
         </div>
       </div>
-<a href="getting-temperature-data.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="getting-temperature-data.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="generating-temperature-scenarios.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

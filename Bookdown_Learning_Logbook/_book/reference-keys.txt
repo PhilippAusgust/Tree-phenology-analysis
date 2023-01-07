@@ -13,6 +13,9 @@ tab:unnamed-chunk-30
 tab:unnamed-chunk-31
 tab:unnamed-chunk-32
 tab:unnamed-chunk-33
+tab:unnamed-chunk-37
+tab:unnamed-chunk-39
+tab:unnamed-chunk-40
 introduction
 tree-phenology
 treedormancy
@@ -43,3 +46,5 @@ task-2-5
 task-3-3
 task-4
 task-5
+generating-temperature-scenarios
+task-1-7

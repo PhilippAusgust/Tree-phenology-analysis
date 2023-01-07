@@ -65,6 +65,7 @@ m
 
 >
 Weather data from the previously selected stations must now be downloaded. To avoid having to do this every time, the data is saved using the `save_temperature_scenario()` function and subsequently loaded using the `load_temperature_scenarios()` function. Afterwards, some statistics are used to determine the success of the data completion.
+
 ```{r, echo =TRUE}
 
 # create a vector for looping
@@ -103,13 +104,94 @@ patch_weather<-load_temperature_scenarios("weather_data/gepatchtes_Wetter_PL", "
 
 **Use the patch_daily_temperatures function to fill gaps**
 
+>
+The `patch_daily_temperatures()` function can be used to fill in missing data in the records of the starting weather station, in this case Leszno.
+
 ```{r, echo=TRUE}
+# Fill in the gaps in Leszno and save in a new variable patched
 patched<-patch_daily_temperatures(weather = Leszno,
                                   patch_weather = patch_weather)
+```
+>
+Let's first look at the statistics in Table 9.3 Patches statistics for `KRZESNY`.
+The table consists of two rows in total, `Tmin` and `Tmax`. The first column is called `mean_bias`. In Table 9.3, it shows `-0.931` for `Tmin` and `0.730` for `Tmax`. These numbers represent the average difference in mean temperature for daily maximum and minimum temperature, respectively, between the stations `Leszno` and `KRZESNY`. All data that is available for both stations is compared.
+The `filled` column indicates how many days were filled with data from the auxiliary station. In this case, 5347 days were taken from the records of station `KRZESNY` and inserted into the dataset of station `Leszno`. The `gaps_remain` column shows how many gaps still exist.
 
+```{r, echo = TRUE}
+
+kable(patched$statistics[[1]],
+      caption = paste("Patch statistics for",
+                      names(patched$statistics)[1])) %>%
+  kable_styling("striped", position = "left", font_size = 10) %>%
+  scroll_box(width = "100%")
+
+
+kable(patched$statistics[[2]],
+      caption = paste("Patch statistics for",
+                      names(patched$statistics)[2])) %>%
+  kable_styling("striped", position = "left", font_size = 10) %>%
+  scroll_box(width = "100%")
+
+
+kable(patched$statistics[[3]],
+      caption = paste("Patch statistics for",
+                      names(patched$statistics)[3])) %>%
+  kable_styling("striped", position = "left", font_size = 10) %>%
+  scroll_box(width = "100%")
 ```
 
+>
+The `patch_daily_temperatures()` function allows the use of the arguments `max_mean_bias` and `max_stdev_bias`. These can be used to identify large temperature differences between the starting station and auxiliary station. For example, if these arguments are set to 1 °C for `max_mean_bias` and 2 °C `max_stdev_bias`, temperatures from the corresponding auxiliary station are only used if the deviation `from max_mean_bias` is less than or equal to 1 and `from max_stdev_bias` if the deviation is less than or equal to 2.
+
+```{r, echo = TRUE}
+# Fill in the gaps in Leszno and save in a new variable patched
+# set max_mean_bias = 1 and max_stdev_bias = 2
+patched<-patch_daily_temperatures(weather = Leszno,
+                                  patch_weather = patch_weather,
+                                  max_mean_bias = 1,
+                                  max_stdev_bias = 2)
+```
+
+>
+If we look at Table 9.4 Patch statistics for BABIMOST, we can see that no `Tmin` temperatures were used to fill in the `Leszno` dataset. The `mean_bias` in this example is `-1.114` and `stdev_bias` is `2.14`. The amount of both values is therefore greater than 1 and 2. The filled column, as expected, shows that no data was used to fill in the starting weather station `Leszno`.
 
 
+```{r, echo =TRUE}
+kable(patched$statistics[[1]],
+      caption = paste("Patch statistics for",
+                      names(patched$statistics)[1])) %>%
+  kable_styling("striped", position = "left", font_size = 10) %>%
+  scroll_box(width = "100%")
 
+
+kable(patched$statistics[[2]],
+      caption = paste("Patch statistics for",
+                      names(patched$statistics)[2])) %>%
+  kable_styling("striped", position = "left", font_size = 10) %>%
+  scroll_box(width = "100%")
+
+
+kable(patched$statistics[[3]],
+      caption = paste("Patch statistics for",
+                      names(patched$statistics)[3])) %>%
+  kable_styling("striped", position = "left", font_size = 10) %>%
+  scroll_box(width = "100%")
+
+```
+>
+Finally, the `fix_weather()` function can be used to check how well the temperature dataset can be completed
+
+```{r}
+post_patch_stats<-fix_weather(patched)$QC
+
+
+kable(post_patch_stats,
+      caption = "Data completeness table for the weather record from
+      Leszno, after applying the patch procedure") %>%
+  kable_styling("striped", position = "left", font_size = 10) %>%
+  scroll_box(width = "100%")
+
+Leszno_weather_fix = fix_weather(patched)
+#write.csv(Leszno_weather_fix$weather,"weather_data/Leszno_weather.csv")
+```
 
