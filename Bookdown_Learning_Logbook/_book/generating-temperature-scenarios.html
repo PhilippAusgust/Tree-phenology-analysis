@@ -23,7 +23,7 @@
 <meta name="author" content="Philipp Münker" />
 
 
-<meta name="date" content="2023-01-07" />
+<meta name="date" content="2023-01-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="filling-gaps-in-temperature-records.html"/>
-
+<link rel="next" href="historic-temperature-scenario.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -186,6 +186,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="10" data-path="generating-temperature-scenarios.html"><a href="generating-temperature-scenarios.html"><i class="fa fa-check"></i><b>10</b> Generating temperature scenarios</a><ul>
 <li class="chapter" data-level="10.1" data-path="generating-temperature-scenarios.html"><a href="generating-temperature-scenarios.html#task-1-7"><i class="fa fa-check"></i><b>10.1</b> Task 1</a></li>
+<li class="chapter" data-level="10.2" data-path="generating-temperature-scenarios.html"><a href="generating-temperature-scenarios.html#task-2-6"><i class="fa fa-check"></i><b>10.2</b> Task 2</a></li>
+<li class="chapter" data-level="10.3" data-path="generating-temperature-scenarios.html"><a href="generating-temperature-scenarios.html#task-3-4"><i class="fa fa-check"></i><b>10.3</b> Task 3</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="historic-temperature-scenario.html"><a href="historic-temperature-scenario.html"><i class="fa fa-check"></i><b>11</b> Historic Temperature Scenario</a><ul>
+<li class="chapter" data-level="11.1" data-path="historic-temperature-scenario.html"><a href="historic-temperature-scenario.html#task-1-8"><i class="fa fa-check"></i><b>11.1</b> Task 1</a></li>
+<li class="chapter" data-level="11.2" data-path="historic-temperature-scenario.html"><a href="historic-temperature-scenario.html#task-2-7"><i class="fa fa-check"></i><b>11.2</b> Task 2</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="future-temperature-scenarios.html"><a href="future-temperature-scenarios.html"><i class="fa fa-check"></i><b>12</b> Future Temperature Scenarios</a><ul>
+<li class="chapter" data-level="12.1" data-path="future-temperature-scenarios.html"><a href="future-temperature-scenarios.html#task-1-9"><i class="fa fa-check"></i><b>12.1</b> Task 1</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="plotting-future-scenarios.html"><a href="plotting-future-scenarios.html"><i class="fa fa-check"></i><b>13</b> Plotting Future Scenarios</a><ul>
+<li class="chapter" data-level="13.1" data-path="plotting-future-scenarios.html"><a href="plotting-future-scenarios.html#task-1-10"><i class="fa fa-check"></i><b>13.1</b> Task 1</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="chill-model-comparison.html"><a href="chill-model-comparison.html"><i class="fa fa-check"></i><b>14</b> Chill Model Comparison</a><ul>
+<li class="chapter" data-level="14.1" data-path="chill-model-comparison.html"><a href="chill-model-comparison.html#task-1-11"><i class="fa fa-check"></i><b>14.1</b> Task 1</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -211,6 +226,408 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">Chapter 10</span> Generating temperature scenarios<a href="generating-temperature-scenarios.html#generating-temperature-scenarios" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <div id="task-1-7" class="section level2 hasAnchor">
 <h2><span class="header-section-number">10.1</span> Task 1<a href="generating-temperature-scenarios.html#task-1-7" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>For the location you chose for your earlier analyses, use chillR’s weather generator to produce 100 years of synthetic temperature data.</strong></p>
+<blockquote>
+<p>A weather generator can be used to generate synthetic weather data. Chill R uses the generator from the RMAWGEN package. In order to generate weather data, the weather generator needs to be calibrated using original data. In this example, the weather data set for the Leszno location, generated in previous chapters, is used for calibration.</p>
+</blockquote>
+<blockquote>
+<p>Generating the weather data takes a little time. Therefore, as in previous chapters, the generated data is saved and then read in at this point.</p>
+</blockquote>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="generating-temperature-scenarios.html#cb45-1"></a><span class="co"># load completed temperature</span></span>
+<span id="cb45-2"><a href="generating-temperature-scenarios.html#cb45-2"></a></span>
+<span id="cb45-3"><a href="generating-temperature-scenarios.html#cb45-3"></a><span class="co">#df_lz = read.csv(&quot;weather_data/Leszno_weather.csv&quot;, header = TRUE)</span></span>
+<span id="cb45-4"><a href="generating-temperature-scenarios.html#cb45-4"></a></span>
+<span id="cb45-5"><a href="generating-temperature-scenarios.html#cb45-5"></a><span class="co"># use handle_gsod for preparation  </span></span>
+<span id="cb45-6"><a href="generating-temperature-scenarios.html#cb45-6"></a></span>
+<span id="cb45-7"><a href="generating-temperature-scenarios.html#cb45-7"></a><span class="co">#LZ_weather = handle_gsod(df_lz)</span></span>
+<span id="cb45-8"><a href="generating-temperature-scenarios.html#cb45-8"></a></span>
+<span id="cb45-9"><a href="generating-temperature-scenarios.html#cb45-9"></a><span class="co"># run the temperature generator</span></span>
+<span id="cb45-10"><a href="generating-temperature-scenarios.html#cb45-10"></a></span>
+<span id="cb45-11"><a href="generating-temperature-scenarios.html#cb45-11"></a><span class="co">#Temp&lt;-temperature_generation(LZ_weather,</span></span>
+<span id="cb45-12"><a href="generating-temperature-scenarios.html#cb45-12"></a><span class="co">#                             years=c(1998,2005),</span></span>
+<span id="cb45-13"><a href="generating-temperature-scenarios.html#cb45-13"></a><span class="co">#                             sim_years = c(2001,2100))</span></span>
+<span id="cb45-14"><a href="generating-temperature-scenarios.html#cb45-14"></a></span>
+<span id="cb45-15"><a href="generating-temperature-scenarios.html#cb45-15"></a><span class="co"># plot measured values and simulated values</span></span>
+<span id="cb45-16"><a href="generating-temperature-scenarios.html#cb45-16"></a></span>
+<span id="cb45-17"><a href="generating-temperature-scenarios.html#cb45-17"></a><span class="co"># pull the data set from the list Temp</span></span>
+<span id="cb45-18"><a href="generating-temperature-scenarios.html#cb45-18"></a><span class="co">#Temp = Temp[[1]]</span></span>
+<span id="cb45-19"><a href="generating-temperature-scenarios.html#cb45-19"></a></span>
+<span id="cb45-20"><a href="generating-temperature-scenarios.html#cb45-20"></a><span class="co"># why is there an additional column? -&gt; remove the col nodata from data set! </span></span>
+<span id="cb45-21"><a href="generating-temperature-scenarios.html#cb45-21"></a><span class="co">#Temp = Temp[,-c(5)]</span></span>
+<span id="cb45-22"><a href="generating-temperature-scenarios.html#cb45-22"></a></span>
+<span id="cb45-23"><a href="generating-temperature-scenarios.html#cb45-23"></a><span class="co"># create dataframe Temperatures with the temperature information from 1998 - 2005</span></span>
+<span id="cb45-24"><a href="generating-temperature-scenarios.html#cb45-24"></a><span class="co">#Temperatures&lt;-cbind(LZ_weather[</span></span>
+<span id="cb45-25"><a href="generating-temperature-scenarios.html#cb45-25"></a><span class="co">#  which(LZ_weather$Year %in% 1998:2005),] ,Data_source=&quot;observed&quot;)</span></span>
+<span id="cb45-26"><a href="generating-temperature-scenarios.html#cb45-26"></a></span>
+<span id="cb45-27"><a href="generating-temperature-scenarios.html#cb45-27"></a><span class="co"># cause of using the handle_gsod() function there are the </span></span>
+<span id="cb45-28"><a href="generating-temperature-scenarios.html#cb45-28"></a><span class="co"># col´s prec and mean Temp which  should deleted</span></span>
+<span id="cb45-29"><a href="generating-temperature-scenarios.html#cb45-29"></a></span>
+<span id="cb45-30"><a href="generating-temperature-scenarios.html#cb45-30"></a><span class="co">#Temperatures = Temperatures[,-c(7,8)]</span></span>
+<span id="cb45-31"><a href="generating-temperature-scenarios.html#cb45-31"></a></span>
+<span id="cb45-32"><a href="generating-temperature-scenarios.html#cb45-32"></a><span class="co"># create final data frame Temperatures</span></span>
+<span id="cb45-33"><a href="generating-temperature-scenarios.html#cb45-33"></a><span class="co">#Temperatures&lt;-rbind(Temperatures,</span></span>
+<span id="cb45-34"><a href="generating-temperature-scenarios.html#cb45-34"></a><span class="co">#                    cbind(Temp[,c(&quot;DATE&quot;,&quot;Year&quot;,&quot;Month&quot;,&quot;Day&quot;,&quot;Tmin&quot;,&quot;Tmax&quot;)],</span></span>
+<span id="cb45-35"><a href="generating-temperature-scenarios.html#cb45-35"></a><span class="co">#                          Data_source=&quot;simulated&quot;))</span></span>
+<span id="cb45-36"><a href="generating-temperature-scenarios.html#cb45-36"></a></span>
+<span id="cb45-37"><a href="generating-temperature-scenarios.html#cb45-37"></a><span class="co">#Temperatures[,&quot;Date&quot;]&lt;-as.Date(ISOdate(2000,</span></span>
+<span id="cb45-38"><a href="generating-temperature-scenarios.html#cb45-38"></a><span class="co">#                                       Temperatures$Month,</span></span>
+<span id="cb45-39"><a href="generating-temperature-scenarios.html#cb45-39"></a><span class="co">#                                       Temperatures$Day))</span></span>
+<span id="cb45-40"><a href="generating-temperature-scenarios.html#cb45-40"></a></span>
+<span id="cb45-41"><a href="generating-temperature-scenarios.html#cb45-41"></a></span>
+<span id="cb45-42"><a href="generating-temperature-scenarios.html#cb45-42"></a><span class="co">#write.csv(Temperatures, &quot;weather_data/Lezno_sim_temperatures.csv&quot;)</span></span>
+<span id="cb45-43"><a href="generating-temperature-scenarios.html#cb45-43"></a></span>
+<span id="cb45-44"><a href="generating-temperature-scenarios.html#cb45-44"></a>Temperatur_s =</span>
+<span id="cb45-45"><a href="generating-temperature-scenarios.html#cb45-45"></a><span class="st">  </span><span class="kw">read.table</span>(<span class="st">&quot;weather_data/Lezno_sim_temperatures.csv&quot;</span>,</span>
+<span id="cb45-46"><a href="generating-temperature-scenarios.html#cb45-46"></a>             <span class="dt">header =</span> <span class="ot">TRUE</span>,</span>
+<span id="cb45-47"><a href="generating-temperature-scenarios.html#cb45-47"></a>             <span class="dt">sep =</span> <span class="st">&quot;,&quot;</span>)</span>
+<span id="cb45-48"><a href="generating-temperature-scenarios.html#cb45-48"></a></span>
+<span id="cb45-49"><a href="generating-temperature-scenarios.html#cb45-49"></a>Temperatur_s<span class="op">$</span>Date =<span class="st"> </span><span class="kw">as.Date</span>(<span class="kw">ISOdate</span>(<span class="dv">2000</span>,</span>
+<span id="cb45-50"><a href="generating-temperature-scenarios.html#cb45-50"></a>                                    Temperatur_s<span class="op">$</span>Month,</span>
+<span id="cb45-51"><a href="generating-temperature-scenarios.html#cb45-51"></a>                                    Temperatur_s<span class="op">$</span>Day))</span>
+<span id="cb45-52"><a href="generating-temperature-scenarios.html#cb45-52"></a></span>
+<span id="cb45-53"><a href="generating-temperature-scenarios.html#cb45-53"></a><span class="co"># Plot results</span></span>
+<span id="cb45-54"><a href="generating-temperature-scenarios.html#cb45-54"></a></span>
+<span id="cb45-55"><a href="generating-temperature-scenarios.html#cb45-55"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> Temperatur_s, <span class="kw">aes</span>(Date, Tmin)) <span class="op">+</span></span>
+<span id="cb45-56"><a href="generating-temperature-scenarios.html#cb45-56"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="kw">aes</span>(<span class="dt">colour =</span> <span class="kw">factor</span>(Year))) <span class="op">+</span></span>
+<span id="cb45-57"><a href="generating-temperature-scenarios.html#cb45-57"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="kw">vars</span>(Data_source)) <span class="op">+</span></span>
+<span id="cb45-58"><a href="generating-temperature-scenarios.html#cb45-58"></a><span class="st">  </span><span class="kw">theme_bw</span>(<span class="dt">base_size =</span> <span class="dv">20</span>) <span class="op">+</span></span>
+<span id="cb45-59"><a href="generating-temperature-scenarios.html#cb45-59"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;none&quot;</span>) <span class="op">+</span></span>
+<span id="cb45-60"><a href="generating-temperature-scenarios.html#cb45-60"></a><span class="st">  </span><span class="kw">scale_x_date</span>(<span class="dt">date_labels =</span> <span class="st">&quot;%b&quot;</span>)</span>
+<span id="cb45-61"><a href="generating-temperature-scenarios.html#cb45-61"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> Temperatur_s, <span class="kw">aes</span>(Date, Tmax)) <span class="op">+</span></span>
+<span id="cb45-62"><a href="generating-temperature-scenarios.html#cb45-62"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="kw">aes</span>(<span class="dt">colour =</span> <span class="kw">factor</span>(Year))) <span class="op">+</span></span>
+<span id="cb45-63"><a href="generating-temperature-scenarios.html#cb45-63"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="kw">vars</span>(Data_source)) <span class="op">+</span></span>
+<span id="cb45-64"><a href="generating-temperature-scenarios.html#cb45-64"></a><span class="st">  </span><span class="kw">theme_bw</span>(<span class="dt">base_size =</span> <span class="dv">20</span>) <span class="op">+</span></span>
+<span id="cb45-65"><a href="generating-temperature-scenarios.html#cb45-65"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;none&quot;</span>) <span class="op">+</span></span>
+<span id="cb45-66"><a href="generating-temperature-scenarios.html#cb45-66"></a><span class="st">  </span><span class="kw">scale_x_date</span>(<span class="dt">date_labels =</span> <span class="st">&quot;%b&quot;</span>)</span></code></pre></div>
+<p><img src="Tree-Phenology_files/figure-html/unnamed-chunk-41-1.png" width="50%" /><img src="Tree-Phenology_files/figure-html/unnamed-chunk-41-2.png" width="50%" /></p>
+</div>
+<div id="task-2-6" class="section level2 hasAnchor">
+<h2><span class="header-section-number">10.2</span> Task 2<a href="generating-temperature-scenarios.html#task-2-6" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>Calculate winter chill (in Chill Portions) for your synthetic weather, and illustrate your results as histograms and cumulative distributions.</strong></p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="generating-temperature-scenarios.html#cb46-1"></a><span class="co"># calculate chill for observed </span></span>
+<span id="cb46-2"><a href="generating-temperature-scenarios.html#cb46-2"></a><span class="co"># chill_observed&lt;-chilling(</span></span>
+<span id="cb46-3"><a href="generating-temperature-scenarios.html#cb46-3"></a><span class="co">#   stack_hourly_temps(</span></span>
+<span id="cb46-4"><a href="generating-temperature-scenarios.html#cb46-4"></a><span class="co">#     Temperatur_s[which(Temperatur_s$Data_source==&quot;observed&quot;),],</span></span>
+<span id="cb46-5"><a href="generating-temperature-scenarios.html#cb46-5"></a><span class="co">#     latitude = 51.39), # change latitude</span></span>
+<span id="cb46-6"><a href="generating-temperature-scenarios.html#cb46-6"></a><span class="co">#   Start_JDay = 305,</span></span>
+<span id="cb46-7"><a href="generating-temperature-scenarios.html#cb46-7"></a><span class="co">#   End_JDay = 59)</span></span>
+<span id="cb46-8"><a href="generating-temperature-scenarios.html#cb46-8"></a></span>
+<span id="cb46-9"><a href="generating-temperature-scenarios.html#cb46-9"></a><span class="co">#write.csv(chill_observed, &quot;chill_observed.csv&quot;)</span></span>
+<span id="cb46-10"><a href="generating-temperature-scenarios.html#cb46-10"></a>chill_observed =<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;chill_observed.csv&quot;</span>)</span>
+<span id="cb46-11"><a href="generating-temperature-scenarios.html#cb46-11"></a></span>
+<span id="cb46-12"><a href="generating-temperature-scenarios.html#cb46-12"></a><span class="co"># calculate chill for simulated</span></span>
+<span id="cb46-13"><a href="generating-temperature-scenarios.html#cb46-13"></a><span class="co"># chill_simulated&lt;-chilling(</span></span>
+<span id="cb46-14"><a href="generating-temperature-scenarios.html#cb46-14"></a><span class="co">#   stack_hourly_temps(</span></span>
+<span id="cb46-15"><a href="generating-temperature-scenarios.html#cb46-15"></a><span class="co">#     Temperatur_s[which(Temperatur_s$Data_source==&quot;simulated&quot;),],</span></span>
+<span id="cb46-16"><a href="generating-temperature-scenarios.html#cb46-16"></a><span class="co">#     latitude = 51.39), # change latitude</span></span>
+<span id="cb46-17"><a href="generating-temperature-scenarios.html#cb46-17"></a><span class="co">#   Start_JDay = 305,</span></span>
+<span id="cb46-18"><a href="generating-temperature-scenarios.html#cb46-18"></a><span class="co">#   End_JDay = 59)</span></span>
+<span id="cb46-19"><a href="generating-temperature-scenarios.html#cb46-19"></a></span>
+<span id="cb46-20"><a href="generating-temperature-scenarios.html#cb46-20"></a><span class="co">#write.csv(chill_simulated, &quot;chill_simulated.csv&quot;)</span></span>
+<span id="cb46-21"><a href="generating-temperature-scenarios.html#cb46-21"></a>chill_simulated =<span class="st">  </span><span class="kw">read.csv</span>(<span class="st">&quot;chill_simulated.csv&quot;</span>)</span>
+<span id="cb46-22"><a href="generating-temperature-scenarios.html#cb46-22"></a></span>
+<span id="cb46-23"><a href="generating-temperature-scenarios.html#cb46-23"></a><span class="co"># build data frame </span></span>
+<span id="cb46-24"><a href="generating-temperature-scenarios.html#cb46-24"></a>chill_comparison&lt;-<span class="kw">cbind</span>(chill_observed ,<span class="dt">Data_source=</span><span class="st">&quot;observed&quot;</span>)</span>
+<span id="cb46-25"><a href="generating-temperature-scenarios.html#cb46-25"></a>chill_comparison&lt;-<span class="kw">rbind</span>(chill_comparison,</span>
+<span id="cb46-26"><a href="generating-temperature-scenarios.html#cb46-26"></a>                        <span class="kw">cbind</span>(chill_simulated ,<span class="dt">Data_source=</span><span class="st">&quot;simulated&quot;</span>))</span>
+<span id="cb46-27"><a href="generating-temperature-scenarios.html#cb46-27"></a></span>
+<span id="cb46-28"><a href="generating-temperature-scenarios.html#cb46-28"></a></span>
+<span id="cb46-29"><a href="generating-temperature-scenarios.html#cb46-29"></a></span>
+<span id="cb46-30"><a href="generating-temperature-scenarios.html#cb46-30"></a>chill_comparison_full_seasons&lt;-chill_comparison[</span>
+<span id="cb46-31"><a href="generating-temperature-scenarios.html#cb46-31"></a>  <span class="kw">which</span>(chill_comparison<span class="op">$</span>Perc_complete<span class="op">==</span><span class="dv">100</span>),]</span>
+<span id="cb46-32"><a href="generating-temperature-scenarios.html#cb46-32"></a></span>
+<span id="cb46-33"><a href="generating-temperature-scenarios.html#cb46-33"></a></span>
+<span id="cb46-34"><a href="generating-temperature-scenarios.html#cb46-34"></a><span class="co"># visualize </span></span>
+<span id="cb46-35"><a href="generating-temperature-scenarios.html#cb46-35"></a><span class="kw">ggplot</span>(chill_comparison_full_seasons, <span class="kw">aes</span>(<span class="dt">x=</span>Chill_portions)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb46-36"><a href="generating-temperature-scenarios.html#cb46-36"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth=</span><span class="dv">1</span>,<span class="kw">aes</span>(<span class="dt">fill =</span> <span class="kw">factor</span>(Data_source))) <span class="op">+</span></span>
+<span id="cb46-37"><a href="generating-temperature-scenarios.html#cb46-37"></a><span class="st">  </span><span class="kw">theme_bw</span>(<span class="dt">base_size =</span> <span class="dv">20</span>) <span class="op">+</span></span>
+<span id="cb46-38"><a href="generating-temperature-scenarios.html#cb46-38"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">fill =</span> <span class="st">&quot;Data source&quot;</span>) <span class="op">+</span></span>
+<span id="cb46-39"><a href="generating-temperature-scenarios.html#cb46-39"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Chill accumulation (Chill Portions)&quot;</span>) <span class="op">+</span></span>
+<span id="cb46-40"><a href="generating-temperature-scenarios.html#cb46-40"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Frequency&quot;</span>)</span>
+<span id="cb46-41"><a href="generating-temperature-scenarios.html#cb46-41"></a>chill_simulations&lt;-chill_comparison_full_seasons[</span>
+<span id="cb46-42"><a href="generating-temperature-scenarios.html#cb46-42"></a>  <span class="kw">which</span>(chill_comparison_full_seasons<span class="op">$</span>Data_source<span class="op">==</span><span class="st">&quot;simulated&quot;</span>),]</span>
+<span id="cb46-43"><a href="generating-temperature-scenarios.html#cb46-43"></a><span class="kw">ggplot</span>(chill_simulations, <span class="kw">aes</span>(<span class="dt">x=</span>Chill_portions)) <span class="op">+</span></span>
+<span id="cb46-44"><a href="generating-temperature-scenarios.html#cb46-44"></a><span class="st">  </span><span class="kw">stat_ecdf</span>(<span class="dt">geom =</span> <span class="st">&quot;step&quot;</span>,<span class="dt">lwd=</span><span class="fl">1.5</span>,<span class="dt">col=</span><span class="st">&quot;blue&quot;</span>) <span class="op">+</span></span>
+<span id="cb46-45"><a href="generating-temperature-scenarios.html#cb46-45"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Cumulative probability&quot;</span>) <span class="op">+</span></span>
+<span id="cb46-46"><a href="generating-temperature-scenarios.html#cb46-46"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Chill accumulation (in Chill Portions)&quot;</span>) <span class="op">+</span></span>
+<span id="cb46-47"><a href="generating-temperature-scenarios.html#cb46-47"></a><span class="st">  </span><span class="kw">theme_bw</span>(<span class="dt">base_size =</span> <span class="dv">20</span>)</span></code></pre></div>
+<p><img src="Tree-Phenology_files/figure-html/unnamed-chunk-42-1.png" width="50%" /><img src="Tree-Phenology_files/figure-html/unnamed-chunk-42-2.png" width="50%" /></p>
+</div>
+<div id="task-3-4" class="section level2 hasAnchor">
+<h2><span class="header-section-number">10.3</span> Task 3<a href="generating-temperature-scenarios.html#task-3-4" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>Produce similar plots for the number of freezing hours (&lt;0°C) in April (or October, if your site is in the Southern Hemisphere) for your location of interest.</strong></p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="generating-temperature-scenarios.html#cb47-1"></a><span class="co"># Observed frost hours</span></span>
+<span id="cb47-2"><a href="generating-temperature-scenarios.html#cb47-2"></a>Leszno_observed_hourly_temp =<span class="st"> </span></span>
+<span id="cb47-3"><a href="generating-temperature-scenarios.html#cb47-3"></a><span class="st">  </span><span class="kw">stack_hourly_temps</span>(Temperatur_s[which</span>
+<span id="cb47-4"><a href="generating-temperature-scenarios.html#cb47-4"></a>                                  (Temperatur_s<span class="op">$</span>Data_source <span class="op">==</span><span class="st">&quot;observed&quot;</span>), ],</span>
+<span id="cb47-5"><a href="generating-temperature-scenarios.html#cb47-5"></a>                                    <span class="dt">latitude =</span> <span class="fl">51.39</span>)</span>
+<span id="cb47-6"><a href="generating-temperature-scenarios.html#cb47-6"></a></span>
+<span id="cb47-7"><a href="generating-temperature-scenarios.html#cb47-7"></a>april_observes =<span class="st"> </span>Leszno_observed_hourly_temp[[<span class="dv">1</span>]]</span>
+<span id="cb47-8"><a href="generating-temperature-scenarios.html#cb47-8"></a></span>
+<span id="cb47-9"><a href="generating-temperature-scenarios.html#cb47-9"></a></span>
+<span id="cb47-10"><a href="generating-temperature-scenarios.html#cb47-10"></a></span>
+<span id="cb47-11"><a href="generating-temperature-scenarios.html#cb47-11"></a>april_observes =<span class="st"> </span>april_observes[<span class="kw">which</span>(april_observes<span class="op">$</span>Month <span class="op">==</span><span class="st"> </span><span class="dv">4</span>),]</span>
+<span id="cb47-12"><a href="generating-temperature-scenarios.html#cb47-12"></a></span>
+<span id="cb47-13"><a href="generating-temperature-scenarios.html#cb47-13"></a></span>
+<span id="cb47-14"><a href="generating-temperature-scenarios.html#cb47-14"></a></span>
+<span id="cb47-15"><a href="generating-temperature-scenarios.html#cb47-15"></a><span class="co"># data preparation</span></span>
+<span id="cb47-16"><a href="generating-temperature-scenarios.html#cb47-16"></a></span>
+<span id="cb47-17"><a href="generating-temperature-scenarios.html#cb47-17"></a>april_observes =<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">Date =</span> april_observes<span class="op">$</span>DATE,</span>
+<span id="cb47-18"><a href="generating-temperature-scenarios.html#cb47-18"></a>                            <span class="dt">case =</span> april_observes<span class="op">$</span>Data_source,</span>
+<span id="cb47-19"><a href="generating-temperature-scenarios.html#cb47-19"></a>                            <span class="dt">Temp =</span> april_observes<span class="op">$</span>Temp)</span>
+<span id="cb47-20"><a href="generating-temperature-scenarios.html#cb47-20"></a></span>
+<span id="cb47-21"><a href="generating-temperature-scenarios.html#cb47-21"></a>april_observes<span class="op">$</span>date_new =<span class="st"> </span><span class="kw">as.POSIXct</span>(april_observes<span class="op">$</span>Date)</span>
+<span id="cb47-22"><a href="generating-temperature-scenarios.html#cb47-22"></a><span class="co"># write function to count frost hours</span></span>
+<span id="cb47-23"><a href="generating-temperature-scenarios.html#cb47-23"></a>FH&lt;-<span class="cf">function</span>(hourtemps)</span>
+<span id="cb47-24"><a href="generating-temperature-scenarios.html#cb47-24"></a>  {</span>
+<span id="cb47-25"><a href="generating-temperature-scenarios.html#cb47-25"></a>    hourtemps[,<span class="st">&quot;frost_hours&quot;</span>]&lt;-hourtemps<span class="op">$</span>Temp<span class="op">&lt;</span><span class="fl">0.00</span></span>
+<span id="cb47-26"><a href="generating-temperature-scenarios.html#cb47-26"></a>    <span class="kw">return</span>(hourtemps)</span>
+<span id="cb47-27"><a href="generating-temperature-scenarios.html#cb47-27"></a>}</span>
+<span id="cb47-28"><a href="generating-temperature-scenarios.html#cb47-28"></a></span>
+<span id="cb47-29"><a href="generating-temperature-scenarios.html#cb47-29"></a></span>
+<span id="cb47-30"><a href="generating-temperature-scenarios.html#cb47-30"></a><span class="co"># apply FH function </span></span>
+<span id="cb47-31"><a href="generating-temperature-scenarios.html#cb47-31"></a>april_observes_frost =<span class="st"> </span><span class="kw">FH</span>(april_observes)</span>
+<span id="cb47-32"><a href="generating-temperature-scenarios.html#cb47-32"></a></span>
+<span id="cb47-33"><a href="generating-temperature-scenarios.html#cb47-33"></a>april_observes_frost<span class="op">$</span>date_new_new =<span class="st"> </span><span class="kw">as.Date</span>(april_observes_frost<span class="op">$</span>date_new, <span class="dt">format=</span><span class="st">&quot;%d.%m.%Y&quot;</span>)</span>
+<span id="cb47-34"><a href="generating-temperature-scenarios.html#cb47-34"></a></span>
+<span id="cb47-35"><a href="generating-temperature-scenarios.html#cb47-35"></a><span class="co">#groupe</span></span>
+<span id="cb47-36"><a href="generating-temperature-scenarios.html#cb47-36"></a></span>
+<span id="cb47-37"><a href="generating-temperature-scenarios.html#cb47-37"></a>  april_observes_frost_cum =<span class="st"> </span><span class="kw">group_by</span>(april_observes_frost, <span class="dt">Year =</span><span class="kw">year</span>(date_new_new))<span class="op">%&gt;%</span></span>
+<span id="cb47-38"><a href="generating-temperature-scenarios.html#cb47-38"></a><span class="st">           </span><span class="kw">summarise</span>(<span class="dt">Frost_hours_april =</span><span class="kw">sum</span>(frost_hours))</span>
+<span id="cb47-39"><a href="generating-temperature-scenarios.html#cb47-39"></a></span>
+<span id="cb47-40"><a href="generating-temperature-scenarios.html#cb47-40"></a>april_observes_frost_cum[,<span class="st">&quot;case&quot;</span>] =<span class="st"> </span><span class="kw">rep</span>(<span class="st">&quot;observed&quot;</span>, <span class="kw">length</span>(april_observes_frost_cum<span class="op">$</span>Year))</span>
+<span id="cb47-41"><a href="generating-temperature-scenarios.html#cb47-41"></a></span>
+<span id="cb47-42"><a href="generating-temperature-scenarios.html#cb47-42"></a></span>
+<span id="cb47-43"><a href="generating-temperature-scenarios.html#cb47-43"></a></span>
+<span id="cb47-44"><a href="generating-temperature-scenarios.html#cb47-44"></a></span>
+<span id="cb47-45"><a href="generating-temperature-scenarios.html#cb47-45"></a><span class="co"># Simulated Procedure</span></span>
+<span id="cb47-46"><a href="generating-temperature-scenarios.html#cb47-46"></a></span>
+<span id="cb47-47"><a href="generating-temperature-scenarios.html#cb47-47"></a>Leszno_sim_hourly_temp =<span class="st"> </span></span>
+<span id="cb47-48"><a href="generating-temperature-scenarios.html#cb47-48"></a><span class="st">  </span><span class="kw">stack_hourly_temps</span>(Temperatur_s[which</span>
+<span id="cb47-49"><a href="generating-temperature-scenarios.html#cb47-49"></a>                                  (Temperatur_s<span class="op">$</span>Data_source <span class="op">==</span><span class="st">&quot;simulated&quot;</span>), ],</span>
+<span id="cb47-50"><a href="generating-temperature-scenarios.html#cb47-50"></a>                                    <span class="dt">latitude =</span> <span class="fl">51.39</span>)</span>
+<span id="cb47-51"><a href="generating-temperature-scenarios.html#cb47-51"></a>                                   </span>
+<span id="cb47-52"><a href="generating-temperature-scenarios.html#cb47-52"></a>april_sim =<span class="st"> </span>Leszno_sim_hourly_temp[[<span class="dv">1</span>]]</span>
+<span id="cb47-53"><a href="generating-temperature-scenarios.html#cb47-53"></a></span>
+<span id="cb47-54"><a href="generating-temperature-scenarios.html#cb47-54"></a>april_sim =<span class="st"> </span>april_sim[<span class="kw">which</span>(april_sim<span class="op">$</span>Month <span class="op">==</span><span class="st"> </span><span class="dv">4</span>),]</span>
+<span id="cb47-55"><a href="generating-temperature-scenarios.html#cb47-55"></a></span>
+<span id="cb47-56"><a href="generating-temperature-scenarios.html#cb47-56"></a>april_sim =<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">Date =</span> april_sim<span class="op">$</span>DATE,</span>
+<span id="cb47-57"><a href="generating-temperature-scenarios.html#cb47-57"></a>                            <span class="dt">case =</span> april_sim<span class="op">$</span>Data_source,</span>
+<span id="cb47-58"><a href="generating-temperature-scenarios.html#cb47-58"></a>                            <span class="dt">Temp =</span> april_sim<span class="op">$</span>Temp)</span>
+<span id="cb47-59"><a href="generating-temperature-scenarios.html#cb47-59"></a></span>
+<span id="cb47-60"><a href="generating-temperature-scenarios.html#cb47-60"></a>april_sim_frost =<span class="st"> </span><span class="kw">FH</span>(april_sim)</span>
+<span id="cb47-61"><a href="generating-temperature-scenarios.html#cb47-61"></a>april_sim_frost<span class="op">$</span>date_new =<span class="st"> </span><span class="kw">as.POSIXct</span>(april_sim_frost<span class="op">$</span>Date)</span>
+<span id="cb47-62"><a href="generating-temperature-scenarios.html#cb47-62"></a>april_sim_frost<span class="op">$</span>date_new_new =<span class="st"> </span><span class="kw">as.Date</span>(april_sim_frost<span class="op">$</span>date_new, <span class="dt">format=</span><span class="st">&quot;%d.%m.%Y&quot;</span>)</span>
+<span id="cb47-63"><a href="generating-temperature-scenarios.html#cb47-63"></a></span>
+<span id="cb47-64"><a href="generating-temperature-scenarios.html#cb47-64"></a>  april_sim_frost_cum =<span class="st"> </span><span class="kw">group_by</span>(april_sim_frost, <span class="dt">Year =</span><span class="kw">year</span>(date_new_new))<span class="op">%&gt;%</span></span>
+<span id="cb47-65"><a href="generating-temperature-scenarios.html#cb47-65"></a><span class="st">           </span><span class="kw">summarise</span>(<span class="dt">Frost_hours_april =</span><span class="kw">sum</span>(frost_hours))</span>
+<span id="cb47-66"><a href="generating-temperature-scenarios.html#cb47-66"></a></span>
+<span id="cb47-67"><a href="generating-temperature-scenarios.html#cb47-67"></a>  </span>
+<span id="cb47-68"><a href="generating-temperature-scenarios.html#cb47-68"></a>april_sim_frost_cum[,<span class="st">&quot;case&quot;</span>] =<span class="st"> </span><span class="kw">rep</span>(<span class="st">&quot;simulated&quot;</span>, <span class="kw">length</span>(april_sim_frost_cum<span class="op">$</span>Year))</span>
+<span id="cb47-69"><a href="generating-temperature-scenarios.html#cb47-69"></a>  </span>
+<span id="cb47-70"><a href="generating-temperature-scenarios.html#cb47-70"></a></span>
+<span id="cb47-71"><a href="generating-temperature-scenarios.html#cb47-71"></a><span class="kw">kable</span>(<span class="kw">head</span>(april_observes_frost_cum),</span>
+<span id="cb47-72"><a href="generating-temperature-scenarios.html#cb47-72"></a>      <span class="dt">caption=</span><span class="st">&quot;Observed Frost Hours at Lezno in April 1998 to 2005&quot;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb47-73"><a href="generating-temperature-scenarios.html#cb47-73"></a><span class="st">  </span><span class="kw">kable_styling</span>(<span class="st">&quot;striped&quot;</span>, <span class="dt">position =</span> <span class="st">&quot;left&quot;</span>, <span class="dt">font_size =</span> <span class="dv">10</span>)<span class="op">%&gt;%</span></span>
+<span id="cb47-74"><a href="generating-temperature-scenarios.html#cb47-74"></a><span class="st">  </span><span class="kw">scroll_box</span>(<span class="dt">width =</span> <span class="st">&quot;100%&quot;</span>)</span></code></pre></div>
+<div style="border: 1px solid #ddd; padding: 5px; overflow-x: scroll; width:100%; ">
+<table class="table table-striped" style="font-size: 10px; ">
+<caption style="font-size: initial !important;">
+<span id="tab:unnamed-chunk-43">Table 10.1: </span>Observed Frost Hours at Lezno in April 1998 to 2005
+</caption>
+<thead>
+<tr>
+<th style="text-align:right;">
+Year
+</th>
+<th style="text-align:right;">
+Frost_hours_april
+</th>
+<th style="text-align:left;">
+case
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+1998
+</td>
+<td style="text-align:right;">
+22
+</td>
+<td style="text-align:left;">
+observed
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1999
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:left;">
+observed
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2000
+</td>
+<td style="text-align:right;">
+23
+</td>
+<td style="text-align:left;">
+observed
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2001
+</td>
+<td style="text-align:right;">
+33
+</td>
+<td style="text-align:left;">
+observed
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2002
+</td>
+<td style="text-align:right;">
+54
+</td>
+<td style="text-align:left;">
+observed
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2003
+</td>
+<td style="text-align:right;">
+105
+</td>
+<td style="text-align:left;">
+observed
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="generating-temperature-scenarios.html#cb48-1"></a><span class="kw">kable</span>(<span class="kw">head</span>(april_sim_frost_cum),</span>
+<span id="cb48-2"><a href="generating-temperature-scenarios.html#cb48-2"></a>      <span class="dt">caption=</span><span class="st">&quot;Simulated Frost Hours at Lezno in April 2001 to 2100&quot;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb48-3"><a href="generating-temperature-scenarios.html#cb48-3"></a><span class="st">  </span><span class="kw">kable_styling</span>(<span class="st">&quot;striped&quot;</span>, <span class="dt">position =</span> <span class="st">&quot;left&quot;</span>, <span class="dt">font_size =</span> <span class="dv">10</span>)<span class="op">%&gt;%</span></span>
+<span id="cb48-4"><a href="generating-temperature-scenarios.html#cb48-4"></a><span class="st">  </span><span class="kw">scroll_box</span>(<span class="dt">width =</span> <span class="st">&quot;100%&quot;</span>)</span></code></pre></div>
+<div style="border: 1px solid #ddd; padding: 5px; overflow-x: scroll; width:100%; ">
+<table class="table table-striped" style="font-size: 10px; ">
+<caption style="font-size: initial !important;">
+<span id="tab:unnamed-chunk-43">Table 10.1: </span>Simulated Frost Hours at Lezno in April 2001 to 2100
+</caption>
+<thead>
+<tr>
+<th style="text-align:right;">
+Year
+</th>
+<th style="text-align:right;">
+Frost_hours_april
+</th>
+<th style="text-align:left;">
+case
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+2001
+</td>
+<td style="text-align:right;">
+14
+</td>
+<td style="text-align:left;">
+simulated
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2002
+</td>
+<td style="text-align:right;">
+107
+</td>
+<td style="text-align:left;">
+simulated
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2003
+</td>
+<td style="text-align:right;">
+51
+</td>
+<td style="text-align:left;">
+simulated
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2004
+</td>
+<td style="text-align:right;">
+46
+</td>
+<td style="text-align:left;">
+simulated
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2005
+</td>
+<td style="text-align:right;">
+55
+</td>
+<td style="text-align:left;">
+simulated
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2006
+</td>
+<td style="text-align:right;">
+24
+</td>
+<td style="text-align:left;">
+simulated
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="generating-temperature-scenarios.html#cb49-1"></a><span class="co"># create plot </span></span>
+<span id="cb49-2"><a href="generating-temperature-scenarios.html#cb49-2"></a></span>
+<span id="cb49-3"><a href="generating-temperature-scenarios.html#cb49-3"></a>compairson =<span class="st"> </span><span class="kw">rbind</span>(april_observes_frost_cum, april_sim_frost_cum)</span>
+<span id="cb49-4"><a href="generating-temperature-scenarios.html#cb49-4"></a></span>
+<span id="cb49-5"><a href="generating-temperature-scenarios.html#cb49-5"></a><span class="kw">ggplot</span>(compairson, <span class="kw">aes</span>(<span class="dt">x=</span>Frost_hours_april)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb49-6"><a href="generating-temperature-scenarios.html#cb49-6"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth=</span><span class="dv">1</span>,<span class="kw">aes</span>(<span class="dt">fill =</span> <span class="kw">factor</span>(case))) <span class="op">+</span></span>
+<span id="cb49-7"><a href="generating-temperature-scenarios.html#cb49-7"></a><span class="st">  </span><span class="kw">theme_bw</span>(<span class="dt">base_size =</span> <span class="dv">20</span>) <span class="op">+</span></span>
+<span id="cb49-8"><a href="generating-temperature-scenarios.html#cb49-8"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">fill =</span> <span class="st">&quot;Data source&quot;</span>) <span class="op">+</span></span>
+<span id="cb49-9"><a href="generating-temperature-scenarios.html#cb49-9"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Freezing Hours April Leszno &quot;</span>) <span class="op">+</span></span>
+<span id="cb49-10"><a href="generating-temperature-scenarios.html#cb49-10"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Frequency&quot;</span>)</span>
+<span id="cb49-11"><a href="generating-temperature-scenarios.html#cb49-11"></a>frost_simulations&lt;-compairson[</span>
+<span id="cb49-12"><a href="generating-temperature-scenarios.html#cb49-12"></a>  <span class="kw">which</span>(compairson<span class="op">$</span>case<span class="op">==</span><span class="st">&quot;simulated&quot;</span>),]</span>
+<span id="cb49-13"><a href="generating-temperature-scenarios.html#cb49-13"></a><span class="kw">ggplot</span>(frost_simulations, <span class="kw">aes</span>(<span class="dt">x=</span>Frost_hours_april)) <span class="op">+</span></span>
+<span id="cb49-14"><a href="generating-temperature-scenarios.html#cb49-14"></a><span class="st">  </span><span class="kw">stat_ecdf</span>(<span class="dt">geom =</span> <span class="st">&quot;step&quot;</span>,<span class="dt">lwd=</span><span class="fl">1.5</span>,<span class="dt">col=</span><span class="st">&quot;blue&quot;</span>) <span class="op">+</span></span>
+<span id="cb49-15"><a href="generating-temperature-scenarios.html#cb49-15"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Cumulative probability&quot;</span>) <span class="op">+</span></span>
+<span id="cb49-16"><a href="generating-temperature-scenarios.html#cb49-16"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Freezing Hours April Leszno Simulated&quot;</span>) <span class="op">+</span></span>
+<span id="cb49-17"><a href="generating-temperature-scenarios.html#cb49-17"></a><span class="st">  </span><span class="kw">theme_bw</span>(<span class="dt">base_size =</span> <span class="dv">20</span>)</span></code></pre></div>
+<p><img src="Tree-Phenology_files/figure-html/unnamed-chunk-44-1.png" width="50%" /><img src="Tree-Phenology_files/figure-html/unnamed-chunk-44-2.png" width="50%" /></p>
 
 </div>
 </div>
@@ -219,8 +636,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="filling-gaps-in-temperature-records.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="filling-gaps-in-temperature-records.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="historic-temperature-scenario.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

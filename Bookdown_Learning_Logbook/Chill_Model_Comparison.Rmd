@@ -1,0 +1,168 @@
+# Chill Model Comparison
+
+## Task 1 
+
+**Perform a similar analysis for the location you’ve chosen for your exercises.**
+
+>
+First, it should be clarified what the so-called Safe Winter Chill is. Essentially, it is the chill that can be expected with certainty in 90% of cases. In other words, in nine out of ten years, at least this amount of chill will be reached.
+>
+>
+The data generated previously also contains information about the expected chill and can be well reduced to it. Different metrics are available for this. These models are compiled in the R package `dormancyR` and can be retrieved via GitHub. Initially, some installations need to be performed. Lets do this now!
+
+```{r, echo=TRUE, warning=FALSE,message=FALSE}
+library(chillR)
+library(devtools)
+#install_github("EduardoFernandezC/dormancyR") # if it's installed, you don't need it again!
+library(dormancyR)
+library(tidyverse)
+library(reshape2)
+library(colorRamps)
+library(kableExtra)
+library(patchwork)
+library(gganimate)
+```
+
+>
+Now we can load all models and metrics. 
+
+```{r, echo = TRUE}
+RCPs = c("rcp45","rcp85") # important for later
+Times = c(2050,2085)      # important for later
+
+hourly_models =
+  list(
+    Chilling_units = chilling_units,
+    Low_chill = low_chill_model,
+    Modified_Utah = modified_utah_model,
+    North_Carolina = north_carolina_model,
+    Positive_Utah = positive_utah_model,
+    Chilling_Hours = Chilling_Hours,
+    Utah_Chill_Units = Utah_Model,
+    Chill_Portions = Dynamic_Model
+  )
+
+daily_models =
+  list(
+    Rate_of_Chill = rate_of_chill,
+    Chill_Days = chill_days,
+    Exponential_Chill = exponential_chill,
+    Triangula_Chill_Haninnen = triangular_chill_1,
+    Triangular_Chill_Legave = triangular_chill_2
+  )
+
+# gibt die Namen der beiden Listen zurück -> "hourly_models" und "daily_models"
+metrics<-c(names(daily_models),names(hourly_models))
+
+model_labels=c("Rate of Chill",
+               "Chill Days",
+               "Exponential Chill",
+               "Triangular Chill (Häninnen)",
+               "Triangular Chill (Legave)",
+               "Chilling Units",
+               "Low-Chill Chill Units",
+               "Modified Utah Chill Units",
+               "North Carolina Chill Units",
+               "Positive Utah Chill Units",
+               "Chilling Hours",
+               "Utah Chill Units",
+               "Chill Portions")
+
+kable(data.frame(Metric=model_labels,'Function name'=metrics), caption = "Metrics and Models")  %>%
+  kable_styling("striped", position = "left",font_size = 10)%>%
+  scroll_box(width = "100%")
+```
+>
+Now all chill models should be applied to the future temperature scenarios in Leszno. The temperature data can be easily loaded for this.
+
+
+```{r, echo = TRUE}
+Leszno_temps<-read_tab("weather_data/Leszno_weather_raw/Leszno_Sc_temps.csv")
+Temps<-load_temperature_scenarios("weather_data/Leszno_weather_raw","Leszno_historic")
+```
+
+>
+After the temperature data has been loaded and stored in the variables `Leszno_temps` and `Temps`, the various chill models can be applied to this data.
+
+```{r, echo = TRUE}
+
+Start_JDay = 305
+End_JDay = 59
+
+daily_models_past_scenarios =
+  tempResponse_list_daily(Temps,
+                          Start_JDay = Start_JDay,
+                          End_JDay = End_JDay,
+                          models = daily_models)
+
+daily_models_past_scenarios =
+  lapply(daily_models_past_scenarios,
+         function(x)
+           x[which(x$Perc_complete > 90), ])
+
+
+
+# hourly_models_past_scenarios =
+#   tempResponse_daily_list(
+#     Temps,
+#     latitude = 51.39,
+#     Start_JDay = Start_JDay,
+#     End_JDay = End_JDay,
+#     models = hourly_models,
+#     misstolerance = 10
+#   )
+
+#save_temperature_scenarios(hourly_models_past_scenarios,"dormancyR","hourly_models_past_scenarios")
+hourly_models_past_scenarios = load_temperature_scenarios("dormancyR","hourly_models_past_scenarios")
+
+past_scenarios = daily_models_past_scenarios
+
+past_scenarios =
+  lapply(names(past_scenarios),
+         function(x)
+           cbind(past_scenarios[[x]],
+                 hourly_models_past_scenarios[[x]][, names(hourly_models)]))
+
+names(past_scenarios) = names(daily_models_past_scenarios)
+
+daily_models_observed =
+  tempResponse_daily(
+    Leszno_temps,
+    Start_JDay = Start_JDay,
+    End_JDay = End_JDay,
+    models = daily_models
+  )
+
+daily_models_observed =
+  daily_models_observed[which(daily_models_observed$Perc_complete > 90), ]
+
+# hourly_models_observed =
+#   tempResponse_daily_list(
+#     Leszno_temps,
+#     latitude = 51.39,
+#     Start_JDay = Start_JDay,
+#     End_JDay = End_JDay,
+#     models = hourly_models,
+#     misstolerance = 10
+#   )
+
+#save_temperature_scenarios(hourly_models_observed,"dormancyR_hourly_models","hourly_models_observed")
+hourly_models_observed = load_temperature_scenarios("dormancyR_hourly_models","hourly_models_observed")
+
+
+# past_observed =
+#   cbind(daily_models_observed,
+#         hourly_models_observed[[1]][, names(hourly_models)])
+
+# save_temperature_scenarios(past_scenarios,
+#                            "weather_data/Leszno_weather_raw/chill",
+#                            "Leszno_multichill_historic")
+
+# write.csv(past_observed,
+#           "weather_data/Leszno_weather_raw/chill/Leszno_multichill_observed.csv",
+#           row.names=FALSE)
+```
+
+
+
+

@@ -16,6 +16,10 @@ tab:unnamed-chunk-33
 tab:unnamed-chunk-37
 tab:unnamed-chunk-39
 tab:unnamed-chunk-40
+tab:unnamed-chunk-43
+tab:unnamed-chunk-45
+tab:unnamed-chunk-46
+tab:unnamed-chunk-61
 introduction
 tree-phenology
 treedormancy
@@ -48,3 +52,14 @@ task-4
 task-5
 generating-temperature-scenarios
 task-1-7
+task-2-6
+task-3-4
+historic-temperature-scenario
+task-1-8
+task-2-7
+future-temperature-scenarios
+task-1-9
+plotting-future-scenarios
+task-1-10
+chill-model-comparison
+task-1-11

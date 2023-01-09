@@ -1401,7 +1401,7 @@ ggplot(temperature_means,aes(Year, Tmax)) +
 #                                "weather_data/Leszno_weather_raw/ClimateWizard_Leszno",
 #                                paste0("Leszno_futures_", Time, "_", RCP))
 #   }
-# 
+
 
 
 

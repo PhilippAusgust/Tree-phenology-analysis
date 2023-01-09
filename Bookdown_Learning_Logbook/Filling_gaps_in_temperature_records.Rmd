@@ -51,7 +51,7 @@ library(leaflet)
 df <- data.frame(lat = c(52.332, 52.139, 52.421, 51.833),
                  lng = c(16.966, 15.799, 16.826, 16.533),
                  label = c("KRZESINY", "BABIMOST", "LAWICA", "LESZNO"))
-m <- leaflet(width = "600px", height = "400px")
+m <- leaflet(width = "500px", height = "300px")
 m <- addTiles(m)
 m <- addMarkers(m, data = df, label = ~label, lat = ~lat, lng = ~lng,
                 labelOptions = labelOptions(direction = "auto"))

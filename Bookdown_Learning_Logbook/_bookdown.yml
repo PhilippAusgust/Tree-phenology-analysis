@@ -13,5 +13,13 @@ rmd_files: [
   "Making_hourly_temperatures.Rmd",
   "Getting_temperature_data.Rmd",
   "Filling_gaps_in_temperature_records.Rmd",
-  "Generating_Temperature_Scenarios.Rmd"
+  "Generating_Temperature_Scenarios.Rmd",
+  "Historic_Temperature_Scenario.Rmd",
+  "Future_Temperature_Scenarios.Rmd",
+  "Plotting_future_scenarios.Rmd",
+  "Chill_Model_Comparison.Rmd"
 ]
+
+
+
+
