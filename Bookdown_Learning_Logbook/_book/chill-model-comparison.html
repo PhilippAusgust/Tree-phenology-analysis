@@ -23,7 +23,7 @@
 <meta name="author" content="Philipp Münker" />
 
 
-<meta name="date" content="2023-01-09" />
+<meta name="date" content="2023-01-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="plotting-future-scenarios.html"/>
-
+<link rel="next" href="heatmaps.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -201,7 +201,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="14" data-path="chill-model-comparison.html"><a href="chill-model-comparison.html"><i class="fa fa-check"></i><b>14</b> Chill Model Comparison</a><ul>
 <li class="chapter" data-level="14.1" data-path="chill-model-comparison.html"><a href="chill-model-comparison.html#task-1-11"><i class="fa fa-check"></i><b>14.1</b> Task 1</a></li>
+<li class="chapter" data-level="14.2" data-path="chill-model-comparison.html"><a href="chill-model-comparison.html#task-2-8"><i class="fa fa-check"></i><b>14.2</b> Task 2</a></li>
+<li class="chapter" data-level="14.3" data-path="chill-model-comparison.html"><a href="chill-model-comparison.html#task-3-5"><i class="fa fa-check"></i><b>14.3</b> Task 3</a></li>
 </ul></li>
+<li class="chapter" data-level="15" data-path="heatmaps.html"><a href="heatmaps.html"><i class="fa fa-check"></i><b>15</b> Heatmaps</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -493,7 +496,211 @@ Chill_Portions
 <span id="cb76-72"><a href="chill-model-comparison.html#cb76-72"></a></span>
 <span id="cb76-73"><a href="chill-model-comparison.html#cb76-73"></a><span class="co"># write.csv(past_observed,</span></span>
 <span id="cb76-74"><a href="chill-model-comparison.html#cb76-74"></a><span class="co">#           &quot;weather_data/Leszno_weather_raw/chill/Leszno_multichill_observed.csv&quot;,</span></span>
-<span id="cb76-75"><a href="chill-model-comparison.html#cb76-75"></a><span class="co">#           row.names=FALSE)</span></span></code></pre></div>
+<span id="cb76-75"><a href="chill-model-comparison.html#cb76-75"></a><span class="co">#           row.names=FALSE)</span></span>
+<span id="cb76-76"><a href="chill-model-comparison.html#cb76-76"></a></span>
+<span id="cb76-77"><a href="chill-model-comparison.html#cb76-77"></a>past_observed =<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;weather_data/Leszno_weather_raw/chill/Leszno_multichill_observed.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="chill-model-comparison.html#cb77-1"></a>RCPs&lt;-<span class="kw">c</span>(<span class="st">&quot;rcp45&quot;</span>,<span class="st">&quot;rcp85&quot;</span>)</span>
+<span id="cb77-2"><a href="chill-model-comparison.html#cb77-2"></a>Times&lt;-<span class="kw">c</span>(<span class="dv">2050</span>,<span class="dv">2085</span>)</span>
+<span id="cb77-3"><a href="chill-model-comparison.html#cb77-3"></a></span>
+<span id="cb77-4"><a href="chill-model-comparison.html#cb77-4"></a></span>
+<span id="cb77-5"><a href="chill-model-comparison.html#cb77-5"></a><span class="co"># for(RCP in RCPs)</span></span>
+<span id="cb77-6"><a href="chill-model-comparison.html#cb77-6"></a><span class="co">#   for(Time in Times)</span></span>
+<span id="cb77-7"><a href="chill-model-comparison.html#cb77-7"></a><span class="co">#   {</span></span>
+<span id="cb77-8"><a href="chill-model-comparison.html#cb77-8"></a><span class="co">#     Temps&lt;-load_temperature_scenarios(</span></span>
+<span id="cb77-9"><a href="chill-model-comparison.html#cb77-9"></a><span class="co">#       &quot;weather_data/Leszno_weather_raw/Leszno_/&quot;,</span></span>
+<span id="cb77-10"><a href="chill-model-comparison.html#cb77-10"></a><span class="co">#       paste0(&quot;Leszno_&quot;,Time,&quot;_&quot;,RCP))</span></span>
+<span id="cb77-11"><a href="chill-model-comparison.html#cb77-11"></a><span class="co">#     </span></span>
+<span id="cb77-12"><a href="chill-model-comparison.html#cb77-12"></a><span class="co">#     daily_models_future_scenarios&lt;-tempResponse_list_daily(</span></span>
+<span id="cb77-13"><a href="chill-model-comparison.html#cb77-13"></a><span class="co">#       Temps,</span></span>
+<span id="cb77-14"><a href="chill-model-comparison.html#cb77-14"></a><span class="co">#       Start_JDay = Start_JDay,</span></span>
+<span id="cb77-15"><a href="chill-model-comparison.html#cb77-15"></a><span class="co">#       End_JDay = End_JDay,</span></span>
+<span id="cb77-16"><a href="chill-model-comparison.html#cb77-16"></a><span class="co">#       models=daily_models)</span></span>
+<span id="cb77-17"><a href="chill-model-comparison.html#cb77-17"></a><span class="co">#     daily_models_future_scenarios&lt;-lapply(</span></span>
+<span id="cb77-18"><a href="chill-model-comparison.html#cb77-18"></a><span class="co">#       daily_models_future_scenarios,</span></span>
+<span id="cb77-19"><a href="chill-model-comparison.html#cb77-19"></a><span class="co">#       function(x) x[which(x$Perc_complete&gt;90),])</span></span>
+<span id="cb77-20"><a href="chill-model-comparison.html#cb77-20"></a><span class="co">#     hourly_models_future_scenarios&lt;-</span></span>
+<span id="cb77-21"><a href="chill-model-comparison.html#cb77-21"></a><span class="co">#       tempResponse_daily_list(</span></span>
+<span id="cb77-22"><a href="chill-model-comparison.html#cb77-22"></a><span class="co">#         Temps,</span></span>
+<span id="cb77-23"><a href="chill-model-comparison.html#cb77-23"></a><span class="co">#         latitude=51.39,</span></span>
+<span id="cb77-24"><a href="chill-model-comparison.html#cb77-24"></a><span class="co">#         Start_JDay = Start_JDay,</span></span>
+<span id="cb77-25"><a href="chill-model-comparison.html#cb77-25"></a><span class="co">#         End_JDay = End_JDay,</span></span>
+<span id="cb77-26"><a href="chill-model-comparison.html#cb77-26"></a><span class="co">#         models=hourly_models,</span></span>
+<span id="cb77-27"><a href="chill-model-comparison.html#cb77-27"></a><span class="co">#         misstolerance = 10)</span></span>
+<span id="cb77-28"><a href="chill-model-comparison.html#cb77-28"></a><span class="co">#     </span></span>
+<span id="cb77-29"><a href="chill-model-comparison.html#cb77-29"></a><span class="co">#     future_scenarios&lt;-daily_models_future_scenarios</span></span>
+<span id="cb77-30"><a href="chill-model-comparison.html#cb77-30"></a><span class="co">#     future_scenarios&lt;-lapply(</span></span>
+<span id="cb77-31"><a href="chill-model-comparison.html#cb77-31"></a><span class="co">#       names(future_scenarios),</span></span>
+<span id="cb77-32"><a href="chill-model-comparison.html#cb77-32"></a><span class="co">#       function(x)</span></span>
+<span id="cb77-33"><a href="chill-model-comparison.html#cb77-33"></a><span class="co">#         cbind(future_scenarios[[x]],</span></span>
+<span id="cb77-34"><a href="chill-model-comparison.html#cb77-34"></a><span class="co">#               hourly_models_future_scenarios[[x]][,names(hourly_models)]))</span></span>
+<span id="cb77-35"><a href="chill-model-comparison.html#cb77-35"></a><span class="co">#     names(future_scenarios)&lt;-names(daily_models_future_scenarios)</span></span>
+<span id="cb77-36"><a href="chill-model-comparison.html#cb77-36"></a><span class="co">#     </span></span>
+<span id="cb77-37"><a href="chill-model-comparison.html#cb77-37"></a><span class="co">#     chill&lt;-future_scenarios</span></span>
+<span id="cb77-38"><a href="chill-model-comparison.html#cb77-38"></a><span class="co">#     save_temperature_scenarios(</span></span>
+<span id="cb77-39"><a href="chill-model-comparison.html#cb77-39"></a><span class="co">#       chill,</span></span>
+<span id="cb77-40"><a href="chill-model-comparison.html#cb77-40"></a><span class="co">#       &quot;weather_data/Leszno_weather_raw/chill&quot;,</span></span>
+<span id="cb77-41"><a href="chill-model-comparison.html#cb77-41"></a><span class="co">#       paste0(&quot;Leszno_multichill_&quot;,Time,&quot;_&quot;,RCP))</span></span>
+<span id="cb77-42"><a href="chill-model-comparison.html#cb77-42"></a><span class="co">#   }</span></span>
+<span id="cb77-43"><a href="chill-model-comparison.html#cb77-43"></a></span>
+<span id="cb77-44"><a href="chill-model-comparison.html#cb77-44"></a>chill_past_scenarios =<span class="st"> </span></span>
+<span id="cb77-45"><a href="chill-model-comparison.html#cb77-45"></a><span class="st">  </span><span class="kw">load_temperature_scenarios</span>(</span>
+<span id="cb77-46"><a href="chill-model-comparison.html#cb77-46"></a>  <span class="st">&quot;weather_data/Leszno_weather_raw/chill&quot;</span>,</span>
+<span id="cb77-47"><a href="chill-model-comparison.html#cb77-47"></a>  <span class="st">&quot;Leszno_multichill_historic&quot;</span>)</span>
+<span id="cb77-48"><a href="chill-model-comparison.html#cb77-48"></a></span>
+<span id="cb77-49"><a href="chill-model-comparison.html#cb77-49"></a>chill_observed =<span class="st"> </span></span>
+<span id="cb77-50"><a href="chill-model-comparison.html#cb77-50"></a><span class="st">  </span><span class="kw">read_tab</span>(<span class="st">&quot;weather_data/Leszno_weather_raw/chill/Leszno_multichill_observed.csv&quot;</span>)</span>
+<span id="cb77-51"><a href="chill-model-comparison.html#cb77-51"></a></span>
+<span id="cb77-52"><a href="chill-model-comparison.html#cb77-52"></a>chills =<span class="st"> </span></span>
+<span id="cb77-53"><a href="chill-model-comparison.html#cb77-53"></a><span class="st">  </span><span class="kw">make_climate_scenario</span>(chill_past_scenarios,</span>
+<span id="cb77-54"><a href="chill-model-comparison.html#cb77-54"></a>                               <span class="dt">caption =</span> <span class="st">&quot;Historic&quot;</span>,</span>
+<span id="cb77-55"><a href="chill-model-comparison.html#cb77-55"></a>                               <span class="dt">historic_data =</span> chill_observed,</span>
+<span id="cb77-56"><a href="chill-model-comparison.html#cb77-56"></a>                               <span class="dt">time_series =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb77-57"><a href="chill-model-comparison.html#cb77-57"></a></span>
+<span id="cb77-58"><a href="chill-model-comparison.html#cb77-58"></a></span>
+<span id="cb77-59"><a href="chill-model-comparison.html#cb77-59"></a><span class="cf">for</span>(RCP <span class="cf">in</span> RCPs)</span>
+<span id="cb77-60"><a href="chill-model-comparison.html#cb77-60"></a>  <span class="cf">for</span>(Time <span class="cf">in</span> Times)</span>
+<span id="cb77-61"><a href="chill-model-comparison.html#cb77-61"></a>  {</span>
+<span id="cb77-62"><a href="chill-model-comparison.html#cb77-62"></a>    chill&lt;-<span class="kw">load_temperature_scenarios</span>(</span>
+<span id="cb77-63"><a href="chill-model-comparison.html#cb77-63"></a>      <span class="st">&quot;weather_data/Leszno_weather_raw/chill/&quot;</span>,</span>
+<span id="cb77-64"><a href="chill-model-comparison.html#cb77-64"></a>      <span class="kw">paste0</span>(<span class="st">&quot;Leszno_multichill_&quot;</span>,Time,<span class="st">&quot;_&quot;</span>,RCP))</span>
+<span id="cb77-65"><a href="chill-model-comparison.html#cb77-65"></a>    <span class="cf">if</span>(RCP<span class="op">==</span><span class="st">&quot;rcp45&quot;</span>) RCPcaption &lt;-<span class="st"> &quot;RCP4.5&quot;</span></span>
+<span id="cb77-66"><a href="chill-model-comparison.html#cb77-66"></a>    <span class="cf">if</span>(RCP<span class="op">==</span><span class="st">&quot;rcp85&quot;</span>) RCPcaption &lt;-<span class="st"> &quot;RCP8.5&quot;</span></span>
+<span id="cb77-67"><a href="chill-model-comparison.html#cb77-67"></a>    <span class="cf">if</span>(Time<span class="op">==</span><span class="st">&quot;2050&quot;</span>) Time_caption &lt;-<span class="st"> &quot;2050&quot;</span></span>
+<span id="cb77-68"><a href="chill-model-comparison.html#cb77-68"></a>    <span class="cf">if</span>(Time<span class="op">==</span><span class="st">&quot;2085&quot;</span>) Time_caption &lt;-<span class="st"> &quot;2085&quot;</span></span>
+<span id="cb77-69"><a href="chill-model-comparison.html#cb77-69"></a>    chills &lt;-<span class="kw">make_climate_scenario</span>(chill,</span>
+<span id="cb77-70"><a href="chill-model-comparison.html#cb77-70"></a>                                   <span class="dt">caption =</span><span class="kw">c</span>(RCPcaption,Time_caption),</span>
+<span id="cb77-71"><a href="chill-model-comparison.html#cb77-71"></a>                                   <span class="dt">add_to =</span> chills)</span>
+<span id="cb77-72"><a href="chill-model-comparison.html#cb77-72"></a>  }</span>
+<span id="cb77-73"><a href="chill-model-comparison.html#cb77-73"></a></span>
+<span id="cb77-74"><a href="chill-model-comparison.html#cb77-74"></a></span>
+<span id="cb77-75"><a href="chill-model-comparison.html#cb77-75"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(chills))</span>
+<span id="cb77-76"><a href="chill-model-comparison.html#cb77-76"></a>{ch&lt;-chills[[i]]</span>
+<span id="cb77-77"><a href="chill-model-comparison.html#cb77-77"></a><span class="cf">if</span>(ch<span class="op">$</span>caption[<span class="dv">1</span>]<span class="op">==</span><span class="st">&quot;Historic&quot;</span>)</span>
+<span id="cb77-78"><a href="chill-model-comparison.html#cb77-78"></a>{GCMs&lt;-<span class="kw">rep</span>(<span class="st">&quot;none&quot;</span>,<span class="kw">length</span>(<span class="kw">names</span>(ch<span class="op">$</span>data)))</span>
+<span id="cb77-79"><a href="chill-model-comparison.html#cb77-79"></a>RCPs&lt;-<span class="kw">rep</span>(<span class="st">&quot;none&quot;</span>,<span class="kw">length</span>(<span class="kw">names</span>(ch<span class="op">$</span>data)))</span>
+<span id="cb77-80"><a href="chill-model-comparison.html#cb77-80"></a>Years&lt;-<span class="kw">as.numeric</span>(ch<span class="op">$</span>labels)</span>
+<span id="cb77-81"><a href="chill-model-comparison.html#cb77-81"></a>Scenario&lt;-<span class="kw">rep</span>(<span class="st">&quot;Historic&quot;</span>,<span class="kw">length</span>(<span class="kw">names</span>(ch<span class="op">$</span>data)))} <span class="cf">else</span></span>
+<span id="cb77-82"><a href="chill-model-comparison.html#cb77-82"></a>{GCMs&lt;-<span class="kw">names</span>(ch<span class="op">$</span>data)</span>
+<span id="cb77-83"><a href="chill-model-comparison.html#cb77-83"></a>RCPs&lt;-<span class="kw">rep</span>(ch<span class="op">$</span>caption[<span class="dv">1</span>],<span class="kw">length</span>(<span class="kw">names</span>(ch<span class="op">$</span>data)))</span>
+<span id="cb77-84"><a href="chill-model-comparison.html#cb77-84"></a>Years&lt;-<span class="kw">rep</span>(<span class="kw">as.numeric</span>(ch<span class="op">$</span>caption[<span class="dv">2</span>]),<span class="kw">length</span>(<span class="kw">names</span>(ch<span class="op">$</span>data)))</span>
+<span id="cb77-85"><a href="chill-model-comparison.html#cb77-85"></a>Scenario&lt;-<span class="kw">rep</span>(<span class="st">&quot;Future&quot;</span>,<span class="kw">length</span>(<span class="kw">names</span>(ch<span class="op">$</span>data)))}</span>
+<span id="cb77-86"><a href="chill-model-comparison.html#cb77-86"></a><span class="cf">for</span>(nam <span class="cf">in</span> <span class="kw">names</span>(ch<span class="op">$</span>data))</span>
+<span id="cb77-87"><a href="chill-model-comparison.html#cb77-87"></a>{<span class="cf">for</span>(met <span class="cf">in</span> metrics)</span>
+<span id="cb77-88"><a href="chill-model-comparison.html#cb77-88"></a>{temp_res&lt;-<span class="kw">data.frame</span>(<span class="dt">Metric=</span>met,</span>
+<span id="cb77-89"><a href="chill-model-comparison.html#cb77-89"></a>                      <span class="dt">GCM=</span>GCMs[<span class="kw">which</span>(nam<span class="op">==</span><span class="kw">names</span>(ch<span class="op">$</span>data))],</span>
+<span id="cb77-90"><a href="chill-model-comparison.html#cb77-90"></a>                      <span class="dt">RCP=</span>RCPs[<span class="kw">which</span>(nam<span class="op">==</span><span class="kw">names</span>(ch<span class="op">$</span>data))],</span>
+<span id="cb77-91"><a href="chill-model-comparison.html#cb77-91"></a>                      <span class="dt">Year=</span>Years[<span class="kw">which</span>(nam<span class="op">==</span><span class="kw">names</span>(ch<span class="op">$</span>data))],</span>
+<span id="cb77-92"><a href="chill-model-comparison.html#cb77-92"></a>                      <span class="dt">Result=</span><span class="kw">quantile</span>(ch<span class="op">$</span>data[[nam]][,met],<span class="fl">0.1</span>),</span>
+<span id="cb77-93"><a href="chill-model-comparison.html#cb77-93"></a>                      <span class="dt">Scenario=</span>Scenario[<span class="kw">which</span>(nam<span class="op">==</span><span class="kw">names</span>(ch<span class="op">$</span>data))])</span>
+<span id="cb77-94"><a href="chill-model-comparison.html#cb77-94"></a><span class="cf">if</span>(i<span class="op">==</span><span class="dv">1</span><span class="op">&amp;</span>nam<span class="op">==</span><span class="kw">names</span>(ch<span class="op">$</span>data)[<span class="dv">1</span>]<span class="op">&amp;</span>met<span class="op">==</span>metrics[<span class="dv">1</span>])</span>
+<span id="cb77-95"><a href="chill-model-comparison.html#cb77-95"></a>  results&lt;-temp_res <span class="cf">else</span></span>
+<span id="cb77-96"><a href="chill-model-comparison.html#cb77-96"></a>    results&lt;-<span class="kw">rbind</span>(results,temp_res)</span>
+<span id="cb77-97"><a href="chill-model-comparison.html#cb77-97"></a>  </span>
+<span id="cb77-98"><a href="chill-model-comparison.html#cb77-98"></a>}}}</span>
+<span id="cb77-99"><a href="chill-model-comparison.html#cb77-99"></a></span>
+<span id="cb77-100"><a href="chill-model-comparison.html#cb77-100"></a><span class="cf">for</span>(met <span class="cf">in</span> metrics)</span>
+<span id="cb77-101"><a href="chill-model-comparison.html#cb77-101"></a>  results[<span class="kw">which</span>(results<span class="op">$</span>Metric<span class="op">==</span>met),<span class="st">&quot;SWC&quot;</span>]&lt;-</span>
+<span id="cb77-102"><a href="chill-model-comparison.html#cb77-102"></a><span class="st">  </span>results[<span class="kw">which</span>(results<span class="op">$</span>Metric<span class="op">==</span>met),<span class="st">&quot;Result&quot;</span>]<span class="op">/</span></span>
+<span id="cb77-103"><a href="chill-model-comparison.html#cb77-103"></a><span class="st">  </span>results[<span class="kw">which</span>(results<span class="op">$</span>Metric<span class="op">==</span>met<span class="op">&amp;</span>results<span class="op">$</span>Year<span class="op">==</span><span class="dv">1980</span>),<span class="st">&quot;Result&quot;</span>]<span class="op">-</span><span class="dv">1</span></span>
+<span id="cb77-104"><a href="chill-model-comparison.html#cb77-104"></a></span>
+<span id="cb77-105"><a href="chill-model-comparison.html#cb77-105"></a>rng =<span class="st"> </span><span class="kw">range</span>(results<span class="op">$</span>SWC)</span></code></pre></div>
+</div>
+<div id="task-2-8" class="section level2 hasAnchor">
+<h2><span class="header-section-number">14.2</span> Task 2<a href="chill-model-comparison.html#task-2-8" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>Make a heat map illustrating past and future changes in Safe Winter Chill, relative to a past scenario, for the 13 chill models used here</strong></p>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="chill-model-comparison.html#cb78-1"></a>p_future =<span class="st"> </span></span>
+<span id="cb78-2"><a href="chill-model-comparison.html#cb78-2"></a><span class="st">  </span><span class="kw">ggplot</span>(results[<span class="kw">which</span>(<span class="op">!</span>results<span class="op">$</span>GCM<span class="op">==</span><span class="st">&quot;none&quot;</span>),],</span>
+<span id="cb78-3"><a href="chill-model-comparison.html#cb78-3"></a>                 <span class="kw">aes</span>(GCM, <span class="dt">y=</span><span class="kw">factor</span>(Metric, <span class="dt">levels=</span>metrics),</span>
+<span id="cb78-4"><a href="chill-model-comparison.html#cb78-4"></a>                     <span class="dt">fill =</span> SWC)) <span class="op">+</span></span>
+<span id="cb78-5"><a href="chill-model-comparison.html#cb78-5"></a><span class="st">                      </span><span class="kw">geom_tile</span>()<span class="op">+</span></span>
+<span id="cb78-6"><a href="chill-model-comparison.html#cb78-6"></a><span class="st">                      </span><span class="kw">facet_grid</span>(RCP <span class="op">~</span><span class="st"> </span>Year)<span class="op">+</span></span>
+<span id="cb78-7"><a href="chill-model-comparison.html#cb78-7"></a><span class="st">                      </span><span class="kw">theme_bw</span>(<span class="dt">base_size =</span> <span class="dv">15</span>) <span class="op">+</span></span>
+<span id="cb78-8"><a href="chill-model-comparison.html#cb78-8"></a><span class="st">                      </span><span class="kw">theme</span>(<span class="dt">axis.text =</span> <span class="kw">element_text</span>(<span class="dt">size=</span><span class="dv">8</span>))<span class="op">+</span></span>
+<span id="cb78-9"><a href="chill-model-comparison.html#cb78-9"></a><span class="st">                      </span><span class="kw">scale_fill_gradientn</span>(<span class="dt">colours=</span><span class="kw">matlab.like</span>(<span class="dv">15</span>),</span>
+<span id="cb78-10"><a href="chill-model-comparison.html#cb78-10"></a>                      <span class="dt">labels =</span> scales<span class="op">::</span>percent,</span>
+<span id="cb78-11"><a href="chill-model-comparison.html#cb78-11"></a>                      <span class="dt">limits=</span>rng)<span class="op">+</span></span>
+<span id="cb78-12"><a href="chill-model-comparison.html#cb78-12"></a><span class="st">                      </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">75</span>, <span class="dt">hjust =</span> <span class="dv">1</span>, <span class="dt">vjust =</span> <span class="dv">1</span>)) <span class="op">+</span></span>
+<span id="cb78-13"><a href="chill-model-comparison.html#cb78-13"></a><span class="st">                      </span><span class="kw">labs</span>(<span class="dt">fill =</span> <span class="st">&quot;Change in</span><span class="ch">\n</span><span class="st">Safe Winter Chill</span><span class="ch">\n</span><span class="st">since 1975&quot;</span>) <span class="op">+</span></span>
+<span id="cb78-14"><a href="chill-model-comparison.html#cb78-14"></a><span class="st">                      </span><span class="kw">scale_y_discrete</span>(<span class="dt">labels=</span>model_labels) <span class="op">+</span></span>
+<span id="cb78-15"><a href="chill-model-comparison.html#cb78-15"></a><span class="st">                      </span><span class="kw">ylab</span>(<span class="st">&quot;Chill metric&quot;</span>)</span>
+<span id="cb78-16"><a href="chill-model-comparison.html#cb78-16"></a></span>
+<span id="cb78-17"><a href="chill-model-comparison.html#cb78-17"></a>p_future</span></code></pre></div>
+<p><img src="Tree-Phenology_files/figure-html/unnamed-chunk-65-1.png" width="672" /></p>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="chill-model-comparison.html#cb79-1"></a>p_past =<span class="st"> </span></span>
+<span id="cb79-2"><a href="chill-model-comparison.html#cb79-2"></a><span class="st">  </span><span class="kw">ggplot</span>(results[<span class="kw">which</span>(results<span class="op">$</span>GCM<span class="op">==</span><span class="st">&quot;none&quot;</span>),],</span>
+<span id="cb79-3"><a href="chill-model-comparison.html#cb79-3"></a>         <span class="kw">aes</span>(Year, <span class="dt">y=</span><span class="kw">factor</span>(Metric, <span class="dt">levels=</span>metrics),</span>
+<span id="cb79-4"><a href="chill-model-comparison.html#cb79-4"></a>             <span class="dt">fill =</span> SWC)) <span class="op">+</span></span>
+<span id="cb79-5"><a href="chill-model-comparison.html#cb79-5"></a><span class="st">  </span><span class="kw">geom_tile</span>()<span class="op">+</span></span>
+<span id="cb79-6"><a href="chill-model-comparison.html#cb79-6"></a><span class="st">  </span><span class="kw">theme_bw</span>(<span class="dt">base_size =</span> <span class="dv">15</span>) <span class="op">+</span></span>
+<span id="cb79-7"><a href="chill-model-comparison.html#cb79-7"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text =</span> <span class="kw">element_text</span>(<span class="dt">size=</span><span class="dv">8</span>))<span class="op">+</span></span>
+<span id="cb79-8"><a href="chill-model-comparison.html#cb79-8"></a><span class="st">  </span><span class="kw">scale_fill_gradientn</span>(<span class="dt">colours=</span><span class="kw">matlab.like</span>(<span class="dv">15</span>),</span>
+<span id="cb79-9"><a href="chill-model-comparison.html#cb79-9"></a>                       <span class="dt">labels =</span> scales<span class="op">::</span>percent,</span>
+<span id="cb79-10"><a href="chill-model-comparison.html#cb79-10"></a>                       <span class="dt">limits=</span>rng)<span class="op">+</span></span>
+<span id="cb79-11"><a href="chill-model-comparison.html#cb79-11"></a><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">position =</span> <span class="st">&quot;top&quot;</span>)<span class="op">+</span></span>
+<span id="cb79-12"><a href="chill-model-comparison.html#cb79-12"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">fill =</span> <span class="st">&quot;Change in</span><span class="ch">\n</span><span class="st">Safe Winter Chill</span><span class="ch">\n</span><span class="st">since 1975&quot;</span>) <span class="op">+</span></span>
+<span id="cb79-13"><a href="chill-model-comparison.html#cb79-13"></a><span class="st">  </span><span class="kw">scale_y_discrete</span>(<span class="dt">labels=</span>model_labels) <span class="op">+</span></span>
+<span id="cb79-14"><a href="chill-model-comparison.html#cb79-14"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Chill metric&quot;</span>)</span>
+<span id="cb79-15"><a href="chill-model-comparison.html#cb79-15"></a></span>
+<span id="cb79-16"><a href="chill-model-comparison.html#cb79-16"></a></span>
+<span id="cb79-17"><a href="chill-model-comparison.html#cb79-17"></a></span>
+<span id="cb79-18"><a href="chill-model-comparison.html#cb79-18"></a>chill_comp_plot =<span class="st"> </span></span>
+<span id="cb79-19"><a href="chill-model-comparison.html#cb79-19"></a><span class="st">  </span>(p_past <span class="op">+</span></span>
+<span id="cb79-20"><a href="chill-model-comparison.html#cb79-20"></a><span class="st">     </span>p_future <span class="op">+</span></span>
+<span id="cb79-21"><a href="chill-model-comparison.html#cb79-21"></a><span class="st">     </span><span class="kw">plot_layout</span>(<span class="dt">guides =</span> <span class="st">&quot;collect&quot;</span>,<span class="dt">nrow=</span><span class="dv">2</span>, <span class="dt">heights=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))) <span class="op">&amp;</span></span>
+<span id="cb79-22"><a href="chill-model-comparison.html#cb79-22"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">&quot;right&quot;</span>,<span class="dt">strip.background =</span> <span class="kw">element_blank</span>(),</span>
+<span id="cb79-23"><a href="chill-model-comparison.html#cb79-23"></a>        <span class="dt">strip.text =</span> <span class="kw">element_text</span>(<span class="dt">face =</span> <span class="st">&quot;bold&quot;</span>))</span>
+<span id="cb79-24"><a href="chill-model-comparison.html#cb79-24"></a></span>
+<span id="cb79-25"><a href="chill-model-comparison.html#cb79-25"></a>chill_comp_plot</span></code></pre></div>
+<p><img src="Tree-Phenology_files/figure-html/unnamed-chunk-66-1.png" width="672" /></p>
+</div>
+<div id="task-3-5" class="section level2 hasAnchor">
+<h2><span class="header-section-number">14.3</span> Task 3<a href="chill-model-comparison.html#task-3-5" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>Produce an animated line plot of your results (summarizing Safe Winter Chill across all the GCMs).</strong></p>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="chill-model-comparison.html#cb80-1"></a>hist_results =<span class="st"> </span>results[<span class="kw">which</span>(results<span class="op">$</span>GCM<span class="op">==</span><span class="st">&quot;none&quot;</span>),]</span>
+<span id="cb80-2"><a href="chill-model-comparison.html#cb80-2"></a>hist_results<span class="op">$</span>RCP =<span class="st"> &quot;RCP4.5&quot;</span></span>
+<span id="cb80-3"><a href="chill-model-comparison.html#cb80-3"></a>hist_results_<span class="dv">2</span> =<span class="st"> </span>hist_results</span>
+<span id="cb80-4"><a href="chill-model-comparison.html#cb80-4"></a>hist_results_<span class="dv">2</span><span class="op">$</span>RCP =<span class="st"> &quot;RCP8.5&quot;</span></span>
+<span id="cb80-5"><a href="chill-model-comparison.html#cb80-5"></a>hist_results =<span class="st"> </span><span class="kw">rbind</span>(hist_results,hist_results_<span class="dv">2</span>)</span>
+<span id="cb80-6"><a href="chill-model-comparison.html#cb80-6"></a></span>
+<span id="cb80-7"><a href="chill-model-comparison.html#cb80-7"></a>future_results =<span class="st"> </span>results[<span class="kw">which</span>(<span class="op">!</span>results<span class="op">$</span>GCM<span class="op">==</span><span class="st">&quot;none&quot;</span>),]</span>
+<span id="cb80-8"><a href="chill-model-comparison.html#cb80-8"></a></span>
+<span id="cb80-9"><a href="chill-model-comparison.html#cb80-9"></a>GCM_aggregate =<span class="st"> </span></span>
+<span id="cb80-10"><a href="chill-model-comparison.html#cb80-10"></a><span class="st">  </span><span class="kw">aggregate</span>(</span>
+<span id="cb80-11"><a href="chill-model-comparison.html#cb80-11"></a>  future_results<span class="op">$</span>SWC,</span>
+<span id="cb80-12"><a href="chill-model-comparison.html#cb80-12"></a>  <span class="dt">by=</span><span class="kw">list</span>(future_results<span class="op">$</span>Metric,future_results<span class="op">$</span>RCP,future_results<span class="op">$</span>Year),</span>
+<span id="cb80-13"><a href="chill-model-comparison.html#cb80-13"></a>  <span class="dt">FUN=</span>mean)</span>
+<span id="cb80-14"><a href="chill-model-comparison.html#cb80-14"></a></span>
+<span id="cb80-15"><a href="chill-model-comparison.html#cb80-15"></a><span class="kw">colnames</span>(GCM_aggregate) =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Metric&quot;</span>,<span class="st">&quot;RCP&quot;</span>,<span class="st">&quot;Year&quot;</span>,<span class="st">&quot;SWC&quot;</span>)</span>
+<span id="cb80-16"><a href="chill-model-comparison.html#cb80-16"></a></span>
+<span id="cb80-17"><a href="chill-model-comparison.html#cb80-17"></a>RCP_Time_series =<span class="st"> </span><span class="kw">rbind</span>(hist_results[,<span class="kw">c</span>(<span class="st">&quot;Metric&quot;</span>,<span class="st">&quot;RCP&quot;</span>,<span class="st">&quot;Year&quot;</span>,<span class="st">&quot;SWC&quot;</span>)],</span>
+<span id="cb80-18"><a href="chill-model-comparison.html#cb80-18"></a>                       GCM_aggregate)</span>
+<span id="cb80-19"><a href="chill-model-comparison.html#cb80-19"></a></span>
+<span id="cb80-20"><a href="chill-model-comparison.html#cb80-20"></a></span>
+<span id="cb80-21"><a href="chill-model-comparison.html#cb80-21"></a>chill_change_plot =<span class="st"> </span></span>
+<span id="cb80-22"><a href="chill-model-comparison.html#cb80-22"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="dt">data=</span>RCP_Time_series,</span>
+<span id="cb80-23"><a href="chill-model-comparison.html#cb80-23"></a>         <span class="kw">aes</span>(<span class="dt">x=</span>Year,<span class="dt">y=</span>SWC,<span class="dt">col=</span><span class="kw">factor</span>(Metric,<span class="dt">levels=</span>metrics))) <span class="op">+</span></span>
+<span id="cb80-24"><a href="chill-model-comparison.html#cb80-24"></a><span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">lwd=</span><span class="fl">1.3</span>) <span class="op">+</span></span>
+<span id="cb80-25"><a href="chill-model-comparison.html#cb80-25"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>RCP,<span class="dt">nrow=</span><span class="dv">2</span>) <span class="op">+</span></span>
+<span id="cb80-26"><a href="chill-model-comparison.html#cb80-26"></a><span class="st">  </span><span class="kw">theme_bw</span>(<span class="dt">base_size=</span><span class="dv">15</span>) <span class="op">+</span></span>
+<span id="cb80-27"><a href="chill-model-comparison.html#cb80-27"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">col =</span> <span class="st">&quot;Change in</span><span class="ch">\n</span><span class="st">Safe Winter Chill</span><span class="ch">\n</span><span class="st">since 1975&quot;</span>) <span class="op">+</span></span>
+<span id="cb80-28"><a href="chill-model-comparison.html#cb80-28"></a><span class="st">  </span><span class="kw">scale_color_discrete</span>(<span class="dt">labels=</span>model_labels) <span class="op">+</span></span>
+<span id="cb80-29"><a href="chill-model-comparison.html#cb80-29"></a><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">labels =</span> scales<span class="op">::</span>percent) <span class="op">+</span></span>
+<span id="cb80-30"><a href="chill-model-comparison.html#cb80-30"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">strip.background =</span> <span class="kw">element_blank</span>(),</span>
+<span id="cb80-31"><a href="chill-model-comparison.html#cb80-31"></a>        <span class="dt">strip.text =</span> <span class="kw">element_text</span>(<span class="dt">face =</span> <span class="st">&quot;bold&quot;</span>)) <span class="op">+</span></span>
+<span id="cb80-32"><a href="chill-model-comparison.html#cb80-32"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Safe Winter Chill&quot;</span>)</span>
+<span id="cb80-33"><a href="chill-model-comparison.html#cb80-33"></a></span>
+<span id="cb80-34"><a href="chill-model-comparison.html#cb80-34"></a>chill_change_plot</span></code></pre></div>
+<p><img src="Tree-Phenology_files/figure-html/unnamed-chunk-67-2.png" width="672" /></p>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="chill-model-comparison.html#cb81-1"></a><span class="co"># Create Animation</span></span>
+<span id="cb81-2"><a href="chill-model-comparison.html#cb81-2"></a>p =<span class="st"> </span>chill_change_plot <span class="op">+</span><span class="st"> </span><span class="kw">transition_reveal</span>(Year)</span>
+<span id="cb81-3"><a href="chill-model-comparison.html#cb81-3"></a></span>
+<span id="cb81-4"><a href="chill-model-comparison.html#cb81-4"></a><span class="co">#animate(p, renderer = gifski_renderer())</span></span>
+<span id="cb81-5"><a href="chill-model-comparison.html#cb81-5"></a><span class="co">#anim_save(&quot;Result/chill_comparison_animation.gif&quot;, animation = last_animation())</span></span>
+<span id="cb81-6"><a href="chill-model-comparison.html#cb81-6"></a></span>
+<span id="cb81-7"><a href="chill-model-comparison.html#cb81-7"></a><span class="kw">library</span>(magick)</span>
+<span id="cb81-8"><a href="chill-model-comparison.html#cb81-8"></a>animation =<span class="st"> </span><span class="kw">image_read</span>(<span class="st">&quot;Result/chill_comparison_animation.gif&quot;</span>)</span>
+<span id="cb81-9"><a href="chill-model-comparison.html#cb81-9"></a><span class="kw">image_animate</span>(animation)</span></code></pre></div>
+<p><img src="Tree-Phenology_files/figure-html/unnamed-chunk-67-1.gif" /><!-- --></p>
 
 </div>
 </div>
@@ -502,8 +709,8 @@ Chill_Portions
           </div>
         </div>
       </div>
-<a href="plotting-future-scenarios.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="plotting-future-scenarios.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="heatmaps.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

@@ -17,7 +17,8 @@ rmd_files: [
   "Historic_Temperature_Scenario.Rmd",
   "Future_Temperature_Scenarios.Rmd",
   "Plotting_future_scenarios.Rmd",
-  "Chill_Model_Comparison.Rmd"
+  "Chill_Model_Comparison.Rmd",
+  "Heatmaps.Rmd"
 ]
 
 

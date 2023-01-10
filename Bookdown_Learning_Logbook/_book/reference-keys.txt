@@ -20,6 +20,7 @@ tab:unnamed-chunk-43
 tab:unnamed-chunk-45
 tab:unnamed-chunk-46
 tab:unnamed-chunk-61
+tab:unnamed-chunk-71
 introduction
 tree-phenology
 treedormancy
@@ -63,3 +64,6 @@ plotting-future-scenarios
 task-1-10
 chill-model-comparison
 task-1-11
+task-2-8
+task-3-5
+heatmaps

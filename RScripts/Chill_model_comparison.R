@@ -150,6 +150,8 @@ past_observed<-cbind(
 # 
 # 
 
+#read.csv("weather_data/Leszno_weather_raw/chill/Leszno_multichill_observed.csv")
+
 
 RCPs<-c("rcp45","rcp85")
 Times<-c(2050,2085)
@@ -310,9 +312,6 @@ chill_comp_plot<-
 
 
 library(gganimate)
-
-
-
 hist_results<-results[which(results$GCM=="none"),]
 hist_results$RCP<-"RCP4.5"
 hist_results_2<-hist_results
@@ -352,12 +351,12 @@ chill_change_plot<-
 chill_change_plot
 
 p = chill_change_plot + transition_reveal(Year)
-install.packages("gifski")
+#install.packages("gifski")
 library(gifski)
 animate(p, renderer = gifski_renderer())
 
 anim_save("Result/chill_comparison_animation.gif", animation = last_animation())
 
-
-
-
+library(magick)
+animation <- image_read("Result/chill_comparison_animation.gif")
+image_animate(animation)
