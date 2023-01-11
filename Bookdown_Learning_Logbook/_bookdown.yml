@@ -18,7 +18,9 @@ rmd_files: [
   "Future_Temperature_Scenarios.Rmd",
   "Plotting_future_scenarios.Rmd",
   "Chill_Model_Comparison.Rmd",
-  "Heatmaps.Rmd"
+  "Heatmaps.Rmd",
+  "Simple_Phenology_Analysis.Rmd",
+  "Delinating_Temperature_Response.Rmd"
 ]
 
 

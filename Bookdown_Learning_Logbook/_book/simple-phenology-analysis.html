@@ -4,20 +4,20 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 4 Climate change and impact projection | Learning LogBook Tree phenology analysis with R</title>
-  <meta name="description" content="Chapter 4 Climate change and impact projection | Learning LogBook Tree phenology analysis with R." />
+  <title>Chapter 16 Simple Phenology Analysis | Learning LogBook Tree phenology analysis with R</title>
+  <meta name="description" content="Chapter 16 Simple Phenology Analysis | Learning LogBook Tree phenology analysis with R." />
   <meta name="generator" content="bookdown 0.30 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 4 Climate change and impact projection | Learning LogBook Tree phenology analysis with R" />
+  <meta property="og:title" content="Chapter 16 Simple Phenology Analysis | Learning LogBook Tree phenology analysis with R" />
   <meta property="og:type" content="book" />
   
-  <meta property="og:description" content="Chapter 4 Climate change and impact projection | Learning LogBook Tree phenology analysis with R." />
+  <meta property="og:description" content="Chapter 16 Simple Phenology Analysis | Learning LogBook Tree phenology analysis with R." />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 4 Climate change and impact projection | Learning LogBook Tree phenology analysis with R" />
+  <meta name="twitter:title" content="Chapter 16 Simple Phenology Analysis | Learning LogBook Tree phenology analysis with R" />
   
-  <meta name="twitter:description" content="Chapter 4 Climate change and impact projection | Learning LogBook Tree phenology analysis with R." />
+  <meta name="twitter:description" content="Chapter 16 Simple Phenology Analysis | Learning LogBook Tree phenology analysis with R." />
   
 
 <meta name="author" content="Philipp Münker" />
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="treedormancy.html"/>
-<link rel="next" href="manual-chill-analysis.html"/>
+<link rel="prev" href="heatmaps.html"/>
+<link rel="next" href="delineating-temperature-response-phases-with-pls-regression.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -238,49 +238,49 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="climate-change-and-impact-projection" class="section level1 hasAnchor">
-<h1><span class="header-section-number">Chapter 4</span> Climate change and impact projection<a href="climate-change-and-impact-projection.html#climate-change-and-impact-projection" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="task-1-1" class="section level2 hasAnchor">
-<h2><span class="header-section-number">4.1</span> Task 1<a href="climate-change-and-impact-projection.html#task-1-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p><strong>List the main drivers of climate change at the decade to century scale, and briefly explain the mechanism through which the currently most important driver affects our climate</strong></p>
-<table>
-<caption><span id="tab:unnamed-chunk-2">Table 4.1: </span>Drivers of Climate Change</caption>
-<thead>
-<tr class="header">
-<th align="left">Drivers of climate change</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">Sun</td>
-</tr>
-<tr class="even">
-<td align="left">Aerosols</td>
-</tr>
-<tr class="odd">
-<td align="left">Clouds</td>
-</tr>
-<tr class="even">
-<td align="left">Ozone</td>
-</tr>
-<tr class="odd">
-<td align="left">Surface albedo</td>
-</tr>
-<tr class="even">
-<td align="left">Greenhouse gases</td>
-</tr>
-</tbody>
-</table>
+<div id="simple-phenology-analysis" class="section level1 hasAnchor">
+<h1><span class="header-section-number">Chapter 16</span> Simple Phenology Analysis<a href="simple-phenology-analysis.html#simple-phenology-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="task-1-12" class="section level2 hasAnchor">
+<h2><span class="header-section-number">16.1</span> Task 1<a href="simple-phenology-analysis.html#task-1-12" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>Provide a brief narrative describing what p-hacking is, and why this is a problematic approach to data analysis.</strong></p>
 <blockquote>
-<p>The most important factor that currently has the greatest influence on climate and climate change is greenhouse gases. The most important greenhouse gases are water vapor, (carbon dioxide) CO<sub>2</sub>, (methane) CH<sub>4</sub>, and (nitrous oxides) N<sub>2</sub>O. Greenhouse gases can only absorb radiation of certain wavelengths. They absorb radiation with long wavelengths, which comes from the Earth’s surface in the form of infrared radiation emitted by the warm Earth’s surface. This radiation cannot leave the atmosphere and is trapped by the greenhouse gases, which returns it back to the Earth.</p>
+<p>P-hacking refers to the practice of searching through a large dataset for a correlation between data and many variables. Often, a statistically significant correlation is found by chance. Once this correlation is detected, further tests are applied to support the results, indicating a correlation between data and variables. This can create the illusion that new facts have been discovered.</p>
+<p>This example can also be applied to other areas of agriculture, such as testing a new fungicide. Multiple statistical tests are conducted to investigate whether there is a difference in fungal infection between a plant community treated with the new fungicide and an untreated one. For instance, one test may yield a significant difference between the two groups. Normally, the study would be discontinued and restarted. With P-hacking, additional tests are applied to the data that provided the significant difference to further establish the distinction. In the end, one could conclude that the new fungicide is very effective.</p>
+</blockquote>
+<p><strong>Overfitting:</strong></p>
+<blockquote>
+<p>Another common problem is overfitting. When data varies greatly, it can be tempting to try and derive a trend. This trend can take several forms. In this example from the lecture, overfitting is demonstrated using blooming data. Initially, the years and the day on which blooming began are related. The following graph shows this.</p>
+</blockquote>
+<div style="display: flex; justify-content: space-between;">
+<p><img src="lineare_Regression_1.png" style="max-width: 100%;" /></p>
+</div>
+<blockquote>
+<p>The trend line plotted shows that as time progresses, the blooming date is shifted forward. The grey area surrounding the line shows the confidence interval. It can be observed that many values fall outside of the confidence interval, which could be an early indication that the model is not truly representative. The regression model is described by a polynomial. Furthermore, a much more complex regression model is used that employs 25 polynomials. The result shows the following graph.</p>
+</blockquote>
+<div style="display: flex; justify-content: space-between;">
+<p><img src="Overfitting_linerare_Regression.png" style="max-width: 100%;" /></p>
+</div>
+<blockquote>
+<p>A line is seen that describes the observed data very well. The confidence interval also looks very accurate, and most observations fall within it. However, the problem now is that this model is highly likely to only represent the data on which it was created well. If this model were applied to other data, it would not yield an accurate description of the data. This is a classic case of overfitting.
+For more information you can have a look <a href="http://inresgb-lehre.iaas.uni-bonn.de/chillR_book/simple_phenology.html#exercises_simple_analysis">here</a>.</p>
 </blockquote>
 </div>
-<div id="task-2-1" class="section level2 hasAnchor">
-<h2><span class="header-section-number">4.2</span> Task 2<a href="climate-change-and-impact-projection.html#task-2-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p><strong>Explain briefly what is special about temperature dynamics of the recent decades, and why we have good reasons to be concerned</strong></p>
+<div id="task-2-9" class="section level2 hasAnchor">
+<h2><span class="header-section-number">16.2</span> Task 2<a href="simple-phenology-analysis.html#task-2-9" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>Provide a sketch of your causal understanding of the relationship between temperature and bloom dates.</strong></p>
 <blockquote>
-<p>Over the past decades and throughout the last century, the temperature has been rising worldwide. Initially, this increase was relatively slow. The ten warmest years worldwide since 1880 were all measured after the millennium. The five warmest years worldwide were all recorded after 2014. This effect is also noticeable in Germany. Here, too, the ten warmest years were all measured after 2000, with one exception. If one places the temperature increase of the last decades in the climate history of the last one million years, it can be seen that there has never been such a strong temperature increase over such a relatively short period of time.</p>
-<p>This rapid rise in temperature is developing its own dynamic. For example, high temperatures in the tundra cause the permafrost to thaw, releasing a large amount of CO<sub>2</sub>, a greenhouse gas that promotes even faster warming.</p>
+<p>To conduct an analysis of the blooming onset, one must fundamentally consider which variables can explain the blooming onset in the first place. The first assumption made here is that the blooming onset depends on time.</p>
+<p>Time<span class="math inline">\(\longrightarrow\)</span> beginning of flowering*</p>
+<p>Is this really meaningful? Of course not. As described in detail in the lecture, there is a strong correlation between temperature and the onset of blooming.</p>
+<p>Temperature <span class="math inline">\(\longrightarrow\)</span> beginning of flowering*</p>
+<p>Therefore, one should always consider what follows from what? Now, various considerations can be made about how the onset of blooming and temperature are related. The simplest method to investigate this is to compare average annual temperatures to the date of the respective onset of blooming. This would be very simple. However, it would be better to compare average daily temperatures to the blooming time. Now, however, the problem arises that some days of the year, most likely more or less, have an impact on the onset of blooming. Intuitively, one can assume that temperatures in the summer are likely to have less influence on the onset of blooming than temperatures in the spring. This can also be investigated by relating the individual temperatures for each day to the blooming date. Here, an attempt is now being made to explain a dependent variable (onset of blooming) with a large number of independent variables.</p>
+</blockquote>
+</div>
+<div id="task-3-6" class="section level2 hasAnchor">
+<h2><span class="header-section-number">16.3</span> Task 3<a href="simple-phenology-analysis.html#task-3-6" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>What do we need to know to build a process-based model from this?</strong></p>
+<blockquote>
+<p>To develop a model that correctly relates temperature data to the blooming time, we initially lack data. First, one can make a further differentiation to the blooming time by assuming that the blooming time depends on chill and “forcing.” The “forcing” of the trees begins in spring and depends on day length and temperature. Before the trees can “force,” they must first experience a certain amount of “chill.” These processes are quite complex. In order to make sound statements about the onset of blooming, these phases need to be better understood and more data is needed. The lecture particularly mentions temperature response curves of these phases.</p>
 </blockquote>
 
 </div>
@@ -290,8 +290,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="treedormancy.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="manual-chill-analysis.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="heatmaps.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="delineating-temperature-response-phases-with-pls-regression.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -322,7 +322,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/USERNAME/REPO/edit/BRANCH/03-cl_change.Rmd",
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/Simple_Phenology_Analysis.Rmd",
 "text": "Edit"
 },
 "history": {

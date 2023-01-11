@@ -21,6 +21,7 @@ tab:unnamed-chunk-45
 tab:unnamed-chunk-46
 tab:unnamed-chunk-61
 tab:unnamed-chunk-71
+tab:unnamed-chunk-73
 introduction
 tree-phenology
 treedormancy
@@ -67,3 +68,13 @@ task-1-11
 task-2-8
 task-3-5
 heatmaps
+make_classes---function
+create-heatmap
+simple-phenology-analysis
+task-1-12
+task-2-9
+task-3-6
+delineating-temperature-response-phases-with-pls-regression
+task-1-13
+task-2-10
+task-3-7

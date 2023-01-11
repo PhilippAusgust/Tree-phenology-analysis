@@ -23,7 +23,7 @@
 <meta name="author" content="Philipp Münker" />
 
 
-<meta name="date" content="2023-01-10" />
+<meta name="date" content="2023-01-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="chill-model-comparison.html"/>
-
+<link rel="next" href="simple-phenology-analysis.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -204,7 +204,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="14.2" data-path="chill-model-comparison.html"><a href="chill-model-comparison.html#task-2-8"><i class="fa fa-check"></i><b>14.2</b> Task 2</a></li>
 <li class="chapter" data-level="14.3" data-path="chill-model-comparison.html"><a href="chill-model-comparison.html#task-3-5"><i class="fa fa-check"></i><b>14.3</b> Task 3</a></li>
 </ul></li>
-<li class="chapter" data-level="15" data-path="heatmaps.html"><a href="heatmaps.html"><i class="fa fa-check"></i><b>15</b> Heatmaps</a></li>
+<li class="chapter" data-level="15" data-path="heatmaps.html"><a href="heatmaps.html"><i class="fa fa-check"></i><b>15</b> Heatmaps</a><ul>
+<li class="chapter" data-level="15.1" data-path="heatmaps.html"><a href="heatmaps.html#make_classes---function"><i class="fa fa-check"></i><b>15.1</b> make_classes() - Function</a></li>
+<li class="chapter" data-level="15.2" data-path="heatmaps.html"><a href="heatmaps.html#create-heatmap"><i class="fa fa-check"></i><b>15.2</b> Create Heatmap</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="simple-phenology-analysis.html"><a href="simple-phenology-analysis.html"><i class="fa fa-check"></i><b>16</b> Simple Phenology Analysis</a><ul>
+<li class="chapter" data-level="16.1" data-path="simple-phenology-analysis.html"><a href="simple-phenology-analysis.html#task-1-12"><i class="fa fa-check"></i><b>16.1</b> Task 1</a></li>
+<li class="chapter" data-level="16.2" data-path="simple-phenology-analysis.html"><a href="simple-phenology-analysis.html#task-2-9"><i class="fa fa-check"></i><b>16.2</b> Task 2</a></li>
+<li class="chapter" data-level="16.3" data-path="simple-phenology-analysis.html"><a href="simple-phenology-analysis.html#task-3-6"><i class="fa fa-check"></i><b>16.3</b> Task 3</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="delineating-temperature-response-phases-with-pls-regression.html"><a href="delineating-temperature-response-phases-with-pls-regression.html"><i class="fa fa-check"></i><b>17</b> Delineating Temperature Response Phases with PLS Regression</a><ul>
+<li class="chapter" data-level="17.1" data-path="delineating-temperature-response-phases-with-pls-regression.html"><a href="delineating-temperature-response-phases-with-pls-regression.html#task-1-13"><i class="fa fa-check"></i><b>17.1</b> Task 1</a></li>
+<li class="chapter" data-level="17.2" data-path="delineating-temperature-response-phases-with-pls-regression.html"><a href="delineating-temperature-response-phases-with-pls-regression.html#task-2-10"><i class="fa fa-check"></i><b>17.2</b> Task 2</a></li>
+<li class="chapter" data-level="17.3" data-path="delineating-temperature-response-phases-with-pls-regression.html"><a href="delineating-temperature-response-phases-with-pls-regression.html#task-3-7"><i class="fa fa-check"></i><b>17.3</b> Task 3</a></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -227,6 +240,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="heatmaps" class="section level1 hasAnchor">
 <h1><span class="header-section-number">Chapter 15</span> Heatmaps<a href="heatmaps.html#heatmaps" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="make_classes---function" class="section level2 hasAnchor">
+<h2><span class="header-section-number">15.1</span> make_classes() - Function<a href="heatmaps.html#make_classes---function" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <blockquote>
 <p>In the previous lecture, the concept of chill and the expected changes were effectively demonstrated using heatmaps. In this chapter, this visualization method is utilized to depict the temperature measurements taken in July 2022 at the weather station in Zülpich-Fuessenich. Preprocessing is necessary for this purpose. One challenge involves categorizing the temperatures into classes. To gain an understanding of how the classes can be set within the temperature data, one can initially use the <code>make_classes</code> function to get an overview.</p>
 </blockquote>
@@ -913,6 +928,9 @@ class
 <p>In this case, a new column named <code>class</code> is first written in the dataframe <code>df</code>. The generated classes are then directly written into this column. The formed classes can now be read in the table “Dataset Weather Fuessenich with Classes” in the <code>class</code> column.</p>
 <p>At this point, it must be noted that the current approach is for orientational purposes only. In this particular case, the class boundaries will be manually generated at a later time using the <code>mutate()</code> function from the <code>tidyverse</code> package. The overall goal is to later provide a function that integrates the <code>make_classes()</code> function and automatically creates a heatmap that can be dynamically modified.</p>
 </blockquote>
+</div>
+<div id="create-heatmap" class="section level2 hasAnchor">
+<h2><span class="header-section-number">15.2</span> Create Heatmap<a href="heatmaps.html#create-heatmap" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="heatmaps.html#cb85-1"></a><span class="co"># preprocessing </span></span>
 <span id="cb85-2"><a href="heatmaps.html#cb85-2"></a></span>
 <span id="cb85-3"><a href="heatmaps.html#cb85-3"></a><span class="co"># create column with date</span></span>
@@ -942,45 +960,44 @@ class
 <span id="cb85-27"><a href="heatmaps.html#cb85-27"></a>m3[,<span class="st">&quot;countfactor&quot;</span>] &lt;-<span class="st"> </span><span class="ot">NA</span></span>
 <span id="cb85-28"><a href="heatmaps.html#cb85-28"></a></span>
 <span id="cb85-29"><a href="heatmaps.html#cb85-29"></a>m1 &lt;-m3 <span class="op">%&gt;%</span></span>
-<span id="cb85-30"><a href="heatmaps.html#cb85-30"></a><span class="st">  </span><span class="co"># convert state to factor and reverse order of levels</span></span>
-<span id="cb85-31"><a href="heatmaps.html#cb85-31"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Index=</span><span class="kw">factor</span>(Index, <span class="dt">levels=</span><span class="kw">rev</span>(<span class="kw">sort</span>(<span class="kw">unique</span>(Index)))))<span class="op">%&gt;%</span></span>
-<span id="cb85-32"><a href="heatmaps.html#cb85-32"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">countfactor=</span><span class="kw">cut</span>(temperature, <span class="dt">breaks=</span><span class="kw">c</span>(<span class="dv">8</span>, <span class="dv">10</span>, <span class="dv">12</span>, <span class="dv">14</span>, <span class="dv">16</span>, <span class="dv">18</span>, <span class="dv">20</span>, <span class="dv">22</span>,</span>
-<span id="cb85-33"><a href="heatmaps.html#cb85-33"></a>                                         <span class="dv">24</span>,<span class="dv">26</span>,<span class="dv">28</span>,<span class="dv">30</span>,<span class="dv">32</span>,<span class="dv">34</span>,<span class="dv">36</span>, <span class="kw">max</span>(temperature, <span class="dt">na.rm=</span><span class="ot">TRUE</span>)),</span>
-<span id="cb85-34"><a href="heatmaps.html#cb85-34"></a>                         <span class="dt">labels=</span><span class="kw">c</span>(<span class="st">&quot;8-10&quot;</span>, <span class="st">&quot;10-12&quot;</span>, <span class="st">&quot;12-14&quot;</span>, <span class="st">&quot;14-16&quot;</span>, <span class="st">&quot;16-18&quot;</span>, <span class="st">&quot;18-20&quot;</span>,</span>
-<span id="cb85-35"><a href="heatmaps.html#cb85-35"></a>                                  <span class="st">&quot;20-22&quot;</span>,<span class="st">&quot;22-24&quot;</span>,<span class="st">&quot;24-26&quot;</span>,<span class="st">&quot;26-28&quot;</span>,<span class="st">&quot;28-30&quot;</span>,</span>
-<span id="cb85-36"><a href="heatmaps.html#cb85-36"></a>                                  <span class="st">&quot;30-32&quot;</span>,<span class="st">&quot;32-34&quot;</span>,<span class="st">&quot;34-36&quot;</span>,<span class="st">&quot;36 &gt;&quot;</span>)))<span class="op">%&gt;%</span></span>
-<span id="cb85-37"><a href="heatmaps.html#cb85-37"></a><span class="kw">mutate</span>(<span class="dt">countfactor=</span><span class="kw">factor</span>(<span class="kw">as.character</span>(countfactor), <span class="dt">levels=</span><span class="kw">rev</span>(<span class="kw">levels</span>(countfactor))))</span>
+<span id="cb85-30"><a href="heatmaps.html#cb85-30"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Index=</span><span class="kw">factor</span>(Index, <span class="dt">levels=</span><span class="kw">rev</span>(<span class="kw">sort</span>(<span class="kw">unique</span>(Index)))))<span class="op">%&gt;%</span></span>
+<span id="cb85-31"><a href="heatmaps.html#cb85-31"></a><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">countfactor=</span><span class="kw">cut</span>(temperature, <span class="dt">breaks=</span><span class="kw">c</span>(<span class="dv">8</span>, <span class="dv">10</span>, <span class="dv">12</span>, <span class="dv">14</span>, <span class="dv">16</span>, <span class="dv">18</span>, <span class="dv">20</span>, <span class="dv">22</span>,</span>
+<span id="cb85-32"><a href="heatmaps.html#cb85-32"></a>                                         <span class="dv">24</span>,<span class="dv">26</span>,<span class="dv">28</span>,<span class="dv">30</span>,<span class="dv">32</span>,<span class="dv">34</span>,<span class="dv">36</span>, <span class="kw">max</span>(temperature, <span class="dt">na.rm=</span><span class="ot">TRUE</span>)),</span>
+<span id="cb85-33"><a href="heatmaps.html#cb85-33"></a>                         <span class="dt">labels=</span><span class="kw">c</span>(<span class="st">&quot;8-10&quot;</span>, <span class="st">&quot;10-12&quot;</span>, <span class="st">&quot;12-14&quot;</span>, <span class="st">&quot;14-16&quot;</span>, <span class="st">&quot;16-18&quot;</span>, <span class="st">&quot;18-20&quot;</span>,</span>
+<span id="cb85-34"><a href="heatmaps.html#cb85-34"></a>                                  <span class="st">&quot;20-22&quot;</span>,<span class="st">&quot;22-24&quot;</span>,<span class="st">&quot;24-26&quot;</span>,<span class="st">&quot;26-28&quot;</span>,<span class="st">&quot;28-30&quot;</span>,</span>
+<span id="cb85-35"><a href="heatmaps.html#cb85-35"></a>                                  <span class="st">&quot;30-32&quot;</span>,<span class="st">&quot;32-34&quot;</span>,<span class="st">&quot;34-36&quot;</span>,<span class="st">&quot;36 &gt;&quot;</span>)))<span class="op">%&gt;%</span></span>
+<span id="cb85-36"><a href="heatmaps.html#cb85-36"></a><span class="kw">mutate</span>(<span class="dt">countfactor=</span><span class="kw">factor</span>(<span class="kw">as.character</span>(countfactor), <span class="dt">levels=</span><span class="kw">rev</span>(<span class="kw">levels</span>(countfactor))))</span>
+<span id="cb85-37"><a href="heatmaps.html#cb85-37"></a></span>
 <span id="cb85-38"><a href="heatmaps.html#cb85-38"></a></span>
-<span id="cb85-39"><a href="heatmaps.html#cb85-39"></a></span>
-<span id="cb85-40"><a href="heatmaps.html#cb85-40"></a>colors &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;#002565&quot;</span>, <span class="st">&quot;#00556E&quot;</span>, <span class="st">&quot;#007763&quot;</span>,</span>
-<span id="cb85-41"><a href="heatmaps.html#cb85-41"></a>            <span class="st">&quot;#007F3A&quot;</span>, <span class="st">&quot;#00860D&quot;</span>,<span class="st">&quot;#198C00&quot;</span>,<span class="st">&quot;#519300&quot;</span>,<span class="st">&quot;#8B9803&quot;</span>,<span class="st">&quot;#9D7608&quot;</span>,<span class="st">&quot;#9A520B&quot;</span>,<span class="st">&quot;#98300D&quot;</span>,<span class="st">&quot;#951010&quot;</span>,<span class="st">&quot;#931231&quot;</span>,<span class="st">&quot;#901551&quot;</span>,<span class="st">&quot;#8B1A89&quot;</span>)</span>
-<span id="cb85-42"><a href="heatmaps.html#cb85-42"></a>textcol &lt;-<span class="st"> &quot;grey40&quot;</span></span>
+<span id="cb85-39"><a href="heatmaps.html#cb85-39"></a>colors &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;#002565&quot;</span>, <span class="st">&quot;#00556E&quot;</span>, <span class="st">&quot;#007763&quot;</span>,</span>
+<span id="cb85-40"><a href="heatmaps.html#cb85-40"></a>            <span class="st">&quot;#007F3A&quot;</span>, <span class="st">&quot;#00860D&quot;</span>,<span class="st">&quot;#198C00&quot;</span>,<span class="st">&quot;#519300&quot;</span>,<span class="st">&quot;#8B9803&quot;</span>,<span class="st">&quot;#9D7608&quot;</span>,<span class="st">&quot;#9A520B&quot;</span>,<span class="st">&quot;#98300D&quot;</span>,<span class="st">&quot;#951010&quot;</span>,<span class="st">&quot;#931231&quot;</span>,<span class="st">&quot;#901551&quot;</span>,<span class="st">&quot;#8B1A89&quot;</span>)</span>
+<span id="cb85-41"><a href="heatmaps.html#cb85-41"></a>textcol &lt;-<span class="st"> &quot;grey40&quot;</span></span>
+<span id="cb85-42"><a href="heatmaps.html#cb85-42"></a></span>
 <span id="cb85-43"><a href="heatmaps.html#cb85-43"></a></span>
-<span id="cb85-44"><a href="heatmaps.html#cb85-44"></a></span>
-<span id="cb85-45"><a href="heatmaps.html#cb85-45"></a><span class="kw">ggplot</span>(m1, <span class="kw">aes</span>(<span class="dt">x=</span>hours_only , <span class="dt">y=</span>Tag, <span class="dt">fill=</span>countfactor ))<span class="op">+</span></span>
-<span id="cb85-46"><a href="heatmaps.html#cb85-46"></a><span class="st">  </span><span class="kw">geom_tile</span>(<span class="dt">colour=</span><span class="st">&quot;white&quot;</span>, <span class="dt">size=</span><span class="fl">0.3</span>)<span class="op">+</span></span>
-<span id="cb85-47"><a href="heatmaps.html#cb85-47"></a><span class="st">  </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">label=</span><span class="kw">round</span>(temperature, <span class="dt">digits =</span> <span class="dv">1</span>)), <span class="dt">size=</span><span class="fl">2.3</span>)<span class="op">+</span></span>
-<span id="cb85-48"><a href="heatmaps.html#cb85-48"></a><span class="st">  </span><span class="kw">scale_fill_manual</span>(<span class="dt">values=</span><span class="kw">rev</span>(colors), <span class="dt">na.value =</span> <span class="st">&quot;grey90&quot;</span>)<span class="op">+</span></span>
-<span id="cb85-49"><a href="heatmaps.html#cb85-49"></a><span class="st">  </span><span class="kw">guides</span>(<span class="dt">fill=</span><span class="kw">guide_legend</span>(<span class="dt">title=</span><span class="st">&quot;Temperatur in [°C]&quot;</span>))<span class="op">+</span></span>
-<span id="cb85-50"><a href="heatmaps.html#cb85-50"></a><span class="st">  </span><span class="kw">theme_grey</span>(<span class="dt">base_size=</span><span class="dv">10</span>)<span class="op">+</span></span>
-<span id="cb85-51"><a href="heatmaps.html#cb85-51"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Hour&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Day&quot;</span>)<span class="op">+</span></span>
-<span id="cb85-52"><a href="heatmaps.html#cb85-52"></a><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Hourly mean Temperatures in Juli 2022&quot;</span>)<span class="op">+</span></span>
-<span id="cb85-53"><a href="heatmaps.html#cb85-53"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position=</span><span class="st">&quot;bottom&quot;</span>, <span class="dt">legend.direction=</span><span class="st">&quot;horizontal&quot;</span>,</span>
-<span id="cb85-54"><a href="heatmaps.html#cb85-54"></a>        <span class="dt">legend.title=</span><span class="kw">element_text</span>(<span class="dt">colour=</span>textcol),</span>
-<span id="cb85-55"><a href="heatmaps.html#cb85-55"></a>        <span class="dt">legend.margin=</span><span class="kw">margin</span>(grid<span class="op">::</span><span class="kw">unit</span>(<span class="dv">0</span>, <span class="st">&quot;cm&quot;</span>)),</span>
-<span id="cb85-56"><a href="heatmaps.html#cb85-56"></a>        <span class="dt">legend.text=</span><span class="kw">element_text</span>(<span class="dt">colour=</span>textcol, <span class="dt">size=</span><span class="dv">7</span>, <span class="dt">face=</span><span class="st">&quot;bold&quot;</span>),</span>
-<span id="cb85-57"><a href="heatmaps.html#cb85-57"></a>        <span class="dt">legend.key.height=</span>grid<span class="op">::</span><span class="kw">unit</span>(<span class="fl">0.8</span>, <span class="st">&quot;cm&quot;</span>),</span>
-<span id="cb85-58"><a href="heatmaps.html#cb85-58"></a>        <span class="dt">legend.key.width=</span>grid<span class="op">::</span><span class="kw">unit</span>(<span class="fl">0.2</span>, <span class="st">&quot;cm&quot;</span>),</span>
-<span id="cb85-59"><a href="heatmaps.html#cb85-59"></a>        <span class="dt">axis.text.x=</span><span class="kw">element_text</span>(<span class="dt">size=</span><span class="dv">10</span>, <span class="dt">colour=</span>textcol),</span>
-<span id="cb85-60"><a href="heatmaps.html#cb85-60"></a>        <span class="dt">axis.text.y=</span><span class="kw">element_text</span>(<span class="dt">vjust=</span><span class="fl">0.2</span>, <span class="dt">colour=</span>textcol),</span>
-<span id="cb85-61"><a href="heatmaps.html#cb85-61"></a>        <span class="dt">axis.ticks=</span><span class="kw">element_line</span>(<span class="dt">size=</span><span class="fl">0.4</span>),</span>
-<span id="cb85-62"><a href="heatmaps.html#cb85-62"></a>        <span class="dt">plot.background=</span><span class="kw">element_blank</span>(),</span>
-<span id="cb85-63"><a href="heatmaps.html#cb85-63"></a>        <span class="dt">panel.border=</span><span class="kw">element_blank</span>(),</span>
-<span id="cb85-64"><a href="heatmaps.html#cb85-64"></a>        <span class="dt">plot.margin=</span><span class="kw">margin</span>(<span class="fl">0.7</span>, <span class="fl">0.4</span>, <span class="fl">0.1</span>, <span class="fl">0.2</span>, <span class="st">&quot;cm&quot;</span>),</span>
-<span id="cb85-65"><a href="heatmaps.html#cb85-65"></a>        <span class="dt">plot.title=</span><span class="kw">element_text</span>(<span class="dt">colour=</span>textcol, <span class="dt">hjust=</span><span class="dv">0</span>, <span class="dt">size=</span><span class="dv">14</span>, <span class="dt">face=</span><span class="st">&quot;bold&quot;</span>)</span>
-<span id="cb85-66"><a href="heatmaps.html#cb85-66"></a>  )<span class="op">+</span></span>
-<span id="cb85-67"><a href="heatmaps.html#cb85-67"></a><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">0</span>, <span class="dt">to =</span> <span class="dv">23</span>, <span class="dt">by =</span> <span class="dv">6</span>))<span class="op">+</span></span>
-<span id="cb85-68"><a href="heatmaps.html#cb85-68"></a><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">31</span>,<span class="dv">1</span>))</span></code></pre></div>
+<span id="cb85-44"><a href="heatmaps.html#cb85-44"></a><span class="kw">ggplot</span>(m1, <span class="kw">aes</span>(<span class="dt">x=</span>hours_only , <span class="dt">y=</span>Tag, <span class="dt">fill=</span>countfactor ))<span class="op">+</span></span>
+<span id="cb85-45"><a href="heatmaps.html#cb85-45"></a><span class="st">  </span><span class="kw">geom_tile</span>(<span class="dt">colour=</span><span class="st">&quot;white&quot;</span>, <span class="dt">size=</span><span class="fl">0.3</span>)<span class="op">+</span></span>
+<span id="cb85-46"><a href="heatmaps.html#cb85-46"></a><span class="st">  </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">label=</span><span class="kw">round</span>(temperature, <span class="dt">digits =</span> <span class="dv">1</span>)), <span class="dt">size=</span><span class="fl">2.3</span>)<span class="op">+</span></span>
+<span id="cb85-47"><a href="heatmaps.html#cb85-47"></a><span class="st">  </span><span class="kw">scale_fill_manual</span>(<span class="dt">values=</span><span class="kw">rev</span>(colors), <span class="dt">na.value =</span> <span class="st">&quot;grey90&quot;</span>)<span class="op">+</span></span>
+<span id="cb85-48"><a href="heatmaps.html#cb85-48"></a><span class="st">  </span><span class="kw">guides</span>(<span class="dt">fill=</span><span class="kw">guide_legend</span>(<span class="dt">title=</span><span class="st">&quot;Temperatur in [°C]&quot;</span>))<span class="op">+</span></span>
+<span id="cb85-49"><a href="heatmaps.html#cb85-49"></a><span class="st">  </span><span class="kw">theme_grey</span>(<span class="dt">base_size=</span><span class="dv">10</span>)<span class="op">+</span></span>
+<span id="cb85-50"><a href="heatmaps.html#cb85-50"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Hour&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Day&quot;</span>)<span class="op">+</span></span>
+<span id="cb85-51"><a href="heatmaps.html#cb85-51"></a><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Hourly mean Temperatures in Juli 2022&quot;</span>)<span class="op">+</span></span>
+<span id="cb85-52"><a href="heatmaps.html#cb85-52"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position=</span><span class="st">&quot;bottom&quot;</span>, <span class="dt">legend.direction=</span><span class="st">&quot;horizontal&quot;</span>,</span>
+<span id="cb85-53"><a href="heatmaps.html#cb85-53"></a>        <span class="dt">legend.title=</span><span class="kw">element_text</span>(<span class="dt">colour=</span>textcol),</span>
+<span id="cb85-54"><a href="heatmaps.html#cb85-54"></a>        <span class="dt">legend.margin=</span><span class="kw">margin</span>(grid<span class="op">::</span><span class="kw">unit</span>(<span class="dv">0</span>, <span class="st">&quot;cm&quot;</span>)),</span>
+<span id="cb85-55"><a href="heatmaps.html#cb85-55"></a>        <span class="dt">legend.text=</span><span class="kw">element_text</span>(<span class="dt">colour=</span>textcol, <span class="dt">size=</span><span class="dv">7</span>, <span class="dt">face=</span><span class="st">&quot;bold&quot;</span>),</span>
+<span id="cb85-56"><a href="heatmaps.html#cb85-56"></a>        <span class="dt">legend.key.height=</span>grid<span class="op">::</span><span class="kw">unit</span>(<span class="fl">0.8</span>, <span class="st">&quot;cm&quot;</span>),</span>
+<span id="cb85-57"><a href="heatmaps.html#cb85-57"></a>        <span class="dt">legend.key.width=</span>grid<span class="op">::</span><span class="kw">unit</span>(<span class="fl">0.2</span>, <span class="st">&quot;cm&quot;</span>),</span>
+<span id="cb85-58"><a href="heatmaps.html#cb85-58"></a>        <span class="dt">axis.text.x=</span><span class="kw">element_text</span>(<span class="dt">size=</span><span class="dv">10</span>, <span class="dt">colour=</span>textcol),</span>
+<span id="cb85-59"><a href="heatmaps.html#cb85-59"></a>        <span class="dt">axis.text.y=</span><span class="kw">element_text</span>(<span class="dt">vjust=</span><span class="fl">0.2</span>, <span class="dt">colour=</span>textcol),</span>
+<span id="cb85-60"><a href="heatmaps.html#cb85-60"></a>        <span class="dt">axis.ticks=</span><span class="kw">element_line</span>(<span class="dt">size=</span><span class="fl">0.4</span>),</span>
+<span id="cb85-61"><a href="heatmaps.html#cb85-61"></a>        <span class="dt">plot.background=</span><span class="kw">element_blank</span>(),</span>
+<span id="cb85-62"><a href="heatmaps.html#cb85-62"></a>        <span class="dt">panel.border=</span><span class="kw">element_blank</span>(),</span>
+<span id="cb85-63"><a href="heatmaps.html#cb85-63"></a>        <span class="dt">plot.margin=</span><span class="kw">margin</span>(<span class="fl">0.7</span>, <span class="fl">0.4</span>, <span class="fl">0.1</span>, <span class="fl">0.2</span>, <span class="st">&quot;cm&quot;</span>),</span>
+<span id="cb85-64"><a href="heatmaps.html#cb85-64"></a>        <span class="dt">plot.title=</span><span class="kw">element_text</span>(<span class="dt">colour=</span>textcol, <span class="dt">hjust=</span><span class="dv">0</span>, <span class="dt">size=</span><span class="dv">14</span>, <span class="dt">face=</span><span class="st">&quot;bold&quot;</span>)</span>
+<span id="cb85-65"><a href="heatmaps.html#cb85-65"></a>  )<span class="op">+</span></span>
+<span id="cb85-66"><a href="heatmaps.html#cb85-66"></a><span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">0</span>, <span class="dt">to =</span> <span class="dv">23</span>, <span class="dt">by =</span> <span class="dv">6</span>))<span class="op">+</span></span>
+<span id="cb85-67"><a href="heatmaps.html#cb85-67"></a><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">31</span>,<span class="dv">1</span>))</span></code></pre></div>
 <p><img src="Tree-Phenology_files/figure-html/unnamed-chunk-72-1.png" width="672" /></p>
 <blockquote>
 <p>As seen, it can be somewhat tricky to save the final map in a suitable format. Therefore, the entire map was saved once, and the result was read in as a whole to maintain readability.</p>
@@ -990,13 +1007,14 @@ class
 </div>
 
 </div>
+</div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="chill-model-comparison.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="chill-model-comparison.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="simple-phenology-analysis.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -1054,6 +1072,20 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>
