@@ -22,6 +22,8 @@ tab:unnamed-chunk-46
 tab:unnamed-chunk-61
 tab:unnamed-chunk-71
 tab:unnamed-chunk-73
+tab:unnamed-chunk-79
+tab:unnamed-chunk-80
 introduction
 tree-phenology
 treedormancy
@@ -78,3 +80,7 @@ delineating-temperature-response-phases-with-pls-regression
 task-1-13
 task-2-10
 task-3-7
+successes-and-limitations-of-pls-regression-analysis
+task-1-14
+task-2-11
+pls-regression-with-agroclimatic-metrics

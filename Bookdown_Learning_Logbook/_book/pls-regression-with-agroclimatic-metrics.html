@@ -4,20 +4,20 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 5 Manual Chill Analysis | Learning LogBook Tree phenology analysis with R</title>
-  <meta name="description" content="Chapter 5 Manual Chill Analysis | Learning LogBook Tree phenology analysis with R." />
+  <title>Chapter 19 PLS regression with agroclimatic metrics | Learning LogBook Tree phenology analysis with R</title>
+  <meta name="description" content="Chapter 19 PLS regression with agroclimatic metrics | Learning LogBook Tree phenology analysis with R." />
   <meta name="generator" content="bookdown 0.30 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 5 Manual Chill Analysis | Learning LogBook Tree phenology analysis with R" />
+  <meta property="og:title" content="Chapter 19 PLS regression with agroclimatic metrics | Learning LogBook Tree phenology analysis with R" />
   <meta property="og:type" content="book" />
   
-  <meta property="og:description" content="Chapter 5 Manual Chill Analysis | Learning LogBook Tree phenology analysis with R." />
+  <meta property="og:description" content="Chapter 19 PLS regression with agroclimatic metrics | Learning LogBook Tree phenology analysis with R." />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 5 Manual Chill Analysis | Learning LogBook Tree phenology analysis with R" />
+  <meta name="twitter:title" content="Chapter 19 PLS regression with agroclimatic metrics | Learning LogBook Tree phenology analysis with R" />
   
-  <meta name="twitter:description" content="Chapter 5 Manual Chill Analysis | Learning LogBook Tree phenology analysis with R." />
+  <meta name="twitter:description" content="Chapter 19 PLS regression with agroclimatic metrics | Learning LogBook Tree phenology analysis with R." />
   
 
 <meta name="author" content="Philipp Münker" />
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="climate-change-and-impact-projection.html"/>
-<link rel="next" href="chill-models.html"/>
+<link rel="prev" href="successes-and-limitations-of-pls-regression-analysis.html"/>
+
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -243,30 +243,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="manual-chill-analysis" class="section level1 hasAnchor">
-<h1><span class="header-section-number">Chapter 5</span> Manual Chill Analysis<a href="manual-chill-analysis.html#manual-chill-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<blockquote>
-<p>The <code>Winters_hours_gaps</code> data set has the columns: <code>Year</code>, <code>Month</code>, <code>Day</code>, <code>Hour</code>, <code>Temp_gaps</code>, <code>Temp</code>. First, the function <code>cleaned_data</code> is used to remove unnecessary columns such as <code>Temp_gaps()</code> from the data set.</p>
-</blockquote>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="manual-chill-analysis.html#cb1-1"></a><span class="co">#Clean Function</span></span>
-<span id="cb1-2"><a href="manual-chill-analysis.html#cb1-2"></a>cleaned_data =<span class="st"> </span><span class="cf">function</span>(data_source) {</span>
-<span id="cb1-3"><a href="manual-chill-analysis.html#cb1-3"></a>  data_source =<span class="st"> </span></span>
-<span id="cb1-4"><a href="manual-chill-analysis.html#cb1-4"></a><span class="st">    </span>data_source[, <span class="kw">c</span>(<span class="st">&quot;Year&quot;</span>, <span class="st">&quot;Month&quot;</span>, <span class="st">&quot;Day&quot;</span>, <span class="st">&quot;Hour&quot;</span>, <span class="st">&quot;Temp&quot;</span>)]</span>
-<span id="cb1-5"><a href="manual-chill-analysis.html#cb1-5"></a>  <span class="kw">return</span>(data_source)</span>
-<span id="cb1-6"><a href="manual-chill-analysis.html#cb1-6"></a>}</span>
-<span id="cb1-7"><a href="manual-chill-analysis.html#cb1-7"></a></span>
-<span id="cb1-8"><a href="manual-chill-analysis.html#cb1-8"></a><span class="co"># Apply Function to Winters_hours_gaps</span></span>
-<span id="cb1-9"><a href="manual-chill-analysis.html#cb1-9"></a><span class="kw">kable</span>(<span class="kw">head</span>(<span class="kw">cleaned_data</span>(<span class="dt">data_source =</span> Winters_hours_gaps)),</span>
-<span id="cb1-10"><a href="manual-chill-analysis.html#cb1-10"></a>      <span class="dt">caption =</span> <span class="st">&quot;Cleaned  Dataset: Winters_hours_gaps&quot;</span>)<span class="op">%&gt;%</span></span>
-<span id="cb1-11"><a href="manual-chill-analysis.html#cb1-11"></a><span class="st">      </span><span class="kw">kable_styling</span>(<span class="st">&quot;striped&quot;</span>, <span class="dt">position =</span> <span class="st">&quot;left&quot;</span>, <span class="dt">font_size =</span> <span class="dv">10</span>)<span class="op">%&gt;%</span></span>
-<span id="cb1-12"><a href="manual-chill-analysis.html#cb1-12"></a><span class="st">      </span><span class="kw">scroll_box</span>(<span class="dt">width =</span> <span class="st">&quot;100%&quot;</span>)</span></code></pre></div>
+<div id="pls-regression-with-agroclimatic-metrics" class="section level1 hasAnchor">
+<h1><span class="header-section-number">Chapter 19</span> PLS regression with agroclimatic metrics<a href="pls-regression-with-agroclimatic-metrics.html#pls-regression-with-agroclimatic-metrics" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p><strong>Repeat the PLS_chill_force procedure for the ‘Roter Boskoop’ dataset. Include plots of daily chill and heat accumulation.</strong></p>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="pls-regression-with-agroclimatic-metrics.html#cb92-1"></a>temps =<span class="st"> </span><span class="kw">read_tab</span>(<span class="st">&quot;TMaxTMin1958-2019_patched.csv&quot;</span>)</span>
+<span id="cb92-2"><a href="pls-regression-with-agroclimatic-metrics.html#cb92-2"></a>temps_hourly =<span class="st"> </span><span class="kw">stack_hourly_temps</span>(temps,<span class="dt">latitude=</span><span class="fl">50.6</span>)</span>
+<span id="cb92-3"><a href="pls-regression-with-agroclimatic-metrics.html#cb92-3"></a></span>
+<span id="cb92-4"><a href="pls-regression-with-agroclimatic-metrics.html#cb92-4"></a><span class="kw">kable</span>(<span class="kw">head</span>(temps), <span class="dt">caption =</span> <span class="st">&quot;Hourly Temperature Klein Altendorf&quot;</span>)  <span class="op">%&gt;%</span></span>
+<span id="cb92-5"><a href="pls-regression-with-agroclimatic-metrics.html#cb92-5"></a><span class="st">  </span><span class="kw">kable_styling</span>(<span class="st">&quot;striped&quot;</span>, <span class="dt">position =</span> <span class="st">&quot;left&quot;</span>,<span class="dt">font_size =</span> <span class="dv">8</span>)<span class="op">%&gt;%</span></span>
+<span id="cb92-6"><a href="pls-regression-with-agroclimatic-metrics.html#cb92-6"></a><span class="st">  </span><span class="kw">scroll_box</span>(<span class="dt">width =</span> <span class="st">&quot;100%&quot;</span>)</span></code></pre></div>
 <div style="border: 1px solid #ddd; padding: 5px; overflow-x: scroll; width:100%; ">
-<table class="table table-striped" style="font-size: 10px; ">
+<table class="table table-striped" style="font-size: 8px; ">
 <caption style="font-size: initial !important;">
-<span id="tab:unnamed-chunk-4">Table 5.1: </span>Cleaned Dataset: Winters_hours_gaps
+<span id="tab:unnamed-chunk-79">Table 19.1: </span>Hourly Temperature Klein Altendorf
 </caption>
 <thead>
 <tr>
+<th style="text-align:left;">
+DATE
+</th>
+<th style="text-align:right;">
+YEARMODA
+</th>
 <th style="text-align:right;">
 Year
 </th>
@@ -277,432 +275,231 @@ Month
 Day
 </th>
 <th style="text-align:right;">
-Hour
+Tmin
 </th>
 <th style="text-align:right;">
-Temp
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:right;">
-2008
-</td>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:right;">
-10
-</td>
-<td style="text-align:right;">
-15.127
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-2008
-</td>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:right;">
-11
-</td>
-<td style="text-align:right;">
-17.153
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-2008
-</td>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:right;">
-12
-</td>
-<td style="text-align:right;">
-18.699
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-2008
-</td>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:right;">
-13
-</td>
-<td style="text-align:right;">
-18.699
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-2008
-</td>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:right;">
-14
-</td>
-<td style="text-align:right;">
-18.842
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-2008
-</td>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:right;">
-15
-</td>
-<td style="text-align:right;">
-19.508
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div id="task-1-2" class="section level2 hasAnchor">
-<h2><span class="header-section-number">5.1</span> Task 1<a href="manual-chill-analysis.html#task-1-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p><strong>Write a basic function that calculates warm hours (&gt;25°C)</strong></p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="manual-chill-analysis.html#cb2-1"></a>WH =<span class="st"> </span><span class="cf">function</span>(hourtemps)</span>
-<span id="cb2-2"><a href="manual-chill-analysis.html#cb2-2"></a>{</span>
-<span id="cb2-3"><a href="manual-chill-analysis.html#cb2-3"></a>  hourtemps[, <span class="st">&quot;warm_hours&quot;</span>] &lt;-<span class="st"> </span>hourtemps<span class="op">$</span>Temp <span class="op">&gt;=</span><span class="st"> </span><span class="fl">25.0</span></span>
-<span id="cb2-4"><a href="manual-chill-analysis.html#cb2-4"></a>  <span class="kw">return</span>(hourtemps)</span>
-<span id="cb2-5"><a href="manual-chill-analysis.html#cb2-5"></a>}</span></code></pre></div>
-</div>
-<div id="task-2-2" class="section level2 hasAnchor">
-<h2><span class="header-section-number">5.2</span> Task 2<a href="manual-chill-analysis.html#task-2-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p><strong>Apply this function to the Winters_hours_gaps dataset</strong></p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="manual-chill-analysis.html#cb3-1"></a><span class="co"># have a look to the data set</span></span>
-<span id="cb3-2"><a href="manual-chill-analysis.html#cb3-2"></a><span class="kw">kable</span>(<span class="kw">head</span>(Winters_hours_gaps),<span class="dt">caption =</span> </span>
-<span id="cb3-3"><a href="manual-chill-analysis.html#cb3-3"></a>        <span class="st">&quot;Example Dataset: Winters_hours_gaps&quot;</span>)<span class="op">%&gt;%</span></span>
-<span id="cb3-4"><a href="manual-chill-analysis.html#cb3-4"></a><span class="st">        </span><span class="kw">kable_styling</span>(<span class="st">&quot;striped&quot;</span>, <span class="dt">position =</span> <span class="st">&quot;left&quot;</span>, <span class="dt">font_size =</span> <span class="dv">10</span>)<span class="op">%&gt;%</span></span>
-<span id="cb3-5"><a href="manual-chill-analysis.html#cb3-5"></a><span class="st">        </span><span class="kw">scroll_box</span>(<span class="dt">width =</span> <span class="st">&quot;100%&quot;</span>)</span></code></pre></div>
-<div style="border: 1px solid #ddd; padding: 5px; overflow-x: scroll; width:100%; ">
-<table class="table table-striped" style="font-size: 10px; ">
-<caption style="font-size: initial !important;">
-<span id="tab:unnamed-chunk-6">Table 5.2: </span>Example Dataset: Winters_hours_gaps
-</caption>
-<thead>
-<tr>
-<th style="text-align:right;">
-Year
-</th>
-<th style="text-align:right;">
-Month
-</th>
-<th style="text-align:right;">
-Day
-</th>
-<th style="text-align:right;">
-Hour
-</th>
-<th style="text-align:right;">
-Temp_gaps
-</th>
-<th style="text-align:right;">
-Temp
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:right;">
-2008
-</td>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:right;">
-10
-</td>
-<td style="text-align:right;">
-15.127
-</td>
-<td style="text-align:right;">
-15.127
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-2008
-</td>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:right;">
-11
-</td>
-<td style="text-align:right;">
-17.153
-</td>
-<td style="text-align:right;">
-17.153
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-2008
-</td>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:right;">
-12
-</td>
-<td style="text-align:right;">
-18.699
-</td>
-<td style="text-align:right;">
-18.699
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-2008
-</td>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:right;">
-13
-</td>
-<td style="text-align:right;">
-18.699
-</td>
-<td style="text-align:right;">
-18.699
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-2008
-</td>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:right;">
-14
-</td>
-<td style="text-align:right;">
-18.842
-</td>
-<td style="text-align:right;">
-18.842
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-2008
-</td>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:right;">
-15
-</td>
-<td style="text-align:right;">
-19.508
-</td>
-<td style="text-align:right;">
-19.508
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="manual-chill-analysis.html#cb4-1"></a><span class="co"># Apply Function</span></span>
-<span id="cb4-2"><a href="manual-chill-analysis.html#cb4-2"></a>hourtemps =<span class="st"> </span><span class="kw">cleaned_data</span>(<span class="dt">data_source =</span> Winters_hours_gaps)</span>
-<span id="cb4-3"><a href="manual-chill-analysis.html#cb4-3"></a><span class="kw">kable</span>(<span class="kw">head</span>(<span class="kw">WH</span>(<span class="dt">hourtemps =</span> hourtemps)))<span class="op">%&gt;%</span></span>
-<span id="cb4-4"><a href="manual-chill-analysis.html#cb4-4"></a><span class="st">        </span><span class="kw">kable_styling</span>(<span class="st">&quot;striped&quot;</span>, <span class="dt">position =</span> <span class="st">&quot;left&quot;</span>, <span class="dt">font_size =</span> <span class="dv">10</span>)<span class="op">%&gt;%</span></span>
-<span id="cb4-5"><a href="manual-chill-analysis.html#cb4-5"></a><span class="st">        </span><span class="kw">scroll_box</span>(<span class="dt">width =</span> <span class="st">&quot;100%&quot;</span>)</span></code></pre></div>
-<div style="border: 1px solid #ddd; padding: 5px; overflow-x: scroll; width:100%; ">
-<table class="table table-striped" style="font-size: 10px; ">
-<thead>
-<tr>
-<th style="text-align:right;">
-Year
-</th>
-<th style="text-align:right;">
-Month
-</th>
-<th style="text-align:right;">
-Day
-</th>
-<th style="text-align:right;">
-Hour
-</th>
-<th style="text-align:right;">
-Temp
+Tmax
 </th>
 <th style="text-align:left;">
-warm_hours
+Tmin_source
+</th>
+<th style="text-align:left;">
+Tmax_source
+</th>
+<th style="text-align:left;">
+no_Tmin
+</th>
+<th style="text-align:left;">
+no_Tmax
 </th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:right;">
-2008
+<td style="text-align:left;">
+01-01-58
 </td>
 <td style="text-align:right;">
-3
+19580101
 </td>
 <td style="text-align:right;">
-3
+1958
 </td>
 <td style="text-align:right;">
-10
+1
 </td>
 <td style="text-align:right;">
-15.127
+1
+</td>
+<td style="text-align:right;">
+5.0
+</td>
+<td style="text-align:right;">
+7.50
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+FALSE
 </td>
 <td style="text-align:left;">
 FALSE
 </td>
 </tr>
 <tr>
-<td style="text-align:right;">
-2008
+<td style="text-align:left;">
+02-01-58
 </td>
 <td style="text-align:right;">
-3
+19580102
 </td>
 <td style="text-align:right;">
-3
+1958
 </td>
 <td style="text-align:right;">
-11
+1
 </td>
 <td style="text-align:right;">
-17.153
+2
+</td>
+<td style="text-align:right;">
+1.5
+</td>
+<td style="text-align:right;">
+9.00
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+FALSE
 </td>
 <td style="text-align:left;">
 FALSE
 </td>
 </tr>
 <tr>
+<td style="text-align:left;">
+03-01-58
+</td>
 <td style="text-align:right;">
-2008
+19580103
+</td>
+<td style="text-align:right;">
+1958
+</td>
+<td style="text-align:right;">
+1
 </td>
 <td style="text-align:right;">
 3
 </td>
 <td style="text-align:right;">
-3
+-5.5
 </td>
 <td style="text-align:right;">
-12
+1.10
 </td>
-<td style="text-align:right;">
-18.699
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+FALSE
 </td>
 <td style="text-align:left;">
 FALSE
 </td>
 </tr>
 <tr>
-<td style="text-align:right;">
-2008
+<td style="text-align:left;">
+04-01-58
 </td>
 <td style="text-align:right;">
-3
+19580104
 </td>
 <td style="text-align:right;">
-3
+1958
 </td>
 <td style="text-align:right;">
-13
+1
 </td>
 <td style="text-align:right;">
-18.699
+4
+</td>
+<td style="text-align:right;">
+-5.5
+</td>
+<td style="text-align:right;">
+0.50
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+FALSE
 </td>
 <td style="text-align:left;">
 FALSE
 </td>
 </tr>
 <tr>
-<td style="text-align:right;">
-2008
+<td style="text-align:left;">
+05-01-58
 </td>
 <td style="text-align:right;">
-3
+19580105
 </td>
 <td style="text-align:right;">
-3
+1958
 </td>
 <td style="text-align:right;">
-14
+1
 </td>
 <td style="text-align:right;">
-18.842
+5
+</td>
+<td style="text-align:right;">
+3.5
+</td>
+<td style="text-align:right;">
+2.75
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
 </td>
 <td style="text-align:left;">
 FALSE
 </td>
+<td style="text-align:left;">
+TRUE
+</td>
 </tr>
 <tr>
-<td style="text-align:right;">
-2008
+<td style="text-align:left;">
+06-01-58
 </td>
 <td style="text-align:right;">
-3
+19580106
 </td>
 <td style="text-align:right;">
-3
+1958
 </td>
 <td style="text-align:right;">
-15
+1
 </td>
 <td style="text-align:right;">
-19.508
+6
+</td>
+<td style="text-align:right;">
+3.0
+</td>
+<td style="text-align:right;">
+5.00
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:left;">
+FALSE
 </td>
 <td style="text-align:left;">
 FALSE
@@ -711,61 +508,317 @@ FALSE
 </tbody>
 </table>
 </div>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="pls-regression-with-agroclimatic-metrics.html#cb93-1"></a>daychill =</span>
+<span id="cb93-2"><a href="pls-regression-with-agroclimatic-metrics.html#cb93-2"></a><span class="st">  </span><span class="kw">daily_chill</span>(</span>
+<span id="cb93-3"><a href="pls-regression-with-agroclimatic-metrics.html#cb93-3"></a>    <span class="dt">hourtemps =</span> temps_hourly,</span>
+<span id="cb93-4"><a href="pls-regression-with-agroclimatic-metrics.html#cb93-4"></a>    <span class="dt">running_mean =</span> <span class="dv">1</span>,</span>
+<span id="cb93-5"><a href="pls-regression-with-agroclimatic-metrics.html#cb93-5"></a>    <span class="dt">models =</span> <span class="kw">list</span>(</span>
+<span id="cb93-6"><a href="pls-regression-with-agroclimatic-metrics.html#cb93-6"></a>      <span class="dt">Chilling_Hours =</span> Chilling_Hours,</span>
+<span id="cb93-7"><a href="pls-regression-with-agroclimatic-metrics.html#cb93-7"></a>      <span class="dt">Utah_Chill_Units =</span> Utah_Model,</span>
+<span id="cb93-8"><a href="pls-regression-with-agroclimatic-metrics.html#cb93-8"></a>      <span class="dt">Chill_Portions =</span> Dynamic_Model,</span>
+<span id="cb93-9"><a href="pls-regression-with-agroclimatic-metrics.html#cb93-9"></a>      <span class="dt">GDH =</span> GDH</span>
+<span id="cb93-10"><a href="pls-regression-with-agroclimatic-metrics.html#cb93-10"></a>    )</span>
+<span id="cb93-11"><a href="pls-regression-with-agroclimatic-metrics.html#cb93-11"></a>  )</span>
+<span id="cb93-12"><a href="pls-regression-with-agroclimatic-metrics.html#cb93-12"></a> </span>
+<span id="cb93-13"><a href="pls-regression-with-agroclimatic-metrics.html#cb93-13"></a><span class="co"># write.csv(daychill[[2]],&quot;daychill.csv&quot;)</span></span>
+<span id="cb93-14"><a href="pls-regression-with-agroclimatic-metrics.html#cb93-14"></a></span>
+<span id="cb93-15"><a href="pls-regression-with-agroclimatic-metrics.html#cb93-15"></a>daychill_=<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;daychill.csv&quot;</span>)</span>
+<span id="cb93-16"><a href="pls-regression-with-agroclimatic-metrics.html#cb93-16"></a></span>
+<span id="cb93-17"><a href="pls-regression-with-agroclimatic-metrics.html#cb93-17"></a><span class="kw">kable</span>(<span class="kw">head</span>(daychill_), <span class="dt">caption =</span> <span class="st">&quot;Daychill Klein Altendorf&quot;</span>)  <span class="op">%&gt;%</span></span>
+<span id="cb93-18"><a href="pls-regression-with-agroclimatic-metrics.html#cb93-18"></a><span class="st">  </span><span class="kw">kable_styling</span>(<span class="st">&quot;striped&quot;</span>, <span class="dt">position =</span> <span class="st">&quot;left&quot;</span>,<span class="dt">font_size =</span> <span class="dv">8</span>)<span class="op">%&gt;%</span></span>
+<span id="cb93-19"><a href="pls-regression-with-agroclimatic-metrics.html#cb93-19"></a><span class="st">  </span><span class="kw">scroll_box</span>(<span class="dt">width =</span> <span class="st">&quot;100%&quot;</span>)</span></code></pre></div>
+<div style="border: 1px solid #ddd; padding: 5px; overflow-x: scroll; width:100%; ">
+<table class="table table-striped" style="font-size: 8px; ">
+<caption style="font-size: initial !important;">
+<span id="tab:unnamed-chunk-80">Table 19.2: </span>Daychill Klein Altendorf
+</caption>
+<thead>
+<tr>
+<th style="text-align:right;">
+X
+</th>
+<th style="text-align:right;">
+YYMMDD
+</th>
+<th style="text-align:right;">
+Year
+</th>
+<th style="text-align:right;">
+Month
+</th>
+<th style="text-align:right;">
+Day
+</th>
+<th style="text-align:right;">
+Chilling_Hours
+</th>
+<th style="text-align:right;">
+Utah_Chill_Units
+</th>
+<th style="text-align:right;">
+Chill_Portions
+</th>
+<th style="text-align:right;">
+GDH
+</th>
+<th style="text-align:right;">
+Tmean
+</th>
+<th style="text-align:left;">
+no_Tmin
+</th>
+<th style="text-align:left;">
+no_Tmax
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+19580101
+</td>
+<td style="text-align:right;">
+1958
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+21
+</td>
+<td style="text-align:right;">
+24.0
+</td>
+<td style="text-align:right;">
+0.0000000
+</td>
+<td style="text-align:right;">
+9.7845597
+</td>
+<td style="text-align:right;">
+5.391120
+</td>
+<td style="text-align:left;">
+FALSE
+</td>
+<td style="text-align:left;">
+FALSE
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+19580102
+</td>
+<td style="text-align:right;">
+1958
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+16
+</td>
+<td style="text-align:right;">
+16.0
+</td>
+<td style="text-align:right;">
+0.4444896
+</td>
+<td style="text-align:right;">
+12.7332663
+</td>
+<td style="text-align:right;">
+3.399713
+</td>
+<td style="text-align:left;">
+FALSE
+</td>
+<td style="text-align:left;">
+FALSE
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+19580103
+</td>
+<td style="text-align:right;">
+1958
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+0.0
+</td>
+<td style="text-align:right;">
+0.0383026
+</td>
+<td style="text-align:right;">
+0.0000000
+</td>
+<td style="text-align:right;">
+-2.601803
+</td>
+<td style="text-align:left;">
+FALSE
+</td>
+<td style="text-align:left;">
+FALSE
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+19580104
+</td>
+<td style="text-align:right;">
+1958
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+10
+</td>
+<td style="text-align:right;">
+3.0
+</td>
+<td style="text-align:right;">
+0.3292715
+</td>
+<td style="text-align:right;">
+0.0000000
+</td>
+<td style="text-align:right;">
+-1.676056
+</td>
+<td style="text-align:left;">
+FALSE
+</td>
+<td style="text-align:left;">
+FALSE
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+19580105
+</td>
+<td style="text-align:right;">
+1958
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+24
+</td>
+<td style="text-align:right;">
+24.0
+</td>
+<td style="text-align:right;">
+1.3920031
+</td>
+<td style="text-align:right;">
+0.0000000
+</td>
+<td style="text-align:right;">
+3.020140
+</td>
+<td style="text-align:left;">
+FALSE
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+19580106
+</td>
+<td style="text-align:right;">
+1958
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+24
+</td>
+<td style="text-align:right;">
+21.5
+</td>
+<td style="text-align:right;">
+1.1161587
+</td>
+<td style="text-align:right;">
+0.4716365
+</td>
+<td style="text-align:right;">
+3.284117
+</td>
+<td style="text-align:left;">
+FALSE
+</td>
+<td style="text-align:left;">
+FALSE
+</td>
+</tr>
+</tbody>
+</table>
 </div>
-<div id="task-3-1" class="section level2 hasAnchor">
-<h2><span class="header-section-number">5.3</span> Task 3<a href="manual-chill-analysis.html#task-3-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p><strong>Extend this function, so that it can take start and end dates as inputs and sums up warm hours between these dates</strong></p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="manual-chill-analysis.html#cb5-1"></a>warm_hours_function =<span class="st"> </span><span class="cf">function</span>(Input_Data,</span>
-<span id="cb5-2"><a href="manual-chill-analysis.html#cb5-2"></a>                               S_Jahr,</span>
-<span id="cb5-3"><a href="manual-chill-analysis.html#cb5-3"></a>                               S_Monat,</span>
-<span id="cb5-4"><a href="manual-chill-analysis.html#cb5-4"></a>                               S_Tag,</span>
-<span id="cb5-5"><a href="manual-chill-analysis.html#cb5-5"></a>                               S_Stunde,</span>
-<span id="cb5-6"><a href="manual-chill-analysis.html#cb5-6"></a>                               E_Jahr,</span>
-<span id="cb5-7"><a href="manual-chill-analysis.html#cb5-7"></a>                               E_Monat,</span>
-<span id="cb5-8"><a href="manual-chill-analysis.html#cb5-8"></a>                               E_Tag,</span>
-<span id="cb5-9"><a href="manual-chill-analysis.html#cb5-9"></a>                               E_Stunde) {</span>
-<span id="cb5-10"><a href="manual-chill-analysis.html#cb5-10"></a>  Start_Date &lt;-</span>
-<span id="cb5-11"><a href="manual-chill-analysis.html#cb5-11"></a><span class="st">    </span><span class="kw">which</span>(</span>
-<span id="cb5-12"><a href="manual-chill-analysis.html#cb5-12"></a>      hourtemps<span class="op">$</span>Year <span class="op">==</span><span class="st"> </span>S_Jahr <span class="op">&amp;</span><span class="st"> </span>hourtemps<span class="op">$</span>Month <span class="op">==</span><span class="st"> </span>S_Monat <span class="op">&amp;</span></span>
-<span id="cb5-13"><a href="manual-chill-analysis.html#cb5-13"></a><span class="st">        </span>hourtemps<span class="op">$</span>Day <span class="op">==</span><span class="st"> </span>S_Tag <span class="op">&amp;</span></span>
-<span id="cb5-14"><a href="manual-chill-analysis.html#cb5-14"></a><span class="st">        </span>hourtemps<span class="op">$</span>Hour <span class="op">==</span><span class="st"> </span>S_Stunde</span>
-<span id="cb5-15"><a href="manual-chill-analysis.html#cb5-15"></a>    )</span>
-<span id="cb5-16"><a href="manual-chill-analysis.html#cb5-16"></a>  End_Date &lt;-<span class="st"> </span><span class="kw">which</span>(</span>
-<span id="cb5-17"><a href="manual-chill-analysis.html#cb5-17"></a>    hourtemps<span class="op">$</span>Year <span class="op">==</span><span class="st"> </span>E_Jahr <span class="op">&amp;</span><span class="st"> </span>hourtemps<span class="op">$</span>Month <span class="op">==</span><span class="st"> </span>E_Monat <span class="op">&amp;</span></span>
-<span id="cb5-18"><a href="manual-chill-analysis.html#cb5-18"></a><span class="st">      </span>hourtemps<span class="op">$</span>Day <span class="op">==</span><span class="st"> </span>E_Tag <span class="op">&amp;</span><span class="st"> </span>hourtemps<span class="op">$</span>Hour <span class="op">==</span><span class="st"> </span>E_Stunde</span>
-<span id="cb5-19"><a href="manual-chill-analysis.html#cb5-19"></a>  )</span>
-<span id="cb5-20"><a href="manual-chill-analysis.html#cb5-20"></a>  </span>
-<span id="cb5-21"><a href="manual-chill-analysis.html#cb5-21"></a>  <span class="co"># Apply Function Warm Hours (WH)</span></span>
-<span id="cb5-22"><a href="manual-chill-analysis.html#cb5-22"></a>  hourtemps =<span class="st"> </span><span class="kw">WH</span>(<span class="dt">hourtemps =</span> Input_Data)</span>
-<span id="cb5-23"><a href="manual-chill-analysis.html#cb5-23"></a>  </span>
-<span id="cb5-24"><a href="manual-chill-analysis.html#cb5-24"></a>  <span class="co"># Calculate warm_hours</span></span>
-<span id="cb5-25"><a href="manual-chill-analysis.html#cb5-25"></a>  warm_hours =<span class="st"> </span><span class="kw">sum</span>(hourtemps<span class="op">$</span>warm_hours[Start_Date<span class="op">:</span>End_Date])</span>
-<span id="cb5-26"><a href="manual-chill-analysis.html#cb5-26"></a>  </span>
-<span id="cb5-27"><a href="manual-chill-analysis.html#cb5-27"></a>  <span class="kw">return</span>(<span class="kw">cat</span>(<span class="st">&quot;The number of heat hours is:&quot;</span>, <span class="kw">paste</span>(warm_hours)))</span>
-<span id="cb5-28"><a href="manual-chill-analysis.html#cb5-28"></a>}</span>
-<span id="cb5-29"><a href="manual-chill-analysis.html#cb5-29"></a></span>
-<span id="cb5-30"><a href="manual-chill-analysis.html#cb5-30"></a><span class="kw">warm_hours_function</span>(</span>
-<span id="cb5-31"><a href="manual-chill-analysis.html#cb5-31"></a>  <span class="dt">Input_Data =</span> hourtemps,</span>
-<span id="cb5-32"><a href="manual-chill-analysis.html#cb5-32"></a>  <span class="dt">S_Jahr =</span> <span class="dv">2008</span>,</span>
-<span id="cb5-33"><a href="manual-chill-analysis.html#cb5-33"></a>  <span class="dt">S_Monat =</span> <span class="dv">5</span>,</span>
-<span id="cb5-34"><a href="manual-chill-analysis.html#cb5-34"></a>  <span class="dt">S_Tag =</span> <span class="dv">1</span>,</span>
-<span id="cb5-35"><a href="manual-chill-analysis.html#cb5-35"></a>  <span class="dt">S_Stunde =</span> <span class="dv">12</span>,</span>
-<span id="cb5-36"><a href="manual-chill-analysis.html#cb5-36"></a>  <span class="dt">E_Jahr =</span> <span class="dv">2008</span>,</span>
-<span id="cb5-37"><a href="manual-chill-analysis.html#cb5-37"></a>  <span class="dt">E_Monat =</span> <span class="dv">8</span>,</span>
-<span id="cb5-38"><a href="manual-chill-analysis.html#cb5-38"></a>  <span class="dt">E_Tag =</span> <span class="dv">31</span>,</span>
-<span id="cb5-39"><a href="manual-chill-analysis.html#cb5-39"></a>  <span class="dt">E_Stunde =</span> <span class="dv">12</span></span>
-<span id="cb5-40"><a href="manual-chill-analysis.html#cb5-40"></a>)</span></code></pre></div>
-<pre><code>## The number of heat hours is: 957</code></pre>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="pls-regression-with-agroclimatic-metrics.html#cb94-1"></a>dc =</span>
+<span id="cb94-2"><a href="pls-regression-with-agroclimatic-metrics.html#cb94-2"></a><span class="st">  </span><span class="kw">make_daily_chill_plot2</span>(daychill,</span>
+<span id="cb94-3"><a href="pls-regression-with-agroclimatic-metrics.html#cb94-3"></a>                         <span class="dt">metrics =</span> <span class="kw">c</span>(<span class="st">&quot;Chill_Portions&quot;</span>),</span>
+<span id="cb94-4"><a href="pls-regression-with-agroclimatic-metrics.html#cb94-4"></a>                         <span class="dt">cumulative =</span> <span class="ot">FALSE</span>,</span>
+<span id="cb94-5"><a href="pls-regression-with-agroclimatic-metrics.html#cb94-5"></a>                         <span class="dt">startdate=</span><span class="dv">300</span>,<span class="dt">enddate=</span><span class="dv">30</span>,<span class="dt">focusyears=</span><span class="kw">c</span>(<span class="dv">2008</span>, <span class="dv">2009</span>, <span class="dv">1996</span>), <span class="dt">metriclabels=</span><span class="st">&quot;Chill Portions&quot;</span>)</span></code></pre></div>
+<p><img src="Tree-Phenology_files/figure-html/unnamed-chunk-81-1.png" width="672" /></p>
 
-</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="climate-change-and-impact-projection.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="chill-models.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="successes-and-limitations-of-pls-regression-analysis.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -796,7 +849,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/USERNAME/REPO/edit/BRANCH/04-manual_chill_analysis.Rmd",
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/PLS_regression_with_agroclimatic_metrics.Rmd",
 "text": "Edit"
 },
 "history": {

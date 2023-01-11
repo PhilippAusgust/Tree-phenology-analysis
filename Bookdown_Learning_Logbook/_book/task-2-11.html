@@ -4,20 +4,20 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 16 Simple Phenology Analysis | Learning LogBook Tree phenology analysis with R</title>
-  <meta name="description" content="Chapter 16 Simple Phenology Analysis | Learning LogBook Tree phenology analysis with R." />
+  <title>Chapter 19 Task 2 | Learning LogBook Tree phenology analysis with R</title>
+  <meta name="description" content="Chapter 19 Task 2 | Learning LogBook Tree phenology analysis with R." />
   <meta name="generator" content="bookdown 0.30 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 16 Simple Phenology Analysis | Learning LogBook Tree phenology analysis with R" />
+  <meta property="og:title" content="Chapter 19 Task 2 | Learning LogBook Tree phenology analysis with R" />
   <meta property="og:type" content="book" />
   
-  <meta property="og:description" content="Chapter 16 Simple Phenology Analysis | Learning LogBook Tree phenology analysis with R." />
+  <meta property="og:description" content="Chapter 19 Task 2 | Learning LogBook Tree phenology analysis with R." />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 16 Simple Phenology Analysis | Learning LogBook Tree phenology analysis with R" />
+  <meta name="twitter:title" content="Chapter 19 Task 2 | Learning LogBook Tree phenology analysis with R" />
   
-  <meta name="twitter:description" content="Chapter 16 Simple Phenology Analysis | Learning LogBook Tree phenology analysis with R." />
+  <meta name="twitter:description" content="Chapter 19 Task 2 | Learning LogBook Tree phenology analysis with R." />
   
 
 <meta name="author" content="Philipp Münker" />
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="heatmaps.html"/>
-<link rel="next" href="delineating-temperature-response-phases-with-pls-regression.html"/>
+<link rel="prev" href="successes-and-limitations-of-pls-regression-analysis.html"/>
+<link rel="next" href="pls-regression-with-agroclimatic-metrics.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -220,9 +220,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="18" data-path="successes-and-limitations-of-pls-regression-analysis.html"><a href="successes-and-limitations-of-pls-regression-analysis.html"><i class="fa fa-check"></i><b>18</b> Successes and limitations of PLS regression analysis</a><ul>
 <li class="chapter" data-level="18.1" data-path="successes-and-limitations-of-pls-regression-analysis.html"><a href="successes-and-limitations-of-pls-regression-analysis.html#task-1-14"><i class="fa fa-check"></i><b>18.1</b> Task 1</a></li>
-<li class="chapter" data-level="18.2" data-path="successes-and-limitations-of-pls-regression-analysis.html"><a href="successes-and-limitations-of-pls-regression-analysis.html#task-2-11"><i class="fa fa-check"></i><b>18.2</b> Task 2</a></li>
 </ul></li>
-<li class="chapter" data-level="19" data-path="pls-regression-with-agroclimatic-metrics.html"><a href="pls-regression-with-agroclimatic-metrics.html"><i class="fa fa-check"></i><b>19</b> PLS regression with agroclimatic metrics</a></li>
+<li class="chapter" data-level="19" data-path="task-2-11.html"><a href="task-2-11.html"><i class="fa fa-check"></i><b>19</b> Task 2</a></li>
+<li class="chapter" data-level="20" data-path="pls-regression-with-agroclimatic-metrics.html"><a href="pls-regression-with-agroclimatic-metrics.html"><i class="fa fa-check"></i><b>20</b> PLS regression with agroclimatic metrics</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -243,60 +243,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="simple-phenology-analysis" class="section level1 hasAnchor">
-<h1><span class="header-section-number">Chapter 16</span> Simple Phenology Analysis<a href="simple-phenology-analysis.html#simple-phenology-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="task-1-12" class="section level2 hasAnchor">
-<h2><span class="header-section-number">16.1</span> Task 1<a href="simple-phenology-analysis.html#task-1-12" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p><strong>Provide a brief narrative describing what p-hacking is, and why this is a problematic approach to data analysis.</strong></p>
-<blockquote>
-<p>P-hacking refers to the practice of searching through a large dataset for a correlation between data and many variables. Often, a statistically significant correlation is found by chance. Once this correlation is detected, further tests are applied to support the results, indicating a correlation between data and variables. This can create the illusion that new facts have been discovered.</p>
-<p>This example can also be applied to other areas of agriculture, such as testing a new fungicide. Multiple statistical tests are conducted to investigate whether there is a difference in fungal infection between a plant community treated with the new fungicide and an untreated one. For instance, one test may yield a significant difference between the two groups. Normally, the study would be discontinued and restarted. With P-hacking, additional tests are applied to the data that provided the significant difference to further establish the distinction. In the end, one could conclude that the new fungicide is very effective.</p>
-</blockquote>
-<p><strong>Overfitting:</strong></p>
-<blockquote>
-<p>Another common problem is overfitting. When data varies greatly, it can be tempting to try and derive a trend. This trend can take several forms. In this example from the lecture, overfitting is demonstrated using blooming data. Initially, the years and the day on which blooming began are related. The following graph shows this.</p>
-</blockquote>
-<div style="display: flex; justify-content: space-between;">
-<p><img src="lineare_Regression_1.png" style="max-width: 100%;" /></p>
-</div>
-<blockquote>
-<p>The trend line plotted shows that as time progresses, the blooming date is shifted forward. The grey area surrounding the line shows the confidence interval. It can be observed that many values fall outside of the confidence interval, which could be an early indication that the model is not truly representative. The regression model is described by a polynomial. Furthermore, a much more complex regression model is used that employs 25 polynomials. The result shows the following graph.</p>
-</blockquote>
-<div style="display: flex; justify-content: space-between;">
-<p><img src="Overfitting_linerare_Regression.png" style="max-width: 100%;" /></p>
-</div>
-<blockquote>
-<p>A line is seen that describes the observed data very well. The confidence interval also looks very accurate, and most observations fall within it. However, the problem now is that this model is highly likely to only represent the data on which it was created well. If this model were applied to other data, it would not yield an accurate description of the data. This is a classic case of overfitting.
-For more information you can have a look <a href="http://inresgb-lehre.iaas.uni-bonn.de/chillR_book/simple_phenology.html#exercises_simple_analysis">here</a>.</p>
-</blockquote>
-</div>
-<div id="task-2-9" class="section level2 hasAnchor">
-<h2><span class="header-section-number">16.2</span> Task 2<a href="simple-phenology-analysis.html#task-2-9" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p><strong>Provide a sketch of your causal understanding of the relationship between temperature and bloom dates.</strong></p>
-<blockquote>
-<p>To conduct an analysis of the blooming onset, one must fundamentally consider which variables can explain the blooming onset in the first place. The first assumption made here is that the blooming onset depends on time.</p>
-<p>Time<span class="math inline">\(\longrightarrow\)</span> beginning of flowering*</p>
-<p>Is this really meaningful? Of course not. As described in detail in the lecture, there is a strong correlation between temperature and the onset of blooming.</p>
-<p>Temperature <span class="math inline">\(\longrightarrow\)</span> beginning of flowering*</p>
-<p>Therefore, one should always consider what follows from what? Now, various considerations can be made about how the onset of blooming and temperature are related. The simplest method to investigate this is to compare average annual temperatures to the date of the respective onset of blooming. This would be very simple. However, it would be better to compare average daily temperatures to the blooming time. Now, however, the problem arises that some days of the year, most likely more or less, have an impact on the onset of blooming. Intuitively, one can assume that temperatures in the summer are likely to have less influence on the onset of blooming than temperatures in the spring. This can also be investigated by relating the individual temperatures for each day to the blooming date. Here, an attempt is now being made to explain a dependent variable (onset of blooming) with a large number of independent variables.</p>
-</blockquote>
-</div>
-<div id="task-3-6" class="section level2 hasAnchor">
-<h2><span class="header-section-number">16.3</span> Task 3<a href="simple-phenology-analysis.html#task-3-6" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p><strong>What do we need to know to build a process-based model from this?</strong></p>
-<blockquote>
-<p>To develop a model that correctly relates temperature data to the blooming time, we initially lack data. First, one can make a further differentiation to the blooming time by assuming that the blooming time depends on chill and “forcing.” The “forcing” of the trees begins in spring and depends on day length and temperature. Before the trees can “force,” they must first experience a certain amount of “chill.” These processes are quite complex. In order to make sound statements about the onset of blooming, these phases need to be better understood and more data is needed. The lecture particularly mentions temperature response curves of these phases.</p>
-</blockquote>
+<div id="task-2-11" class="section level1 hasAnchor">
+<h1><span class="header-section-number">Chapter 19</span> Task 2<a href="task-2-11.html#task-2-11" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p><strong>How could we overcome this problem?</strong></p>
 
-</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="heatmaps.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="delineating-temperature-response-phases-with-pls-regression.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="successes-and-limitations-of-pls-regression-analysis.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="pls-regression-with-agroclimatic-metrics.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -327,7 +285,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/USERNAME/REPO/edit/BRANCH/Simple_Phenology_Analysis.Rmd",
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/Successes_and_limitations_PLS.Rmd",
 "text": "Edit"
 },
 "history": {

@@ -20,7 +20,9 @@ rmd_files: [
   "Chill_Model_Comparison.Rmd",
   "Heatmaps.Rmd",
   "Simple_Phenology_Analysis.Rmd",
-  "Delinating_Temperature_Response.Rmd"
+  "Delinating_Temperature_Response.Rmd",
+  "Successes_and_limitations_PLS.Rmd",
+  "PLS_regression_with_agroclimatic_metrics.Rmd"
 ]
 
 

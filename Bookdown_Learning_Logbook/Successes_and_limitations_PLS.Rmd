@@ -1,0 +1,21 @@
+# Successes and limitations of PLS regression analysis
+
+## Task 1
+
+**Briefly explain in what climatic settings we can expect PLS regression to detect the chilling phase - and in what settings this probably won’t work.**
+
+>
+As can be seen quite impressively, the forcing phase can be observed quite well at all three locations (Peking, Rheinbach, and Davis). This is characterized by the fact that high temperatures during the months of January, February, and March are correlated with an early leaf/flower emergence.
+In California, it can additionally be observed that when warm temperatures occur during the months of November and December, chill accumulation is delayed and leaf/flower emergence is shifted backwards.
+At the locations in Europe and Asia, this effect is only observed to a very reduced extent. The reason for this is that temperatures that are too cold frequently occur here, resulting in less chill accumulation during this time. High temperatures are less frequent during these months (November/December) and therefore rarely lead to a lack of chill accumulation. In these regions, temperatures during the winter tend to be in the range that is conducive to chill accumulation. Therefore, this phenomenon is less often observed.
+
+
+## Task 2
+
+**How could we overcome this problem?**
+
+
+
+
+
+
